@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import json
 import decimal
+import json
 from datetime import datetime, date
 
 import falcon
-
-from eaglet.core import api_resource
-from eaglet.core.exceptionutil import unicode_full_stack
-from eaglet.core.db import models
 import settings
 
-import wapi as wapi_resource
+from eaglet import wapi as wapi_resource
+from eaglet.core import api_resource
+from eaglet.core.exceptionutil import unicode_full_stack
+
 
 class ThingsResource:
 	def on_get(self, req, resp):

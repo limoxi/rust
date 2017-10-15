@@ -2,33 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="075eb0d0-daa6-4784-b4e1-368625ef7ebf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/eaglet.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/apps.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/command/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/command/manage.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/command/runserver.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/core/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/core/api_resource.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/core/db/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/core/db/models.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/core/exceptionutil.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/core/hack_peewee.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/core/redirects.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/decorator/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/decorator/decorator.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/middlewares/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/middlewares/core_middleware.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/utils/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/utils/resource_client.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/utils/string_util.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eaglet/utils/url_helper.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/setup.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/wapi/__init__.py" afterPath="$PROJECT_DIR$/eaglet/wapi/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eaglet/apps.py" afterPath="$PROJECT_DIR$/eaglet/apps.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -103,11 +80,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apps.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apps.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/eaglet/apps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state relative-caret-position="271">
+              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding>
+                <element signature="e#25#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -164,8 +153,8 @@
         <option value="$PROJECT_DIR$/wapi/__init__.py" />
         <option value="$PROJECT_DIR$/eaglet/utils/url_helper.py" />
         <option value="$PROJECT_DIR$/eaglet/utils/resource_client.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/eaglet/apps.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -211,48 +200,6 @@
               <item name="eaglet" type="462c0819:PsiDirectoryNode" />
               <item name="eaglet" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="eaglet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="command" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eaglet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eaglet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eaglet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="decorator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eaglet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="middlewares" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eaglet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eaglet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="eaglet" type="462c0819:PsiDirectoryNode" />
-              <item name="wapi" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -267,6 +214,11 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/eaglet" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -725,7 +677,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wapi/__init__.py">
+    <entry file="file://$PROJECT_DIR$/eaglet/wapi/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1350">
           <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
@@ -735,18 +687,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/eaglet/apps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="271">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/eaglet/apps.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="13" lean-forward="true" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        <state relative-caret-position="108">
+          <caret line="4" column="10" lean-forward="true" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
           <folding />
         </state>
       </provider>
