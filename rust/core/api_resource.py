@@ -8,7 +8,6 @@ class ApiResourceBase(type):
 		return super(ApiResourceBase, cls).__new__(cls, name, bases, attrs)
 
 	def __init__(self, name, bases, attrs):
-		print 'hhahahahahah==============init', self.app, self.resource
 		if name == 'ApiResource':
 			pass
 		else:
