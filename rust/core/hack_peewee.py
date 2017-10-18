@@ -2,30 +2,10 @@
 try:
     from urlparse import urlparse
 except ImportError:
-    from urllib.parse import urlparse
+    from urllib.parse import urlparse #python3
 
-from eaglet.peewee import *
+from peewee import *
 from playhouse.pool import PooledMySQLDatabase
-from playhouse.pool import PooledPostgresqlDatabase
-
-try:
-    from playhouse.pool import PooledPostgresqlExtDatabase
-except ImportError:
-    PooledPostgresqlExtDatabase = None
-from playhouse.sqlite_ext import SqliteExtDatabase
-
-try:
-    from playhouse.apsw_ext import APSWDatabase
-except ImportError:
-    APSWDatabase = None
-try:
-    from playhouse.berkeleydb import BerkeleyDatabase
-except ImportError:
-    BerkeleyDatabase = None
-try:
-    from playhouse.postgres_ext import PostgresqlExtDatabase
-except ImportError:
-    PostgresqlExtDatabase = None
 
 
 class RetryOperationalError(object):
@@ -47,25 +27,13 @@ class MySQLDatabaseRetry(RetryOperationalError, MySQLDatabase):
     pass
 
 schemes = {
-    'apsw': APSWDatabase,
-    'berkeleydb': BerkeleyDatabase,
     'mysql': MySQLDatabase,
     'mysql+retry': MySQLDatabaseRetry,
     'mysql+pool': PooledMySQLDatabase,
-    'postgres': PostgresqlDatabase,
-    'postgresql': PostgresqlDatabase,
-    'postgresext': PostgresqlExtDatabase,
-    'postgresqlext': PostgresqlExtDatabase,
-    'postgres+pool': PooledPostgresqlDatabase,
-    'postgresql+pool': PooledPostgresqlDatabase,
-    'postgresext+pool': PooledPostgresqlExtDatabase,
-    'postgresqlext+pool': PooledPostgresqlExtDatabase,
-    'sqlite': SqliteDatabase,
-    'sqliteext': SqliteExtDatabase,
 }
 
 
-def parseresult_to_dict(parsed):
+def parse_result_to_dict(parsed):
     connect_kwargs = {'database': parsed.path[1:]}
     if parsed.username:
         connect_kwargs['user'] = parsed.username
@@ -83,14 +51,9 @@ def parseresult_to_dict(parsed):
     return connect_kwargs
 
 
-def parse(url):
-    parsed = urlparse(url)
-    return parseresult_to_dict(parsed)
-
-
 def connect(url, **connect_params):
     parsed = urlparse(url)
-    connect_kwargs = parseresult_to_dict(parsed)
+    connect_kwargs = parse_result_to_dict(parsed)
     connect_kwargs.update(connect_params)
     database_class = schemes.get(parsed.scheme)
 

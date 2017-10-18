@@ -7,10 +7,11 @@ from datetime import datetime, date
 import falcon
 import settings
 
-from eaglet import wapi as wapi_resource
-from eaglet.core import api_resource
-from eaglet.core.exceptionutil import unicode_full_stack
+from rust import wapi as wapi_resource
+from rust.core import api_resource
+from rust.core.exceptionutil import unicode_full_stack
 
+from api import resources #加载api资源
 
 class ThingsResource:
 	def on_get(self, req, resp):
@@ -110,8 +111,8 @@ class FalconResource:
 		if getattr(settings, 'DUMP_API_CALL_RESULT', True):
 			# 记录RESOURCE_ACCESS日志
 			resource_access_log = {}
-			if getattr(settings, 'EAGLET_DISABLE_DUMP_REQ_PARAMS', False):
-				resource_access_log['params'] = 'disabled by EAGLET_DISABLE_DUMP_REQ_PARAMS'
+			if getattr(settings, 'RUST_DISABLE_DUMP_REQ_PARAMS', False):
+				resource_access_log['params'] = 'disabled by RUST_DISABLE_DUMP_REQ_PARAMS'
 			else:
 				resource_access_log['params'] = req.params
 
@@ -133,21 +134,26 @@ class FalconResource:
 		_method = req.params.get('_method', 'post')
 		self.call_wapi(_method, app, resource, req, resp)
 
-def create_app():
-	#添加middleware
+def __load_middlewares():
+	"""
+	加载中间件
+	"""
 	middlewares = []
 	for middleware in settings.MIDDLEWARES:
 		items = middleware.split('.')
 		module_path = '.'.join(items[:-1])
 		module_name = items[-1]
-		module = __import__(module_path, {}, {}, ['*',])
+		module = __import__(module_path, {}, {}, ['*', ])
 		klass = getattr(module, module_name, None)
 		if klass:
 			print 'load middleware %s' % middleware
 			middlewares.append(klass())
 		else:
 			print '[ERROR]: invalid middleware %s' % middleware
+	return middlewares
 
+def create_app():
+	middlewares = __load_middlewares()
 	falcon_app = falcon.API(middleware=middlewares)
 
 	# 解析值为空的参数

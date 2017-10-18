@@ -5,7 +5,7 @@ import urllib
 import urlparse
 import os
 import requests
-from eaglet.core.exceptionutil import unicode_full_stack
+from rust.core.exceptionutil import unicode_full_stack
 from time import time
 import logging
 

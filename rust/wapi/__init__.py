@@ -2,7 +2,7 @@
 
 import time
 import logging
-from eaglet.core import api_resource
+from rust.core import api_resource
 
 class ApiNotExistError(Exception):
 	pass

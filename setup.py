@@ -23,11 +23,10 @@ packages, package_data = [], {}
 root_dir = os.path.dirname(__file__)
 if root_dir != '':
 	os.chdir(root_dir)
-eaglet_dir = 'eaglet'
+rust_dir = 'rust'
 
-for dirpath, dirnames, filenames in os.walk(eaglet_dir):
-	# Ignore PEP 3147 cache dirs and those whose names start with '.'
-	dirnames[:] = [d for d in dirnames if not d.startswith('.') and d != '__pycache__']
+for dirpath, dirnames, filenames in os.walk(rust_dir):
+	dirnames[:] = [d for d in dirnames if not d.startswith('.')]
 	parts = fullsplit(dirpath)
 	package_name = '.'.join(parts)
 	if '__init__.py' in filenames and is_package(package_name):
@@ -41,12 +40,12 @@ for dirpath, dirnames, filenames in os.walk(eaglet_dir):
 
 print packages
 
-version = __import__('eaglet').get_version()
+version = __import__('rust').get_version()
 
 setup(
-	name='eaglet', 
+	name='rust',
 	version=version,
-	url='/Users/Asia/Desktop/workspace/eaglet',
+	url='https://github.com/AsiaLi/rust.git',
 	author='aix',
 	author_email='asia-aixiang@163.com',
 	packages=packages

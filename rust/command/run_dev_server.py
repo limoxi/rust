@@ -9,8 +9,8 @@ import socket
 
 import six
 import settings
-from eaglet.utils import autoreload
-from eaglet.utils.command import BaseCommand
+from rust.utils import autoreload
+from rust.utils.command import BaseCommand
 
 naiveip_re = re.compile(r"""^(?:
 (?P<addr>
@@ -23,12 +23,6 @@ DEFAULT_PORT = "8000"
 
 class Command(BaseCommand):
     args = '[optional port number, or ipaddr:port]'
-
-    def get_handler(self, *args, **options):
-        """
-        Returns the default WSGI handler for the runner.
-        """
-        return get_internal_wsgi_application()
 
     def handle(self, *args, **options):
         if not args:

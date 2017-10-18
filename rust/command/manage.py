@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import sys
 
-def load_eaglet_command(command):
-    module_name = 'eaglet.command.%s' % command
-    print 'load eaglet command: ', module_name
+def load_rust_command(command):
+    module_name = 'rust.command.%s' % command
+    print 'load rust command: ', module_name
     module = __import__(module_name, {}, {}, ['*',])
     return module
 
@@ -15,7 +15,7 @@ def load_local_command(command):
 
 def run_command(command):
     try:
-        command_module = load_eaglet_command(command)
+        command_module = load_rust_command(command)
     except Exception as e:
         command_module = None
     if not command_module:

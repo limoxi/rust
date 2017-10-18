@@ -16,3 +16,22 @@ def __full_stack():
 
 def unicode_full_stack():
     return __full_stack().decode('utf-8')
+
+
+class BusinessError(Exception):
+    """
+    business层的异常，用于在api层被捕获
+    """
+    def __init__(self, message):
+        self.message = message
+        Exception.__init__(self, message)
+
+    def __unicode__(self):
+
+        return u"{}".format(self.message)
+
+    def __str__(self):
+        return self.__unicode__().encode('utf-8')
+
+    def get_message(self, en2name):
+        return en2name.get(self.message, u'business error')

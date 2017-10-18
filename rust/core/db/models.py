@@ -1,7 +1,7 @@
 #coding: utf8
 
 import peewee
-from eaglet.core.hack_peewee import connect
+from rust.core.hack_peewee import connect
 import settings
 import datetime
 
