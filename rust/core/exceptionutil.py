@@ -33,5 +33,7 @@ class BusinessError(Exception):
     def __str__(self):
         return self.__unicode__().encode('utf-8')
 
-    def get_message(self, en2name):
+    def get_message(self, en2name=None):
+        if not en2name:
+            return self.message
         return en2name.get(self.message, u'business error')

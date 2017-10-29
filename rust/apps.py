@@ -3,15 +3,14 @@
 import decimal
 import json
 from datetime import datetime, date
-
 import falcon
-import settings
 
 from rust import wapi as wapi_resource
 from rust.core import api_resource
 from rust.core.exceptionutil import unicode_full_stack
 
-from api import resources #加载api资源
+import api.resources
+import settings
 
 class ThingsResource:
 	def on_get(self, req, resp):
@@ -163,10 +162,10 @@ def create_app():
 	falcon_app.add_route('/{app}/{resource}/', FalconResource())
 
 	if settings.DEBUG or getattr(settings, 'ENABLE_CONSOLE', False):
-		from core.dev_resource import service_console_resource
+		from rust.dev_resource import service_console_resource
 		falcon_app.add_route('/console/', service_console_resource.ServiceConsoleResource())
 
-		from core.dev_resource import static_resource
+		from rust.dev_resource import static_resource
 		falcon_app.add_sink(static_resource.serve_static_resource, '/static/')
 
 	return falcon_app

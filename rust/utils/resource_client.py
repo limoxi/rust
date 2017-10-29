@@ -11,7 +11,7 @@ import logging
 
 CALL_SERVICE_WATCHDOG_TYPE = "USE_RESOURCE"
 DEFAULT_TIMEOUT = 30
-DEFAULT_GATEWAY_HOST = os.environ.get("API_GATEWAY", 'http://api.aix.com')
+DEFAULT_GATEWAY_HOST = os.environ.get("API_GATEWAY", 'http://api.test.com')
 
 def url_add_params(url, **params):
 	""" 在网址中加入新参数 """
@@ -173,26 +173,3 @@ class Resource(object):
 			'app_key': cls.app_key,
 			'app_secret': cls.app_secret
 		})
-
-	@classmethod
-	def configure(cls, config):
-
-		"""
-		在settings.py进行配置：
-
-		```
-		Resource.configure(
-			{
-				"service_map": {'gaia': 'gaia@inner'},
-			}
-		)
-		```
-		:param config:
-		:return:
-		"""
-		cls.service_map = config.get('service_map', cls.service_map)
-		cls.api_scheme = config.get('api_scheme', cls.api_scheme)
-		cls.enable_api_auth = config.get('enable_api_auth', cls.enable_api_auth)
-		cls.app_key = config.get('app_key', cls.app_key)
-		cls.app_secret = config.get('app_secret', cls.app_secret)
-		cls.__configured = True

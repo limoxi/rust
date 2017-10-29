@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'chuter'
-
 import binascii
 
 def __is_hex_char(char):

@@ -116,6 +116,3 @@ class EmailField(CharField):
 
 class BooleanField(peewee.BooleanField):
 	pass
-
-if __name__=="__main__":
-	pass

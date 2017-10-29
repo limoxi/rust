@@ -3,8 +3,6 @@ import urllib
 import hashlib
 from urlparse import parse_qs, urlparse
 
-__author__ = 'chuter bert'
-
 def get_path_digest(path):
 	if path is None:
 		return None

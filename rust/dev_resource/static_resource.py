@@ -2,7 +2,7 @@
 import os
 import falcon
 
-import settings
+from rust import RUST_PATH
 
 def serve_static_resource(req, resp):
 	"""
@@ -25,7 +25,7 @@ def serve_static_resource(req, resp):
 	resp.status = falcon.HTTP_200  # This is the default status
 	
 	if 'text' in resp.content_type:
-		static_file_path = os.path.join(settings.PROJECT_HOME, path[1:])
+		static_file_path = os.path.join(RUST_PATH, path[1:])
 		if os.path.exists(static_file_path):
 			src = open(static_file_path)
 			content = src.read()
@@ -35,7 +35,7 @@ def serve_static_resource(req, resp):
 		else:
 			raise RuntimeError("Invalid static file : " + path) 
 	elif 'png' in resp.content_type or 'jpg' in resp.content_type or 'gif' in resp.content_type:
-		static_file_path = os.path.join(settings.PROJECT_HOME, path[1:])
+		static_file_path = os.path.join(RUST_PATH, path[1:])
 		if os.path.exists(static_file_path):
 			import io
 			resp.stream = io.open(static_file_path, 'rb')

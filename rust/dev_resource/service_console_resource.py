@@ -2,8 +2,8 @@
 import os
 import falcon
 
-import settings
 from rust.core import api_resource
+from rust import RUST_PATH
 
 class ServiceConsoleResource:
 	"""
@@ -19,7 +19,7 @@ class ServiceConsoleResource:
 
 		resp.content_type = 'text/html'
 		resp.status = falcon.HTTP_200  # This is the default status
-		console_file_path = os.path.join(settings.PROJECT_HOME, 'static/service_console.html')
+		console_file_path = os.path.join(RUST_PATH, 'static/service_console.html')
 		src = open(console_file_path)
 		content = src.read()
 		content = content.replace('{{ resources }}', '\n'.join(options))
