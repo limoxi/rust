@@ -158,6 +158,9 @@ def create_app():
 	# 解析值为空的参数
 	falcon_app.req_options.keep_blank_qs_values = True
 
+	# 解析formdata
+	falcon_app.req_options.auto_parse_form_urlencoded = True
+
 	# 注册到Falcon
 	falcon_app.add_route('/{app}/{resource}/', FalconResource())
 
