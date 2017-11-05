@@ -102,10 +102,9 @@ class FalconResource:
 
 		resp.body = json.dumps(response, default=_default)
 
-		if hasattr(settings, 'ACCESS_CONTROL_APP_PREFFIX'):
-			if app.startswith(settings.ACCESS_CONTROL_APP_PREFFIX):
-				resp.set_header("Access-Control-Allow-Origin", "*")
-				resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+		if settings.ACCESS_CONTROL_OPEN:
+			resp.set_header("Access-Control-Allow-Origin", "*")
+			resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 
 		if getattr(settings, 'DUMP_API_CALL_RESULT', True):
 			# 记录RESOURCE_ACCESS日志
