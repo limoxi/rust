@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+
 import sys
 
+from rust.core.exceptionutil import unicode_full_stack
+
 def load_rust_command(command):
-    module_name = 'rust.command.%s' % command
+    module_name = 'rust.command.commands.%s' % command
     print 'load rust command: ', module_name
     module = __import__(module_name, {}, {}, ['*',])
     return module
@@ -16,7 +19,7 @@ def load_local_command(command):
 def run_command(command):
     try:
         command_module = load_rust_command(command)
-    except Exception as e:
+    except:
         command_module = None
     if not command_module:
         command_module = load_local_command(command)

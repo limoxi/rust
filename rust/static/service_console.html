@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>iCore Service Console</title>
+		<title>Api Service Console</title>
 
 		<link type="text/css" rel="stylesheet" media="all" href="/static/lib/bootstrap-3.3.4/css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" media="all" href="/static/css/base.css">
@@ -15,48 +15,35 @@
 		<nav class="navbar navbar-default" style="margin-bottom: 5px;">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">iCore Service Console - Python</a>
+					<a class="navbar-brand" href="#">Api Service Console</a>
 				</div>
-			</div><!-- /.container-fluid -->
+			</div>
 		</nav>
 
-		<form class="p15 clearfix" style="margin-top:5px; padding-top:5px; background-color:white; border:solid 1px #CFCFCF; margin:20px;">
-			<div class="fl" style="width:300px;">
-				<label for="resource">选择资源</label>
-				<select id="resource" class="form-control" style="width:200px; display:inline-block;">
-					{{ resources }}
-				</select>
+		<form class="p15 clearfix" style="display: flex;justify-content: space-between; align-items: flex-start; margin-top: 50px;">
+			<div>
+				<div style="width:300px;">
+					<label for="resource">选择资源</label>
+					<select id="resource" class="form-control" style="width:200px; display:inline-block;">
+						{{ resources }}
+					</select>
+				</div>
+				<div style="margin-top: 25px; margin-left: 27px;">
+					<label for="resource" style="vertical-align:top;">数据</label>
+					<div class="xa-data xui-data" style="width:500px; height:200px; display:inline-block;"></div>
+					<div style="display: flex;justify-content: flex-end;">
+						<a class="btn btn-success xui-link xa-link" data-action="get">GET</a>
+						<a class="btn btn-success xui-link xa-link" data-action="put">PUT</a>
+						<a class="btn btn-success xui-link xa-link" data-action="post">POST</a>
+						<a class="btn btn-danger xui-link xa-link" data-action="delete">DELETE</a>
+					</div>
+				</div>
 			</div>
-			<div class="fl" style="width:560px;">
-				<label for="resource" style="vertical-align:top;">数据</label>
-				<div class="xa-data xui-data" style="width:500px; height:200px; display:inline-block;"></div>
-			</div>
-			<div class="fl" style="width:100px;">
-				<a class="btn btn-success xa-link" style="display:block;" data-action="get">GET</a>
-				<a class="btn btn-success mt10 xa-link" style="display:block;" data-action="put">PUT</a>
-				<a class="btn btn-success mt10 xa-link" style="display:block;" data-action="post">POST</a>
-				<a class="btn btn-danger mt10 xa-link" style="display:block;" data-action="delete">DELETE</a>
-			</div>
+			<div id="result" style="height:500px; width:38vw;"></div>
 		</form>
-
-		<div class="clearfix">
-			<div id="result" class="fl" style="height:800px; width:50%;"></div>
-			<div id="queries" class="fl ml10" style="width:48%;">
-				<table class="table table-bordered">
-					<thead>
-						<th width="40px">源</th>
-						<th width="85%">SQL查询<span class="xa-sqlCount"></span></th>
-						<th>时间</th>
-					</thead>
-					<tbody class="xa-table">
-					</tbody>
-				</table>
-			</div>
-		</div>
 
 		<!-- 3rd party lib -->
 		<script type="text/javascript" src="/static/lib/jquery/jquery-1.11.2.min.js"></script>
-		<script type="text/javascript" src="/static/lib/underscore-1.7.0.min.js"></script>
 		<script type="text/javascript" src="/static/lib/jsoneditor/jsoneditor.min.js"></script>
 		<script type="text/javascript" src="/static/lib/codemirror-5.7/lib/codemirror.js"></script>
 		<script type="text/javascript" src="/static/lib/codemirror-5.7/mode/javascript/javascript.js"></script>
@@ -91,25 +78,6 @@
 			return editor;
 		}
 
-		var __displayQueries = function(queries) {
-			var buf = [];
-			var index = 0;
-			queries.forEach(function(query) {
-				index += 1;
-				buf.push('<tr style="cursor:pointer;" class="xa-span" data-target="'+index+'">');
-				buf.push('<td>'+query.source+'</td>');
-				buf.push('<td>'+query.query+'</td>');
-				buf.push('<td>'+query.time+'</td>');
-				buf.push('</tr>');
-				buf.push('<tr style="display:none;" data-index="'+index+'">');
-				buf.push('<td colspan="3" style="background-color:white;">'+query.stack+'</td>');
-				buf.push('</tr>');
-			});
-
-			$('.xa-table').html(buf.join('\n'));
-			$('.xa-sqlCount').text('(' + queries.length + ')');
-		}
-
 		$(document).ready(function() {
 			dataCodeMirror = __createCodeEditor('.xa-data', 'javascript', "data = {\n  id:1,\n}");
 			resultViewer = __createResultViewer();
@@ -138,13 +106,9 @@
 				var url = '/' + resource.substring(0, pos) + '/' + resource.substring(pos+1) + '/';
 
 				resultViewer.set('fetching...');
-				__displayQueries([]);
 
 				if (action === 'get') {
 					$.get(url, data, function(data) {
-						var queries = data.queries || [];
-						delete data.queries;
-						__displayQueries(queries);
 
 						if (data.code !== 200) {
 							var errMsg = data.errMsg;
@@ -168,9 +132,6 @@
 						url += '?_method=' + action;
 					}
 					$.post(url, data, function(data) {
-						var queries = data.queries || [];
-						delete data.queries;
-						__displayQueries(queries);
 
 						if (data.code !== 200) {
 							var errMsg = data.errMsg;

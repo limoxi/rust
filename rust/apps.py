@@ -12,36 +12,6 @@ from rust.core.exceptionutil import unicode_full_stack
 import api.resources
 import settings
 
-class ThingsResource:
-	def on_get(self, req, resp):
-		"""Handles GET requests"""
-		resp.status = falcon.HTTP_200  # This is the default status
-		resp.body = ('\nTwo things awe me most, the starry sky '
-					 'above me and the moral law within me.\n'
-					 '\n'
-					 '    ~ Immanuel Kant Robert lalala\n\n')
-
-class ApiListerResource:
-	def on_get(self, req, resp):
-		"""
-		列出API
-		"""
-		api_list = []
-		for (app_resource, resource_cls) in api_resource.APPRESOURCE2CLASS.items():
-			app, resource = app_resource.split('-')
-			api_cls = resource_cls['cls']
-			api_info = {
-				'app': app,
-				'resource': resource,
-				'class_name': str(api_cls),
-				'explain': api_cls.__doc__.strip(),
-				'methods': filter(lambda method: hasattr(api_cls, method), ['get', 'post', 'put', 'delete']),
-			}
-			api_list.append(api_info)
-		resp.status = falcon.HTTP_200
-		resp.body = json.dumps(api_list)
-		return
-
 def _default(obj):
 	if isinstance(obj, datetime): 
 		return obj.strftime('%Y-%m-%d %H:%M:%S') 
@@ -96,7 +66,7 @@ class FalconResource:
 			response['errMsg'] = str(e).strip()
 			response['innerErrMsg'] = unicode_full_stack()
 		except Exception as e:
-			response['code'] = 531 #不要改动这个code，531是表明service内部发生异常的返回码
+			response['code'] = 531 #内部异常
 			response['errMsg'] = str(e).strip()
 			response['innerErrMsg'] = unicode_full_stack()
 

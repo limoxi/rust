@@ -1,8 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BuildServerSettings">
+    <option name="LOGIN" value="" />
+    <option name="SERVER_URL" value="http://buildserver" />
+    <option name="REMEMBER_ME" value="true" />
+    <option name="USE_IDEA_PROXY_SETTINGS" value="true" />
+    <option name="INSPECTIONS_BUILD_TYPE_IDS" />
+    <option name="DUPLICATES_BUILD_TYPE_IDS" />
+    <option name="COVERAGE_SETTINGS" />
+    <option name="TEST_STATUS_ENABLED" value="true" />
+    <option name="TEST_STATUS_SHOW_SUCCESSFUL" value="false" />
+    <option name="ARTIFACTS_BUILD_TYPE_IDS" />
+    <option name="PERFORM_COMMIT_IF_SUCCESSFUL" value="true" />
+    <option name="PERFORM_COMMIT_IF_NO_NEW_FAILED_TESTS" value="false" />
+    <option name="REQUEST_CONFIRMATON" value="false" />
+    <option name="PRE_TESTED_COMMIT" value="true" />
+    <option name="FILTER_BY_STATUS" value="false" />
+    <option name="FILTER_MARKED_AS_FIXED" value="false" />
+    <option name="SHOW_CLOSE_PROMPT" value="true" />
+    <option name="TOOL_WINDOW_SELECTED_CONTENT_INDEX" value="0" />
+    <option name="FILTER_BY_CURRENT_PROJECT" value="true" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cf158e72-7512-45c9-87b2-2fb22a83368a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rust/apps.py" afterPath="$PROJECT_DIR$/rust/apps.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/rust/apps.py" afterPath="$PROJECT_DIR$/rust/apps.py" />
+      <change beforePath="$PROJECT_DIR$/rust/command/manage.py" afterPath="$PROJECT_DIR$/rust/command/command_manager.py" />
+      <change beforePath="$PROJECT_DIR$/rust/dev_resource/service_console_resource.py" afterPath="$PROJECT_DIR$/rust/dev_resource/service_console_resource.py" />
+      <change beforePath="$PROJECT_DIR$/rust/static/css/base.css" afterPath="$PROJECT_DIR$/rust/static/css/base.css" />
+      <change beforePath="$PROJECT_DIR$/rust/static/css/common.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/css/bootstrap-slider.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/css/bootstrap-slider.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/css/bootstrap-theme.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/css/bootstrap-theme.css.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/css/bootstrap-theme.min.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/fonts/glyphicons-halflings-regular.eot" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/fonts/glyphicons-halflings-regular.svg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/fonts/glyphicons-halflings-regular.woff" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/js/bootstrap-slider.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/js/bootstrap-slider.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/js/bootstrap.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/js/bootstrap.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/bootstrap-3.3.4/js/npm.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/codemirror-5.7/mode/javascript/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/codemirror-5.7/mode/javascript/json-ld.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/codemirror-5.7/mode/javascript/test.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/codemirror-5.7/mode/javascript/typescript.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/jquery/images/ajax-loader.gif" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/jquery/images/icons-18-black.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/jquery/images/icons-18-white.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/jquery/images/icons-36-black.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/jquery/images/icons-36-white.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/jquery/jquery-migrate-1.2.1.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/jquery/jquery-ui-1.10.3.custom.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/lib/underscore-1.7.0.min.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/rust/static/service_console.html" afterPath="$PROJECT_DIR$/rust/static/service_console.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,15 +68,16 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/rust$setup.coverage" NAME="setup Coverage Results" MODIFIED="1509266069726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/rust$rust_test.coverage" NAME="rust-test Coverage Results" MODIFIED="1515740576396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/rust/example" />
     <SUITE FILE_PATH="coverage/rust$test.coverage" NAME="test Coverage Results" MODIFIED="1509266631585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="apps.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apps.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rust/apps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="105" column="28" lean-forward="true" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
+            <state relative-caret-position="2508">
+              <caret line="114" column="50" lean-forward="true" selection-start-line="114" selection-start-column="50" selection-end-line="114" selection-end-column="50" />
               <folding>
                 <element signature="e#25#39#0" expanded="true" />
               </folding>
@@ -29,13 +85,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.py">
+      <file leaf-file-name="hack_peewee.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rust/core/hack_peewee.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="33" column="9" lean-forward="false" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="43" />
+            <state relative-caret-position="330">
+              <caret line="20" column="56" lean-forward="true" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
               <folding>
-                <element signature="e#25#34#0" expanded="true" />
+                <element signature="e#131#151#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -44,8 +100,8 @@
       <file leaf-file-name="service_console_resource.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rust/dev_resource/service_console_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="17" />
+            <state relative-caret-position="462">
+              <caret line="21" column="82" lean-forward="true" selection-start-line="21" selection-start-column="82" selection-end-line="21" selection-end-column="82" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
@@ -56,12 +112,40 @@
       <file leaf-file-name="service_console.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rust/static/service_console.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3861">
-              <caret line="143" column="35" lean-forward="false" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="35" />
+            <state relative-caret-position="242">
+              <caret line="26" column="55" lean-forward="false" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
               <folding>
-                <marker date="1508343863000" expanded="true" signature="3852:3867" ph="..." />
-                <marker date="1508343863000" expanded="true" signature="4087:4100" ph="..." />
-                <marker date="1508343863000" expanded="true" signature="4166:4189" ph="..." />
+                <element signature="n#style#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rust/static/css/base.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="738">
+              <caret line="60" column="1" lean-forward="false" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="a_test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/rust/example/api/test/a_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+              <folding>
+                <element signature="e#25#71#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -70,8 +154,8 @@
       <file leaf-file-name="decorator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rust/core/decorator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1566">
-              <caret line="58" column="20" lean-forward="false" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+            <state relative-caret-position="374">
+              <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -80,11 +164,9 @@
       <file leaf-file-name="static_resource.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rust/dev_resource/static_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="24" column="60" lean-forward="false" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
-              <folding>
-                <element signature="e#24#33#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="66">
+              <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -92,28 +174,8 @@
       <file leaf-file-name="api_resource.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rust/core/api_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resource_client.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rust/utils/resource_client.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+            <state relative-caret-position="154">
+              <caret line="7" column="61" lean-forward="false" selection-start-line="7" selection-start-column="61" selection-end-line="7" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -131,15 +193,26 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>eaglet</find>
-      <find>get_handler</find>
       <find>autoreload</find>
       <find>_systemrestart</find>
       <find>DUMP_API_CALL_RESULT</find>
       <find>DUMP_FORMATTED_INNER_ERROR_MSG</find>
-      <find>settings</find>
       <find>__author</find>
       <find>__all__</find>
+      <find>get_handler</find>
+      <find>naiveip_re</find>
+      <find>settings</find>
+      <find>RUN_RELOADER</find>
+      <find>RUN_MAIN</find>
+      <find>sys.exit</find>
+      <find>ThingsResource</find>
       <find>ApiListerResource</find>
+      <find>_</find>
+      <find>__displayQueries</find>
+      <find>query</find>
+      <find>style</find>
+      <find>clearfix</find>
+      <find>class</find>
     </findStrings>
     <replaceStrings>
       <replace>rust</replace>
@@ -154,10 +227,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/rust/core/hack_peewee.py" />
         <option value="$PROJECT_DIR$/rust/utils/command.py" />
-        <option value="$PROJECT_DIR$/rust/command/runserver.py" />
-        <option value="$PROJECT_DIR$/rust/utils/autoreload.py" />
         <option value="$PROJECT_DIR$/rust/api/a_test.py" />
         <option value="$PROJECT_DIR$/rust/api/resources.py" />
         <option value="$PROJECT_DIR$/rust/api/__init__.py" />
@@ -165,7 +235,6 @@
         <option value="$PROJECT_DIR$/rust/api/test/__init__.py" />
         <option value="$PROJECT_DIR$/rust/settings.py" />
         <option value="$PROJECT_DIR$/rust/dev_wsgi.py" />
-        <option value="$PROJECT_DIR$/rust/core/api_resource.py" />
         <option value="$PROJECT_DIR$/rust/core/dev_resource/service_console_resource.py" />
         <option value="$PROJECT_DIR$/rust/core/exceptionutil.py" />
         <option value="$PROJECT_DIR$/rust/core/db/models.py" />
@@ -176,12 +245,32 @@
         <option value="$PROJECT_DIR$/rust/core/business.py" />
         <option value="$PROJECT_DIR$/rust/dev_resource/static_resource.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/rust/dev_resource/service_console_resource.py" />
         <option value="$PROJECT_DIR$/rust/__init__.py" />
         <option value="$PROJECT_DIR$/rust/core/base_middleware.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/rust/command/manage.py" />
+        <option value="$PROJECT_DIR$/rust/example/api/a_test.py" />
+        <option value="$PROJECT_DIR$/rust/example/start_server.sh" />
+        <option value="$PROJECT_DIR$/rust/example/resources.py" />
+        <option value="$PROJECT_DIR$/rust/example/api/__init__.py" />
+        <option value="$PROJECT_DIR$/rust/example/api/test/__init__.py" />
+        <option value="$PROJECT_DIR$/rust/command/runserver.py" />
+        <option value="$PROJECT_DIR$/rust/example/manage.py" />
+        <option value="$PROJECT_DIR$/rust/utils/autoreload.py" />
+        <option value="$PROJECT_DIR$/rust/command/command_manager.py" />
+        <option value="$PROJECT_DIR$/rust/example/settings.py" />
+        <option value="$PROJECT_DIR$/rust/command/commands/runserver.py" />
+        <option value="$PROJECT_DIR$/rust/wapi/__init__.py" />
+        <option value="$PROJECT_DIR$/rust/core/api_resource.py" />
+        <option value="$PROJECT_DIR$/rust/core/decorator.py" />
+        <option value="$PROJECT_DIR$/rust/static/css/common.css" />
+        <option value="$PROJECT_DIR$/rust/static/css/base.css" />
+        <option value="$PROJECT_DIR$/rust/static/service_console.html" />
+        <option value="$PROJECT_DIR$/rust/dev_resource/service_console_resource.py" />
         <option value="$PROJECT_DIR$/rust/apps.py" />
+        <option value="$PROJECT_DIR$/rust/core/hack_peewee.py" />
+        <option value="$PROJECT_DIR$/rust/example/api/test/a_test.py" />
       </list>
     </option>
   </component>
@@ -192,10 +281,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="86" />
-    <option name="y" value="23" />
-    <option name="width" value="1367" />
-    <option name="height" value="877" />
+    <option name="x" value="-4" />
+    <option name="width" value="1932" />
+    <option name="height" value="1085" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -215,6 +303,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -227,33 +317,63 @@
               <item name="rust" type="462c0819:PsiDirectoryNode" />
               <item name="rust" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="rust" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rust" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rust" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rust" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rust" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="rust" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/rust/example/manage.py" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="add_unversioned_files" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace\github\rust\rust\command\commands" />
+      <recent name="D:\workspace\github\rust\rust\example\api\test" />
+      <recent name="D:\workspace\github\rust\rust\example\api" />
+      <recent name="D:\workspace\github\rust\rust\example" />
+      <recent name="D:\workspace\github\rust\rust" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace\github\rust\rust\example" />
+      <recent name="D:\workspace\github\rust\rust\utils" />
+      <recent name="D:\workspace\github\rust\rust\command" />
       <recent name="$PROJECT_DIR$/rust/static" />
       <recent name="$PROJECT_DIR$/rust/core" />
-      <recent name="$PROJECT_DIR$/rust" />
-      <recent name="D:\workspace\github\rust\rust" />
-      <recent name="D:\workspace\github\rust\rust\utils" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/rust" />
-      <recent name="$PROJECT_DIR$/rust/core" />
-      <recent name="$PROJECT_DIR$/rust/command" />
-      <recent name="$PROJECT_DIR$/rust/core/decorator" />
-      <recent name="D:\workspace\github\rust\rust\api\test" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -268,53 +388,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test">
-    <configuration name="setup" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager">
+    <configuration name="rust-test" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="SDK_HOME" value="D:\Python27\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/rust/example" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="rust" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/setup.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/rust/example/manage.py" />
+      <option name="PARAMETERS" value="runserver" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="rust" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Python.setup" />
-      <item index="1" class="java.lang.String" itemvalue="Python.test" />
-    </list>
-    <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.test" />
-        <item index="1" class="java.lang.String" itemvalue="Python.setup" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -330,32 +423,38 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="86" y="23" width="1367" height="877" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24603774" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Key Promoter X" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2033368" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33472368" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24840085" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35766423" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45524296" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35766423" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.md" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -365,59 +464,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rust/command/run_dev_server.py" />
-    <entry file="file://$PROJECT_DIR$/rust/settings.py" />
-    <entry file="file://$PROJECT_DIR$/rust/core/api_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="75" lean-forward="false" selection-start-line="7" selection-start-column="75" selection-end-line="7" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/site-packages/eaglet/command/__init__.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/eaglet/command/manage.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/eaglet/command/runserver.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/eaglet/utils/__init__.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/falcon/version.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/eaglet/utils/autoreload.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/eaglet/utils/command.py" />
-    <entry file="file://D:/Python27/Lib/site-packages/eaglet/apps.py" />
-    <entry file="file://$PROJECT_DIR$/rust/utils/autoreload.py" />
-    <entry file="file://$PROJECT_DIR$/rust/api/test/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/rust/api/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/rust/api/resources.py" />
-    <entry file="file://$USER_HOME$/.PyCharm2017.2/system/python_stubs/1494736245/__builtin__.py" />
-    <entry file="file://$PROJECT_DIR$/rust/settings.py" />
-    <entry file="file://$PROJECT_DIR$/rust/dev_wsgi.py" />
-    <entry file="file://$PROJECT_DIR$/rust/api/test/a_test.py" />
-    <entry file="file://$PROJECT_DIR$/rust/command/run_dev_server.py" />
-    <entry file="file://$PROJECT_DIR$/rust/command/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rust/core/exceptionutil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rust/core/redirects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rust/core/hack_peewee.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1439">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -428,40 +478,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rust/core/db/__init__.py" />
     <entry file="file://$PROJECT_DIR$/rust/core/decorator/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/rust/static/css/base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rust/utils/string_util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1270">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rust/command/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rust/command/base_command.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -481,13 +503,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/python/2.7.14/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ntpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="248" column="4" lean-forward="false" selection-start-line="248" selection-start-column="4" selection-end-line="248" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.14/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ntpath.py" />
     <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/rust/core/business.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -510,46 +526,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rust/wapi/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-561">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#25#36#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rust/core/api_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="16" lean-forward="false" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rust/utils/resource_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="110">
           <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rust/dev_resource/static_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="24" column="60" lean-forward="false" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rust/core/decorator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="58" column="20" lean-forward="false" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -562,10 +542,260 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/command/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/middlewares/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="33" column="45" lean-forward="true" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
+          <folding>
+            <element signature="e#25#34#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/start_server.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="45" lean-forward="true" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="23" lean-forward="true" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/api/test/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/api/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/api/resources.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding>
+            <element signature="e#23#33#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/site-packages/eaglet/utils/autoreload.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2949">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/command/base_command.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/os.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="523" column="4" lean-forward="false" selection-start-line="523" selection-start-column="4" selection-end-line="523" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/utils/autoreload.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="141" column="45" lean-forward="true" selection-start-line="141" selection-start-column="45" selection-end-line="141" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/1494736245/thread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="110" column="4" lean-forward="false" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.3/system/python_stubs/1494736245/sys.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="199" column="55" lean-forward="true" selection-start-line="199" selection-start-column="55" selection-end-line="199" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/command/commands/runserver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="34" column="29" lean-forward="false" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <folding>
+            <element signature="e#25#35#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/wapi/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="49" column="51" lean-forward="false" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/command/command_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding>
+            <element signature="e#25#35#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/core/decorator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/collections.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="366" column="78" lean-forward="false" selection-start-line="366" selection-start-column="73" selection-end-line="366" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/inspect.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="801" column="17" lean-forward="true" selection-start-line="801" selection-start-column="17" selection-end-line="801" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/dev_resource/static_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/static/lib/jquery/images/ajax-loader.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/static/lib/jsoneditor/img/jsoneditor-icons.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/core/api_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="61" lean-forward="false" selection-start-line="7" selection-start-column="61" selection-end-line="7" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/static/css/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="678">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/static/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="60" column="1" lean-forward="false" selection-start-line="60" selection-start-column="1" selection-end-line="60" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rust/dev_resource/service_console_resource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="17" />
+        <state relative-caret-position="462">
+          <caret line="21" column="82" lean-forward="true" selection-start-line="21" selection-start-column="82" selection-end-line="21" selection-end-column="82" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
           </folding>
@@ -574,40 +804,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rust/static/service_console.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3861">
-          <caret line="143" column="35" lean-forward="false" selection-start-line="143" selection-start-column="31" selection-end-line="143" selection-end-column="35" />
+        <state relative-caret-position="242">
+          <caret line="26" column="55" lean-forward="false" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
           <folding>
-            <marker date="1508343863000" expanded="true" signature="3852:3867" ph="..." />
-            <marker date="1508343863000" expanded="true" signature="4087:4100" ph="..." />
-            <marker date="1508343863000" expanded="true" signature="4166:4189" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="33" column="9" lean-forward="false" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="43" />
-          <folding>
-            <element signature="e#25#34#0" expanded="true" />
+            <element signature="n#style#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rust/apps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="105" column="28" lean-forward="true" selection-start-line="105" selection-start-column="28" selection-end-line="105" selection-end-column="28" />
+        <state relative-caret-position="2508">
+          <caret line="114" column="50" lean-forward="true" selection-start-line="114" selection-start-column="50" selection-end-line="114" selection-end-column="50" />
           <folding>
             <element signature="e#25#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/core/hack_peewee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="20" column="56" lean-forward="true" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
+          <folding>
+            <element signature="e#131#151#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust/example/api/test/a_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding>
+            <element signature="e#25#71#0" expanded="true" />
           </folding>
         </state>
       </provider>
