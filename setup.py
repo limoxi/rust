@@ -18,7 +18,7 @@ def find_extra_data(target_dir):
 		for name in names:
 			path = '{}/{}'.format(dirname, name)
 			if os.path.isdir(path):
-				files.append('{}/*'.format(path).replace(root_path_, ''))
+				os.path.walk(path, walk, None)
 			elif os.path.isfile(path):
 				files.append(path.replace(root_path_, ''))
 
