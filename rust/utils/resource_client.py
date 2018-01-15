@@ -145,6 +145,7 @@ class Inner(object):
 			msg['http_code'] = ''
 			msg['resp_text'] = ''
 
+		print msg
 
 class Resource(object):
 	service_map = {}

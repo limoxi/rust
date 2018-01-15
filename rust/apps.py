@@ -141,4 +141,3 @@ def create_app():
 		falcon_app.add_sink(static_resource.serve_static_resource, '/static/')
 
 	return falcon_app
-

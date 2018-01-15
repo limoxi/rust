@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
+from rust.core.exceptionutil import ApiParameterError
 
 class cached_context_property(property):
     """
@@ -26,11 +27,6 @@ class cached_context_property(property):
     def __set__(self, instance, value):
         instance.context[self.func_name] = value
 
-
-class ApiParamaterError(Exception):
-    pass
-
-
 def param_required(params=None):
     """
     用于检查函数参数的decorator
@@ -38,7 +34,6 @@ def param_required(params=None):
     2. name:type,表示自动类型转换，支持"str","int","float","bool","json"。其中bool识别True/False,"True"/"False","true"/"false"
     3. ?name,以?开头的参数，表示非必须参数
     """
-
     def wrapper(function):
         def inner(data):
             for param in params:
@@ -54,7 +49,7 @@ def param_required(params=None):
                     is_required = True
 
                 if is_required and param_name not in data:
-                    raise ApiParamaterError('Required parameter missing: %s' % param_name)
+                    raise ApiParameterError('Required parameter missing: %s' % param_name)
 
                 try:
 
@@ -69,7 +64,7 @@ def param_required(params=None):
                         elif param_type == "json":
                             data[param_name] = json.loads(param_value)
                 except BaseException as e:
-                    raise ApiParamaterError('Invalid parameter: %s is not %s.%s' % (param_name, param_type, e.message))
+                    raise ApiParameterError('Invalid parameter: %s is not %s.%s' % (param_name, param_type, e.message))
 
             return function(data)
 

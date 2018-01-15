@@ -19,30 +19,9 @@ class Model(object):
 		for slot in slots:
 			value = getattr(model, slot, None)
 			if value != None:
-				if 'id' == slot:
-					value = int(value)
 				setattr(self, slot, value)
 			else:
 				setattr(self, slot, None)
-
-	def after_from_dict(self):
-		"""
-		from_dict调用结束前的hook函数，允许sub class修改from_dict的结果
-		"""
-		pass
-
-	@classmethod
-	def from_dict(cls, dict, slots=None):
-		instance = cls()
-		if not slots:
-			slots = cls.__slots__
-
-		for slot in slots:
-			value = dict.get(slot, None)
-
-			setattr(instance, slot, value)
-		instance.after_from_dict()
-		return instance
 
 	def to_dict(self, *extras, **kwargs):
 		result = dict()
@@ -60,18 +39,12 @@ class Model(object):
 			
 		return result
 
-
 class Service(object):
 	"""
 	领域服务的基类
 	"""
-	__slots__ = ('context', 'user' 'member')
+	__slots__ = ('context', 'user', 'member')
 
-	@classmethod
-	def get(cls):
-
-		return cls()
-	
 	def __init__(self, user=None, member=None):
 		self.context = {
 			'user': user,

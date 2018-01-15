@@ -37,3 +37,9 @@ class BusinessError(Exception):
         if not en2name:
             return self.message
         return en2name.get(self.message, u'business error')
+
+class ApiNotExistError(Exception):
+    pass
+
+class ApiParameterError(Exception):
+    pass

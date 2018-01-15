@@ -3,15 +3,6 @@
 html{color:#000;background:#FFF;}
 body{font-family:Arial;word-wrap:break-word;}
 body,div,dl,dt,dd,ul,ol,li{margin:0;padding:0;}
-.xui-clearListStyle{
-    list-style:none;
-}
-.rawHtml ol {
-	margin: 0 0 10px 25px;
-}
-.rawHtml ul {
-	margin: 0 0 10px 25px;
-}
 button,a{outline: none!important;}
 table{border-collapse:collapse;border-spacing:0;}
 fieldset,img{border:0;}
@@ -41,19 +32,8 @@ textarea{resize:none}
 
 /* 其他 */
 .xui-hide {display: none;}
-.xui-bold {font-weight: bold;}
-.xui-invisible {visibility: hidden;}
-.noborder{border: none;}
-.zoom{overflow:auto; zoom:1;}
-.disT{display: table;}
-.disTc{display: table-cell;}
 .xui-block {display: block;}
-.xui-inlineblock {display: inline-block;}
 .xui-inline {display: inline;}
-.xui-aligntop {vertical-align: top !important;}
-.xui-alignsub {vertical-align: sub !important;}
-.xui-aligntexttop {vertical-align: text-top !important;}
-
 .xui-link{
 	margin-left: 31px;
     width: 102px;
