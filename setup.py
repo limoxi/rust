@@ -25,7 +25,6 @@ def find_extra_data(target_dir):
 	os.path.walk(static_path, walk, None)
 	package_data = {root_path: files}
 	print 'load console needed static files...'
-	print files
 	return package_data
 
 setup(

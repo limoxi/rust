@@ -2,7 +2,6 @@
 
 APPRESOURCE2CLASS = dict()
 
-
 class ApiResourceBase(type):
 	def __new__(cls, name, bases, attrs):
 		return super(ApiResourceBase, cls).__new__(cls, name, bases, attrs)
@@ -28,3 +27,17 @@ class ApiResourceBase(type):
 
 class ApiResource(object):
 	__metaclass__ = ApiResourceBase
+
+
+def ParamObject(data):
+	"""
+	构建不可变属性对象
+	"""
+	class Inner(object):
+		__slots__ = tuple(data.keys())
+
+		def __init__(self, dict_data):
+			for k, v in dict_data.items():
+				setattr(self, k, v)
+
+	return Inner(data)

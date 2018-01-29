@@ -53,8 +53,8 @@ class DecimalField(peewee.DecimalField):
 
 class DateTimeField(peewee.DateTimeField):
 
-	def __init__(self, auto_now_add=False, auto_now=False, blank=False, **kwargs):
-		if auto_now or auto_now_add:
+	def __init__(self, auto_now_add=False, blank=False, **kwargs):
+		if auto_now_add:
 			kwargs['default'] = datetime.datetime.now
 		kwargs['null'] = blank
 		super(DateTimeField, self).__init__(**kwargs)
