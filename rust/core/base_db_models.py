@@ -1,9 +1,10 @@
 #coding: utf8
 
+import datetime
 import peewee
+
 from rust.core.hack_peewee import connect
 import settings
-import datetime
 
 DB = settings.DATABASES['default']
 db = None

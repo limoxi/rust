@@ -72,7 +72,7 @@ class FalconResource:
 
 		resp.body = json.dumps(response, default=_default)
 
-		if settings.ACCESS_CONTROL_OPEN:
+		if getattr(settings, 'ACCESS_CONTROL_OPEN', False) and settings.ACCESS_CONTROL_OPEN:
 			resp.set_header("Access-Control-Allow-Origin", "*")
 			resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 
