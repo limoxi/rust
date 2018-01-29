@@ -2,8 +2,6 @@
 
 import sys
 
-from rust.core.exceptionutil import unicode_full_stack
-
 def load_rust_command(command):
     module_name = 'rust.command.commands.%s' % command
     print 'load rust command: ', module_name

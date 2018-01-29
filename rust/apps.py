@@ -120,6 +120,26 @@ def __load_middlewares():
 			print '[ERROR]: invalid middleware %s' % middleware
 	return middlewares
 
+def __load_error_handlers():
+	"""
+	加载错误处理器
+	"""
+	handlers = []
+	if not getattr(settings, 'ERROR_HANDLERS', None):
+		return handlers
+	for handler in settings.ERROR_HANDLERS:
+		items = handler.split('.')
+		module_path = '.'.join(items[:-1])
+		module_name = items[-1]
+		module = __import__(module_path, {}, {}, ['*', ])
+		klass = getattr(module, module_name, None)
+		if klass:
+			print 'load error handler %s' % handler
+			handlers.append(klass)
+		else:
+			print '[ERROR]: invalid error handler %s' % handler
+	return handlers
+
 def create_app():
 	middlewares = __load_middlewares()
 	falcon_app = falcon.API(middleware=middlewares)
@@ -132,6 +152,11 @@ def create_app():
 
 	# 注册到Falcon
 	falcon_app.add_route('/{app}/{resource}/', FalconResource())
+
+	#加载错误处理器
+	error_handlers = __load_error_handlers()
+	for handler in error_handlers:
+		falcon_app.add_error_handler(handler)
 
 	if settings.DEBUG or getattr(settings, 'ENABLE_CONSOLE', False):
 		from rust.dev_resource import service_console_resource
