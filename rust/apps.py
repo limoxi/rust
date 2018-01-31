@@ -140,6 +140,15 @@ def __load_error_handlers():
 			print '[ERROR]: invalid error handler %s' % handler
 	return handlers
 
+def __load_domain_events(events):
+	"""
+	加载领域事件
+	"""
+	for event_name, modules in events.items():
+		for module_name in modules:
+			__import__(module_name, {}, {}, ['*',])
+			print 'load domain event handler: {}'.format(module_name)
+
 def create_app():
 	middlewares = __load_middlewares()
 	falcon_app = falcon.API(middleware=middlewares)
@@ -157,6 +166,10 @@ def create_app():
 	error_handlers = __load_error_handlers()
 	for handler in error_handlers:
 		falcon_app.add_error_handler(handler)
+
+	# 加载领域事件
+	if hasattr(settings, 'DOMAIN_EVENT_HANDLERS'):
+		__load_domain_events(settings.DOMAIN_EVENT_HANDLERS)
 
 	if settings.DEBUG or getattr(settings, 'ENABLE_CONSOLE', False):
 		from rust.dev_resource import service_console_resource
