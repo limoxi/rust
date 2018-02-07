@@ -10,6 +10,7 @@ from rust.core import api_resource
 from rust.core.exceptionutil import unicode_full_stack
 
 import api.resources
+
 import settings
 
 def _default(obj):
@@ -149,7 +150,18 @@ def __load_domain_events(events):
 			__import__(module_name, {}, {}, ['*',])
 			print 'load domain event handler: {}'.format(module_name)
 
+def load_rust_resources():
+	"""
+	加载rust自带资源
+	"""
+	if hasattr(settings, 'RUST_RESOURCES'):
+		for resource in settings.RUST_RESOURCES:
+			__import__('rust.resources.api.{}'.format(resource), {}, {}, ['*', ])
+			print 'load rust built-in resource: {}'.format(resource)
+
 def create_app():
+	load_rust_resources()
+
 	middlewares = __load_middlewares()
 	falcon_app = falcon.API(middleware=middlewares)
 

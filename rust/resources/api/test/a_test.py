@@ -13,7 +13,6 @@ class ATest(ApiResource):
 	def get(params):
 		print params
 
-
 		return {
 			'flag': 'success'
 		}
