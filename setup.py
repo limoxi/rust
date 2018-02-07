@@ -30,7 +30,7 @@ def find_extra_data(target_dir):
 setup(
 	name='rust',
 	version=version,
-	url='https://github.com/AsiaLi/rust.git',
+	url='https://github.com/limoxi/rust.git',
 	author='aix',
 	author_email='asia-aixiang@163.com',
 	packages=find_packages(),
