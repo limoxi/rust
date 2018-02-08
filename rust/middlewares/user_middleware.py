@@ -1,23 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from rust.error_handlers.middlerware_exception_handler import MiddlewareException
-
+from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.user.user_repository import UserRepository
-
-import settings
-
-ERROR_CODE2TEXT = {
-	'invalid session_key': u'session不合法',
-	'expired session_key': u'session已过期，请重新登录',
-}
 
 class UserMiddleware(object):
 	def process_request(sel, req, resp):
 		"""
 		构建用户实例
 		"""
-
-		if len(filter(lambda path: path in req.path, settings.NO_NEED_LOGIN_PATHS)) > 0:
+		if req.context.get('__middleware_passed', False):
 			return
 
 		user = UserRepository.get()

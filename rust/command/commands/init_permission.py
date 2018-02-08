@@ -23,42 +23,42 @@ class Command(BaseCommand):
 		"""
 		resources = {}
 
-		for resource_name, data in APPRESOURCE2CLASS.items():
-			if resource_name == 'permission':
+		for resource, data in APPRESOURCE2CLASS.items():
+			if resource == 'permission':
 				continue
-			resources[resource_name] = []
+			resources[resource] = []
 			for method in  RESOURCE_METHODS:
 				if getattr(data['cls'], method, None):
-					resources[resource_name].append(method)
-		print resources
+					resources[resource].append(method)
 
 		need_delete_permission_ids = []
 		resource2methods = dict()
-		for rp in permission_models.ResourcePermission.select():
-			resource_name = rp.resource_name
-			resource2methods.setdefault(resource_name, []).append(rp.method)
-			if resource_name not in resources.keys():
+		for rp in permission_models.Permission.select():
+			resource = rp.resource
+			resource2methods.setdefault(resource, []).append(rp.method)
+			if resource not in resources.keys():
 				need_delete_permission_ids.append(rp.id)
 			else:
-				if rp.method not in resources[resource_name]:
+				if rp.method not in resources[resource]:
 					need_delete_permission_ids.append(rp.id)
 
 		#删除已经不存在的resource
-		permission_models.ResourcePermission.delete().dj_where(id__in=need_delete_permission_ids).execute()
-		permission_models.PermissionGroupHasPermission.delete().dj_where(resource_permission_id__in=need_delete_permission_ids).execute()
-		permission_models.UserLimitedPermission.delete().dj_where(resource_permission_id__in=need_delete_permission_ids).execute()
+		if len(need_delete_permission_ids) > 0:
+			permission_models.Permission.delete().dj_where(id__in=need_delete_permission_ids).execute()
+			permission_models.PermissionGroupHasPermission.delete().dj_where(permission_id__in=need_delete_permission_ids).execute()
+			permission_models.UserLimitedPermission.delete().dj_where(permission_id__in=need_delete_permission_ids).execute()
 
 		#增加新的权限
 		create_list = []
-		for resource_name, methods in resources.items():
+		for resource, methods in resources.items():
 			for method in methods:
 				upper_method = method.upper()
-				if upper_method not in resource2methods.get(resource_name, []):
+				if upper_method not in resource2methods.get(resource, []):
 					create_list.append(dict(
-						resource_name = resource_name,
+						resource = resource,
 						method = upper_method
 					))
-		len(create_list) > 0 and permission_models.ResourcePermission.insert_many(create_list).execute()
+		len(create_list) > 0 and permission_models.Permission.insert_many(create_list).execute()
 
 		#创建默认权限分组
 		if permission_models.PermissionGroup.select().dj_where(name=MANAGER_PERMISSION_GROUP['name']).count() == 0:
@@ -68,10 +68,9 @@ class Command(BaseCommand):
 		manager_group_id = permission_models.PermissionGroup.select().dj_where(name=MANAGER_PERMISSION_GROUP['name']).first().id
 		permission_models.PermissionGroupHasPermission.delete().dj_where(group_id=manager_group_id).execute()
 		need_create_group_permissions = []
-		for rp in permission_models.ResourcePermission.select():
+		for rp in permission_models.Permission.select():
 			need_create_group_permissions.append(dict(
 				group_id = manager_group_id,
-				resource_permission_id = rp.id
+				permission_id = rp.id
 			))
 		len(need_create_group_permissions) > 0 and permission_models.PermissionGroupHasPermission.insert_many(need_create_group_permissions).execute()
-

@@ -28,6 +28,8 @@ class FalconResource:
 		pass
 
 	def call_wapi(self, method, app, resource, req, resp):
+		req.context['_app'] = app
+		req.context['_resource'] = resource
 		response = {
 			"code": 200,
 			"errMsg": "",
@@ -179,7 +181,7 @@ def create_app():
 	for handler in error_handlers:
 		falcon_app.add_error_handler(handler)
 
-	# 加载领域事件
+	# 加载领域事件处理器
 	if hasattr(settings, 'DOMAIN_EVENT_HANDLERS'):
 		__load_domain_events(settings.DOMAIN_EVENT_HANDLERS)
 

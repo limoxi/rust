@@ -22,7 +22,7 @@ class UserMiddleware(object):
 		user = None
 		UserRepository.set(user)
 
-		if len(filter(lambda path: path in req.path, settings.NO_NEED_LOGIN_PATHS)) > 0:
+		if req.context.get('__middleware_passed', False):
 			return
 
 		session_key = req.cookies.get('__sid')

@@ -11,7 +11,6 @@ class ATest(ApiResource):
 
 	@param_required(['id'])
 	def get(params):
-		print params
 
 		return {
 			'flag': 'success'

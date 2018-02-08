@@ -13,7 +13,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) #创建时间
 
     class Meta(object):
-        db_table = 'user_user'
+        db_table = 'rust_user'
 
 class UserSession(models.Model):
     """
@@ -25,4 +25,4 @@ class UserSession(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # 创建时间
 
     class Meta(object):
-        db_table = 'user_session'
+        db_table = 'rust_user_session'

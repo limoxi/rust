@@ -2,6 +2,8 @@
 
 from rust.core import business
 
+from rust.resources.business.permission.permission_repository import PermissionRepository
+
 class User(business.Model):
 
 	__slots__ = (
@@ -18,3 +20,7 @@ class User(business.Model):
 		if db_model:
 			self.context['db_model'] = db_model
 			self._init_slot_from_model(db_model)
+
+	@property
+	def permissions(self):
+		return PermissionRepository(self).get_user_permissions()

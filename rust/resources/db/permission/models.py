@@ -2,16 +2,16 @@
 
 from rust.core import base_db_models as models
 
-class ResourcePermission(models.Model):
+class Permission(models.Model):
     """
 	资源权限
 	"""
-    resource_name = models.CharField(default='', max_length=32)  # 资源名
-    method = models.CharField(default='GET', max_length=32)  # 方法
-    updated_at = models.DateTimeField()  # 更新时间
+    resource = models.CharField(default='', max_length=32)  # 资源名
+    method = models.CharField(default='GET', max_length=32)  # 方法名
+    created_at = models.DateTimeField(auto_now_add=True)  # 更新时间
 
     class Meta(object):
-        db_table = 'rust_resource_permission'
+        db_table = 'rust_permission'
 
 
 class PermissionGroup(models.Model):
@@ -29,7 +29,7 @@ class PermissionGroupHasPermission(models.Model):
 	权限组拥有的权限
 	"""
     group_id = models.IntegerField(default=0)
-    resource_permission_id = models.IntegerField(default=0)
+    permission_id = models.IntegerField(default=0)
 
     class Meta(object):
         db_table = 'rust_permission_group_has_permission'
@@ -50,6 +50,7 @@ class UserLimitedPermission(models.Model):
     """
 	用户禁止访问的资源及方法
 	"""
+    user_id = models.IntegerField(default=0)
     permission_id = models.IntegerField(default=0)
     updated_at = models.DateTimeField()  # 更新时间
 
