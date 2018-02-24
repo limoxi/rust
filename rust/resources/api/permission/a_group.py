@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from rust.core.business import ParamObject
 from rust.core.exceptionutil import BusinessError
-from rust.core.api_resource import ApiResource, ParamObject
+from rust.core.api_resource import ApiResource
 from rust.core.decorator import param_required
 from rust.resources.business.permission.permission_group_factory import PermissionGroupFactory
 

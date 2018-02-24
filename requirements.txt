@@ -1,0 +1,6 @@
+behave==1.2.5
+falcon==1.4.1
+six==1.11.0
+requests==2.18.4
+peewee==2.6.4
+setuptools==38.5.1

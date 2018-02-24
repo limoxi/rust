@@ -154,19 +154,8 @@ class Resource(object):
 	app_key = ''
 	app_secret = ''
 
-	__configured = False
-
 	@classmethod
 	def use(cls, service, gateway_host=DEFAULT_GATEWAY_HOST):
-
-		if not cls.__configured:
-			try:
-				import settings
-			except ImportError:
-				from django.conf import settings
-			except:
-				pass
-
 		return Inner(service, gateway_host, {
 			'service_map': cls.service_map,
 			'api_scheme': cls.api_scheme,

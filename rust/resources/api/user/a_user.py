@@ -1,6 +1,7 @@
 #coding: utf8
 
-from rust.core.api_resource import ApiResource, ParamObject
+from rust.core.business import ParamObject
+from rust.core.api_resource import ApiResource
 from rust.core.decorator import param_required
 
 from rust.resources.business.user.user_factory import UserFactory
