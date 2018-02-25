@@ -3,3 +3,5 @@
 .project
 .*~
 *.DS_Store
+rust.egg-info/
+venv/

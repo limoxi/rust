@@ -27,6 +27,14 @@ def find_extra_data(target_dir):
 	print 'load console needed static files...'
 	return package_data
 
+def collect_requires():
+	try:
+		with open('requirements.txt', 'r') as f:
+			contents = f.readlines()
+		return map(lambda content: content.strip(), contents)
+	except:
+		return ['click']
+
 setup(
 	name='rust',
 	version=version,
@@ -34,5 +42,10 @@ setup(
 	author='aix',
 	author_email='asia-aixiang@163.com',
 	packages=find_packages(),
-	package_data=find_extra_data('static')
+	package_data=find_extra_data('static'),
+	install_requires=collect_requires(),
+	entry_points='''
+        [console_scripts]
+        rust-cli=rust.utils.rust_cli:cli
+    ''',
 )
