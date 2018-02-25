@@ -79,24 +79,22 @@ class FalconResource:
 			resp.set_header("Access-Control-Allow-Origin", "*")
 			resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 
-		if getattr(settings, 'DUMP_API_CALL_RESULT', True):
-			# 记录RESOURCE_ACCESS日志
-			resource_access_log = {}
-			if getattr(settings, 'RUST_DISABLE_DUMP_REQ_PARAMS', False):
-				resource_access_log['params'] = 'disabled by RUST_DISABLE_DUMP_REQ_PARAMS'
-			else:
-				resource_access_log['params'] = req.params
-
-			resource_access_log['app'] = app
-			resource_access_log['resource'] = resource
-			resource_access_log['method'] = method
+		if getattr(settings, 'DUMP_API_CALL_RESULT', False):
+			resource_access_log = {
+				'params': req.params,
+				'app': app,
+				'resource': resource,
+				'method': method
+			}
 			if method == 'get':
 				resource_access_log['response'] = {
 					'code': response['code'] if not is_return_raw_data else '__raw_data',
 					'data': 'stop_record'
 				}
 			else:
-				resource_access_log['response'] = json.loads(resp.body)
+				resource_access_log['response'] = response
+
+			#todo 异步记录日志
 
 	def on_get(self, req, resp, app, resource):
 		self.call_wapi('get', app, resource, req, resp)
