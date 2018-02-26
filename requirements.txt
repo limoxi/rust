@@ -4,4 +4,3 @@ click==6.7
 requests==2.18.4
 peewee==2.6.4
 six==1.11.0
-setuptools==38.5.1
