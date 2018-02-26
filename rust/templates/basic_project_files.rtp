@@ -1,9 +1,9 @@
-packages================ ./
+packages================ ./${service_name}/
 api,business,db,commands,middlewares,config
 
 ================end
 
-file================ ./.gitignore
+file================ ./${service_name}/.gitignore
 *.pyc
 .idea/*
 .project
@@ -14,7 +14,7 @@ static/upload/
 
 ================end
 
-file================ ./manage.py
+file================ ./${service_name}/manage.py
 #!/usr/bin/env python
 
 import sys
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
 ================end
 
-file================ ./settings.py
+file================ ./${service_name}/settings.py
 #coding: utf8
 
 import os
@@ -100,12 +100,12 @@ locals().update(load_custom_configs())
 
 ================end
 
-file================ ./api/resources.py
+file================ ./${service_name}/api/resources.py
 #coding: utf8
 
 ================end
 
-file================ ./config/middlewares.py
+file================ ./${service_name}/config/middlewares.py
 #coding: utf8
 
 #中间件
@@ -115,7 +115,7 @@ MIDDLEWARES = [
 
 ================end
 
-file================ ./config/error_handlers.py
+file================ ./${service_name}/config/error_handlers.py
 #coding: utf8
 
 #错误处理
@@ -125,7 +125,7 @@ ERROR_HANDLERS = [
 
 ================end
 
-file================ ./config/domain_events.py
+file================ ./${service_name}/config/domain_events.py
 #coding: utf8
 
 #领域事件处理

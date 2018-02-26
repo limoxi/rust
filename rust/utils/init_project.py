@@ -33,8 +33,9 @@ def __create_packages(path, inner_content):
 	names = inner_content.strip().split(',')
 	for dir_name in names:
 		real_path = path+dir_name
+		print real_path
 		if not os.path.exists(real_path):
-			os.mkdir(real_path)
+			os.makedirs(real_path)
 			__create_file(real_path+'/__init__.py', '#coding: utf8')
 
 def __create_file(path, inner_content):
