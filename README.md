@@ -11,9 +11,9 @@
 - [x] 分页工具
 - [ ] 支持白名单形式的跨域设置
 - [ ] 加入behave支持
-- [ ] api请求日志(异步)
-- [ ] 初始化项目命令 rust-cli init_project xxx
+- [x] 初始化项目命令 rust-cli init_project xxx
 - [ ] 增加资源命令 rust-cli add_resource xxx
 - [ ] 同时支持mysql、mongodb，并将peewee和mongoengine的数据库操作封装成统一方法
 - [ ] python3支持
+- [ ] api请求日志(异步)
 - [ ] 完善文档

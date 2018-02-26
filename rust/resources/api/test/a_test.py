@@ -3,10 +3,9 @@
 from rust.core.api_resource import ApiResource
 from rust.core.decorator import param_required
 
-
 class ATest(ApiResource):
 
-	app = 'example'
+	app = 'test'
 	resource = 'test'
 
 	@param_required(['id'])
