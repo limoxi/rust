@@ -1,6 +1,7 @@
 #coding: utf8
 
 from rust.command.base_command import BaseCommand
+from rust.utils.rust_cli_func import add_resource
 
 class Command(BaseCommand):
 
@@ -8,4 +9,5 @@ class Command(BaseCommand):
 		"""
 		增加资源
 		"""
-		resource_name = args[1]
+		resource_name = args[0]
+		add_resource(resource_name)

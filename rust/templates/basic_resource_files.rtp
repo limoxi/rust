@@ -1,0 +1,178 @@
+packages================ ./
+api/${resource_name},business/${resource_name},business/${resource_name}/events,db/${resource_name}
+
+================end
+
+addition================ ./api/resources.py
+
+import ${resource_name}
+================end
+
+addition================ ./api/${resource_name}/__init__.py
+
+import a_${resource_name}
+================end
+
+file================ ./api/${resource_name}/a_${resource_name}.py
+#coding: utf8
+
+from rust.core.business import ParamObject
+from rust.core.api_resource import ApiResource
+from rust.core.decorator import param_required
+from rust.core.exceptionutil import BusinessError
+
+from business.${resource_name}.${resource_name}_repository import ${upper_resource_name}Repository
+from business.${resource_name}.${resource_name}_factory import ${upper_resource_name}Factory
+
+ERROR_CODE2TEXT = {
+	'existed': u'已存在',
+}
+
+class A${upper_resource_name}(ApiResource):
+
+	app = '${resource_name}'
+	resource = '${resource_name}'
+
+	@param_required(['user', 'id:int'])
+	def get(params):
+		user = params['user']
+		${resource_name} = ${upper_resource_name}Repository(user).get_${resource_name}_by_id(params['id'])
+		if not ${resource_name}:
+			return 500, u'不存在'
+		else:
+			return {
+				'id': ${resource_name}.id,
+				'name': ${resource_name}.name
+			}
+
+	@param_required(['user', 'name'])
+	def put(params):
+		user = params['user']
+		param_object = ParamObject({
+			'name': params['name']
+		})
+		try:
+			${resource_name} = ${upper_resource_name}Factory(user).create(param_object)
+			return {
+				'id': ${resource_name}.id
+			}
+		except BusinessError, e:
+			return 500, e.get_message(ERROR_CODE2TEXT)
+
+	@param_required(['user', 'id:int', 'name'])
+	def post(params):
+		user = params['user']
+		param_object = ParamObject({
+			'id': params['id'],
+			'name': params['name']
+		})
+		try:
+			${upper_resource_name}Factory(user).update(param_object)
+			return {}
+		except BusinessError, e:
+			return 500, e.get_message(ERROR_CODE2TEXT)
+
+	@param_required(['user', 'id:int'])
+	def delete(params):
+		user = params['user']
+		param_object = ParamObject({
+			'id': params['id']
+		})
+		${upper_resource_name}Factory(user).delete(param_object)
+		return {}
+
+================end
+
+file================ ./business/${resource_name}/${resource_name}.py
+#coding: utf8
+
+from rust.core import business
+
+class ${upper_resource_name}(business.Model):
+
+	__slots__ = (
+		'id',
+		'name',
+		'created_at',
+	)
+
+	def __init__(self, db_model):
+		super(${upper_resource_name}, self).__init__()
+		if db_model:
+			self.context['db_model'] = db_model
+			self._init_slot_from_model(db_model)
+
+================end
+
+file================ ./business/${resource_name}/${resource_name}_factory.py
+#coding: utf8
+
+from rust.core import business
+from rust.core.exceptionutil import BusinessError
+
+from business.${resource_name}.${resource_name} import ${upper_resource_name}
+from db.${resource_name} import models as ${resource_name}_models
+
+class ${upper_resource_name}Factory(business.Service):
+
+	def create(self, param_object):
+		#首先检查重名
+		if ${resource_name}_models.${upper_resource_name}.select().dj_where(name=param_object.name).first():
+			raise BusinessError('existed')
+
+		db_model = ${resource_name}_models.${upper_resource_name}.create(
+			name = param_object.name
+		)
+
+		return ${upper_resource_name}(db_model)
+
+	def update(self, param_object):
+		# 首先检查重名
+		db_model = ${resource_name}_models.${upper_resource_name}.select().dj_where(id=param_object.id).first()
+		if db_model.name != param_object.name:
+			if ${resource_name}_models.${upper_resource_name}.select().dj_where(name=param_object.name).first():
+				raise BusinessError('existed')
+
+			db_model.name = param_object.name
+
+		db_model.save()
+
+	def delete(self, param_object):
+		${resource_name}_models.${upper_resource_name}.delete().dj_where(id=param_object.id).execute()
+
+================end
+
+file================ ./business/${resource_name}/${resource_name}_repository.py
+#coding: utf8
+
+from rust.core import business
+
+from business.${resource_name}.${resource_name} import ${upper_resource_name}
+
+from db.${resource_name} import models as ${resource_name}_models
+
+class ${upper_resource_name}Repository(business.Service):
+
+	def get_${resource_name}_by_id(self, ${resource_name}_id):
+		db_model = ${resource_name}_models.${upper_resource_name}.select().dj_where(id=${resource_name}_id).first()
+		if db_model:
+			return ${upper_resource_name}(db_model)
+
+================end
+
+file================ ./db/${resource_name}/models.py
+#coding: utf8
+
+from rust.core import base_db_models as models
+
+class ${upper_resource_name}(models.Model):
+	"""
+	注释
+	"""
+	name = models.CharField(default='', max_length=128) #注释
+	created_at = models.DateTimeField(auto_now_add=True) #创建时间
+
+	class Meta(object):
+		db_table = '${resource_name}_${resource_name}'
+
+================end
