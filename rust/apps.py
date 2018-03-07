@@ -75,9 +75,17 @@ class FalconResource:
 
 		resp.body = json.dumps(response, default=_default)
 
-		if getattr(settings, 'ACCESS_CONTROL_OPEN', False) and settings.ACCESS_CONTROL_OPEN:
-			resp.set_header("Access-Control-Allow-Origin", "*")
-			resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+		ANY_HOST = '*'
+		if hasattr(settings, 'CORS_WHITE_LIST'):
+			valid_host = ''
+			if len(settings.get('CORS_WHITE_LIST', [])) == 0:
+				valid_host = ANY_HOST
+			elif req.host in settings['CORS_WHITE_LIST']:
+				valid_host = req.host
+
+			if valid_host:
+				resp.set_header("Access-Control-Allow-Origin", valid_host)
+				resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 
 		if getattr(settings, 'DUMP_API_CALL_RESULT', False):
 			resource_access_log = {
@@ -115,10 +123,10 @@ def __load_middlewares():
 		module = __import__(module_path, {}, {}, ['*', ])
 		klass = getattr(module, module_name, None)
 		if klass:
-			print 'load middleware %s' % middleware
+			print ('load middleware {}'.format(middleware))
 			middlewares.append(klass())
 		else:
-			print '[ERROR]: invalid middleware %s' % middleware
+			print ('[ERROR]: invalid middleware {}'.format(middleware))
 	return middlewares
 
 def __load_error_handlers():
@@ -135,10 +143,10 @@ def __load_error_handlers():
 		module = __import__(module_path, {}, {}, ['*', ])
 		klass = getattr(module, module_name, None)
 		if klass:
-			print 'load error handler %s' % handler
+			print ('load error handler {}'.format(handler))
 			handlers.append(klass)
 		else:
-			print '[ERROR]: invalid error handler %s' % handler
+			print ('[ERROR]: invalid error handler {}'.format(handler))
 	return handlers
 
 def __load_domain_events(events):
@@ -148,7 +156,7 @@ def __load_domain_events(events):
 	for event_name, modules in events.items():
 		for module_name in modules:
 			__import__(module_name, {}, {}, ['*',])
-			print 'load domain event handler: {}'.format(module_name)
+			print ('load domain event handler: {}'.format(module_name))
 
 def load_rust_resources():
 	"""
@@ -157,7 +165,7 @@ def load_rust_resources():
 	if hasattr(settings, 'RUST_RESOURCES'):
 		for resource in settings.RUST_RESOURCES:
 			__import__('rust.resources.api.{}'.format(resource), {}, {}, ['*', ])
-			print 'load rust built-in resource: {}'.format(resource)
+			print ('load rust built-in resource: {}'.format(resource))
 
 def create_app():
 	load_rust_resources()

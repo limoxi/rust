@@ -25,5 +25,5 @@ class ALoginedUser(ApiResource):
 			return {
 				's_id': session_key
 			}
-		except BusinessError, e:
+		except BusinessError as e:
 			return 500, e.get_message()

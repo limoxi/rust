@@ -32,7 +32,7 @@ class Event(object):
 		"""
 		handlers = self.event2handlers.get(event)
 		if not handlers:
-			print 'no handlers for event [{}]'.format(event)
+			print ('no handlers for event [{}]'.format(event))
 			return
 
 		data['_time'] = datetime.now().strftime('%Y%m%d%H%M%S')

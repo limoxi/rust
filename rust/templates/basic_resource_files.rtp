@@ -56,7 +56,7 @@ class A${upper_resource_name}(ApiResource):
 			return {
 				'id': ${resource_name}.id
 			}
-		except BusinessError, e:
+		except BusinessError as e:
 			return 500, e.get_message(ERROR_CODE2TEXT)
 
 	@param_required(['user', 'id:int', 'name'])
@@ -69,7 +69,7 @@ class A${upper_resource_name}(ApiResource):
 		try:
 			${upper_resource_name}Factory(user).update(param_object)
 			return {}
-		except BusinessError, e:
+		except BusinessError as e:
 			return 500, e.get_message(ERROR_CODE2TEXT)
 
 	@param_required(['user', 'id:int'])

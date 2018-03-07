@@ -25,7 +25,7 @@ def find_extra_data(target_dirs):
 
 		os.path.walk(static_path, walk, None)
 	package_data = {root_path: files}
-	print 'load console needed static files...'
+	print ('load console needed static files...')
 	return package_data
 
 def collect_requires():

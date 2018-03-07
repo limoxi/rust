@@ -6,7 +6,7 @@ from rust.core import api_resource
 from rust.core.exceptionutil import ApiNotExistError
 
 def wapi_log(app, resource, method, data, time_start):
-	print '/{}/{}/{}?{} =====>{}'.format(app, resource, method, data, time.clock() - time_start)
+	print ('/{}/{}/{}?{} =====>{}'.format(app, resource, method, data, time.clock() - time_start))
 
 def wapi_call(method, app, resource, data, req=None, resp=None):
 	resource_name = resource

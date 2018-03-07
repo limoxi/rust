@@ -21,7 +21,7 @@ class Command(BaseCommand):
 	args = ''
 
 	def handle(self, *args, **options):
-		print 'syncdb: create table'
+		print ('syncdb: create table')
 		db_models = []
 		collected_tables = set()
 		for path in DB_PATHS:
@@ -40,7 +40,7 @@ class Command(BaseCommand):
 
 					upper_module = root.split(os.path.sep)[-1]
 					module_name = '{}.{}.{}'.format(path, upper_module, f[:-3])
-					print module_name
+					print (module_name)
 					try:
 						module = __import__(module_name, {}, {}, ['*',])
 						for key, value in module.__dict__.items():
@@ -49,18 +49,18 @@ class Command(BaseCommand):
 								db_table = db_model._meta.db_table
 								if db_table not in get_existed_models():
 									if db_table in collected_tables:
-										print '[duplicate table]: ', db_table
+										print ('[duplicate table]: ', db_table)
 									else:
-										print 'collect model: %s' % key
+										print ('collect model: %s' % key)
 										collected_tables.add(db_table)
 										db_models.append(value)
 					except:
-						print unicode_full_stack()
+						print (unicode_full_stack())
 
-		print 'create %d tables...' % len(db_models)
+		print ('create %d tables...' % len(db_models))
 		peewee.create_model_tables(db_models)
 		for dt in collected_tables:
-			print 'created {} success !'.format(dt)
+			print ('created {} success !'.format(dt))
 
 
 def get_existed_models():

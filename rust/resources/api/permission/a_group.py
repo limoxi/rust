@@ -43,7 +43,7 @@ class AGroup(ApiResource):
 		})
 		try:
 			permission_group = PermissionGroupFactory(user).create(param_object)
-		except BusinessError, e:
+		except BusinessError as e:
 			return 500, e.get_message(ERROR_CODE2TEXT)
 		return {
 			'group_id': permission_group.id

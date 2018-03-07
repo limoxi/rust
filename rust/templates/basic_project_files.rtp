@@ -75,6 +75,8 @@ RUST_RESOURCES = [
     'permission',
 ]
 
+CORS_WHITE_LIST = [] #为空则表示接受所有host
+
 def load_custom_configs():
     configs = {}
     for f in os.listdir('./config'):

@@ -35,7 +35,7 @@ class UserMiddleware(object):
 		if session_key:
 			try:
 				user = UserRepository().get_by_session_key(session_key)
-			except BusinessError, e:
+			except BusinessError as e:
 				raise MiddlewareException(e.get_message(ERROR_CODE2TEXT))
 
 		if user:

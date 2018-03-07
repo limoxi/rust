@@ -47,4 +47,4 @@ class Command(BaseCommand):
         except KeyboardInterrupt:
             sys.exit(0)
         except:
-            print unicode_full_stack()
+            print (unicode_full_stack())
