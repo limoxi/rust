@@ -5,8 +5,8 @@ import falcon
 from rust.core import api_resource
 from rust import RUST_PATH
 
-from rust.apps import load_rust_resources
-load_rust_resources()
+from rust.apps import load_resources
+load_resources()
 
 class ServiceConsoleResource:
 	"""

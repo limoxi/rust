@@ -6,7 +6,7 @@ import MySQLdb
 import peewee
 
 from rust.command.base_command import BaseCommand
-from rust.core.exceptionutil import unicode_full_stack
+from rust.core.exceptions import unicode_full_stack
 from rust.core import base_db_models as models
 
 import settings

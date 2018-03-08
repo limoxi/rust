@@ -4,7 +4,7 @@ import json
 import falcon
 
 from rust.core import api_resource
-from rust.core.exceptionutil import unicode_full_stack, ApiNotExistError
+from rust.core.exceptions import unicode_full_stack, ApiNotExistError
 from rust.core.api_resource import ApiLogger
 from rust.core.resp import SystemErrorResponse, ResponseBase, JsonResponse
 
@@ -26,6 +26,9 @@ class FalconResource:
 		params.update(req.context)
 		params['api_id'] = req.path + '_' + req.method
 
+		if req.method != 'POST':
+			return params
+
 		content_type = req.content_type
 		if content_type == falcon.MEDIA_JSON:
 			params.update(json.loads(req.stream.read()))
@@ -33,6 +36,8 @@ class FalconResource:
 			pass
 		elif content_type == falcon.MEDIA_XML:
 			params['xml'] = req.stream.read()
+			print '============'
+			print params['xml']
 		elif not content_type:
 			raise RuntimeError('[request failed]: missing content_type !!!')
 		else:
@@ -74,7 +79,7 @@ class FalconResource:
 		ANY_HOST = '*'
 		if hasattr(settings, 'CORS_WHITE_LIST'):
 			valid_host = ''
-			if len(settings.get('CORS_WHITE_LIST', [])) == 0:
+			if len(getattr(settings, 'CORS_WHITE_LIST', [])) == 0:
 				valid_host = ANY_HOST
 			elif req.host in settings['CORS_WHITE_LIST']:
 				valid_host = req.host

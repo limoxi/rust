@@ -14,5 +14,3 @@ class ATest(ApiResource):
 		return {
 			'flag': 'success'
 		}
-
-		return raw_response()

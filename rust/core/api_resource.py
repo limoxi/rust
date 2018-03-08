@@ -56,12 +56,12 @@ def api_call(method, app, resource, data, req=None, resp=None):
 
 	resource = APPRESOURCE2CLASS.get(key, None)
 	if not resource:
-		ApiLog.print_req(app, resource_name, method, data, start_at)
+		ApiLogger.print_req(app, resource_name, method, data, start_at)
 		raise ApiNotExistError('%s:%s' % (key, method))
 
 	func = getattr(resource['cls'], method, None)
 	if not func:
-		ApiLog.print_req(app, resource_name, method, data, start_at)
+		ApiLogger.print_req(app, resource_name, method, data, start_at)
 		raise ApiNotExistError('%s:%s' % (key, method))
 
 	data['__req'] = req
@@ -69,5 +69,5 @@ def api_call(method, app, resource, data, req=None, resp=None):
 	response = func(data)
 	del data['__req']
 	del data['__resp']
-	ApiLog.print_req(app, resource_name, method, data, start_at)
+	ApiLogger.print_req(app, resource_name, method, data, start_at)
 	return response

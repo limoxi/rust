@@ -4,7 +4,7 @@ import sys
 
 from rust.utils import autoreload
 from rust.command.base_command import BaseCommand
-from rust.core.exceptionutil import unicode_full_stack
+from rust.core.exceptions import unicode_full_stack
 
 DEFAULT_PORT = '9000'
 DEFAULT_HOST = '127.0.0.1'
