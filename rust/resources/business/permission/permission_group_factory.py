@@ -1,6 +1,6 @@
 #coding: utf8
 
-from rust.core.exceptionutil import BusinessError
+from rust.core.exceptions import BusinessError
 from rust.core import business
 from rust.core.base_db_models import db as peewee_db
 

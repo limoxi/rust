@@ -5,7 +5,7 @@ import time
 from datetime import datetime, timedelta
 
 from rust.core import business
-from rust.core.exceptionutil import BusinessError
+from rust.core.exceptions import BusinessError
 
 from rust.resources.business.user.user_repository import UserRepository
 from rust.resources.db.user import models as user_models

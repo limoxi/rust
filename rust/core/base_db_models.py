@@ -4,7 +4,11 @@ import datetime
 import peewee
 
 from rust.core.hack_peewee import connect
-import settings
+
+try:
+	import settings
+except:
+	raise RuntimeError('[start server failed]: a py file named settings in the project root dir needed !!!]')
 
 DB = settings.DATABASES['default']
 db = None

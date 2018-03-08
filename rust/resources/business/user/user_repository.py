@@ -3,7 +3,7 @@
 from datetime import datetime
 
 from rust.core import business
-from rust.core.exceptionutil import BusinessError
+from rust.core.exceptions import BusinessError
 
 from rust.resources.business.user.user import User
 from rust.resources.db.user import models as user_models

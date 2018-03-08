@@ -56,8 +56,9 @@ DATABASES = {
 }
 
 #信息输出配置
-DUMP_API_CALL_RESULT = True
+API_LOGGER_MODE = 'ALL'
 ENABLE_CONSOLE = (os.environ.get('_ENABLE_API_CONSOLE', '1') == '1')
+
 SERVICE_HOST = '127.0.0.1:9001'
 
 UPLOAD_DIR = os.path.join(PROJECT_HOME, 'static', 'upload')  # 文件上传路径

@@ -1,79 +1,75 @@
 # -*- coding: utf-8 -*-
 
-import decimal
 import json
-from datetime import datetime, date
 import falcon
 
-from rust import wapi as wapi_resource
 from rust.core import api_resource
-from rust.core.exceptionutil import unicode_full_stack
+from rust.core.exceptionutil import unicode_full_stack, ApiNotExistError
+from rust.core.api_resource import ApiLogger
+from rust.core.resp import SystemErrorResponse, ResponseBase, JsonResponse
 
-import api.resources
-
-import settings
-
-def _default(obj):
-	if isinstance(obj, datetime): 
-		return obj.strftime('%Y-%m-%d %H:%M:%S') 
-	elif isinstance(obj, date): 
-		return obj.strftime('%Y-%m-%d') 
-	elif isinstance(obj, decimal.Decimal):
-		return str(obj)
-	else:
-		raise TypeError('%r is not JSON serializable (type %s)' % (obj, type(obj)))
+try:
+	import settings
+except:
+	raise RuntimeError('[start server failed]: a py file named settings in the project root dir needed !!!]')
 
 class FalconResource:
 	def __init__(self):
 		pass
 
-	def call_wapi(self, method, app, resource, req, resp):
+	def __parse_api_params(self, req):
+		"""
+		对于不支持的content_type，直接返回空串
+		"""
+		params = {}
+		params.update(req.params)
+		params.update(req.context)
+		params['api_id'] = req.path + '_' + req.method
+
+		content_type = req.content_type
+		if content_type == falcon.MEDIA_JSON:
+			params.update(json.loads(req.stream.read()))
+		elif 'application/x-www-form-urlencoded' in content_type:
+			pass
+		elif content_type == falcon.MEDIA_XML:
+			params['xml'] = req.stream.read()
+		elif not content_type:
+			raise RuntimeError('[request failed]: missing content_type !!!')
+		else:
+			params = None
+
+		return params
+
+	def __call_api(self, method, app, resource, req, resp):
 		req.context['_app'] = app
 		req.context['_resource'] = resource
-		response = {
-			"code": 200,
-			"errMsg": "",
-			"innerErrMsg": "",
-		}
 		resp.status = falcon.HTTP_200
 		
-		args = {}
-		args.update(req.params)
-		args.update(req.context)
-		args['wapi_id'] = req.path + '_' + req.method
-		is_return_raw_data = False
-
 		try:
-			raw_response = wapi_resource.wapi_call(method, app, resource, args, req, resp)
-			if type(raw_response) == tuple:
-				response['code'] = raw_response[0]
-				response['data'] = raw_response[1]
-				if response['code'] != 200:
-					response['errMsg'] = response['data']
-					response['innerErrMsg'] = response['data']
-			else:
-				response['code'] = 200
-				response['data'] = raw_response
+			params = self.__parse_api_params(req)
+			if not params:
+				# 对于不支持的content_type，直接返回空串
+				resp.body = ''
+				return
 
-			if response['code'] == 200:
-				if type(response['data']) == dict and response['data'].get('__type') == 'raw':
-					is_return_raw_data = True
-					response = response['data'].get('data')
-					if type(response) == dict:
-						response['code'] = 200
-					else:
-						pass
-					
-		except wapi_resource.ApiNotExistError as e:
-			response['code'] = 404
-			response['errMsg'] = str(e).strip()
-			response['innerErrMsg'] = unicode_full_stack()
+			response = api_resource.api_call(method, app, resource, params, req, resp)
+		except ApiNotExistError as e:
+			response = SystemErrorResponse(
+				code = 404,
+				errMsg = str(e).strip(),
+				innerErrMsg = 'api===>{}:{} not exist'.format(app, resource)
+			)
 		except Exception as e:
-			response['code'] = 531 #内部异常
-			response['errMsg'] = str(e).strip()
-			response['innerErrMsg'] = unicode_full_stack()
+			response = SystemErrorResponse(
+				code = 531,
+				errMsg = str(e).strip(),
+				innerErrMsg = unicode_full_stack()
+			)
 
-		resp.body = json.dumps(response, default=_default)
+		if not isinstance(response, ResponseBase):
+			response = JsonResponse(response)
+
+		resp.body = response.to_string()
 
 		ANY_HOST = '*'
 		if hasattr(settings, 'CORS_WHITE_LIST'):
@@ -87,29 +83,23 @@ class FalconResource:
 				resp.set_header("Access-Control-Allow-Origin", valid_host)
 				resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 
-		if getattr(settings, 'DUMP_API_CALL_RESULT', False):
-			resource_access_log = {
-				'params': req.params,
+		if getattr(settings, 'API_LOGGER_MODE'):
+			ApiLogger.log(req_data={
 				'app': app,
 				'resource': resource,
-				'method': method
-			}
-			if method == 'get':
-				resource_access_log['response'] = {
-					'code': response['code'] if not is_return_raw_data else '__raw_data',
-					'data': 'stop_record'
-				}
-			else:
-				resource_access_log['response'] = response
-
-			#todo 异步记录日志
+				'method': method,
+				'params': params,
+				'req_instance': req
+			}, resp_data={
+				'resp_instance': resp
+			}, mode=getattr(settings, 'API_LOGGER_MODE', None))
 
 	def on_get(self, req, resp, app, resource):
-		self.call_wapi('get', app, resource, req, resp)
+		self.__call_api('get', app, resource, req, resp)
 
 	def on_post(self, req, resp, app, resource):
 		_method = req.params.get('_method', 'post')
-		self.call_wapi(_method, app, resource, req, resp)
+		self.__call_api(_method, app, resource, req, resp)
 
 def __load_middlewares():
 	"""
@@ -158,17 +148,23 @@ def __load_domain_events(events):
 			__import__(module_name, {}, {}, ['*',])
 			print ('load domain event handler: {}'.format(module_name))
 
-def load_rust_resources():
+def load_resources():
 	"""
-	加载rust自带资源
+	加载资源
 	"""
+	#加载rust资源
 	if hasattr(settings, 'RUST_RESOURCES'):
 		for resource in settings.RUST_RESOURCES:
 			__import__('rust.resources.api.{}'.format(resource), {}, {}, ['*', ])
 			print ('load rust built-in resource: {}'.format(resource))
+	#加载用户定义的资源
+	try:
+		import api.resources
+	except:
+		pass
 
 def create_app():
-	load_rust_resources()
+	load_resources()
 
 	middlewares = __load_middlewares()
 	falcon_app = falcon.API(middleware=middlewares)

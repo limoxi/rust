@@ -2,7 +2,7 @@
 
 import json
 
-from rust.core.exceptionutil import BusinessError
+from rust.core.exceptions import BusinessError
 
 class MiddlewareException(BusinessError):
 

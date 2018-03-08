@@ -19,7 +19,7 @@ file================ ./api/${resource_name}/a_${resource_name}.py
 from rust.core.business import ParamObject
 from rust.core.api_resource import ApiResource
 from rust.core.decorator import param_required
-from rust.core.exceptionutil import BusinessError
+from rust.core.exceptions import BusinessError
 
 from business.${resource_name}.${resource_name}_repository import ${upper_resource_name}Repository
 from business.${resource_name}.${resource_name}_factory import ${upper_resource_name}Factory
@@ -108,7 +108,7 @@ file================ ./business/${resource_name}/${resource_name}_factory.py
 #coding: utf8
 
 from rust.core import business
-from rust.core.exceptionutil import BusinessError
+from rust.core.exceptions import BusinessError
 
 from business.${resource_name}.${resource_name} import ${upper_resource_name}
 from db.${resource_name} import models as ${resource_name}_models

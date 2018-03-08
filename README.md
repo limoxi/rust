@@ -9,7 +9,7 @@
 ### TODO
 - [x] 自带user和permission资源
 - [x] 分页工具
-- [ ] 接收text/plain、application/x-www-form-urlencoded、application/json、application/xml四种类型数据
+- [x] 暂只接收application/x-www-form-urlencoded、application/json、application/xml 三种类型数据
 - [x] 支持白名单形式的跨域设置
 - [ ] 加入behave支持
 - [x] 初始化项目命令 rust-cli init_project xxx

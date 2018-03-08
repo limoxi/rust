@@ -2,7 +2,7 @@
 
 from rust.core.api_resource import ApiResource
 from rust.core.decorator import param_required
-from rust.core.exceptionutil import BusinessError
+from rust.core.exceptions import BusinessError
 
 from rust.resources.business.user.login_service import LoginService
 

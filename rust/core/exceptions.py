@@ -8,11 +8,11 @@ def __full_stack():
         del stack[-1]       # remove call of full_stack, the printed exception
         # will contain the caught exception caller instead
     trc = 'Traceback (most recent call last, REVERSED CALL ORDER):\n'
-    stackstr = trc + ''.join(reversed(traceback.format_list(stack)))
+    stack_str = trc + ''.join(reversed(traceback.format_list(stack)))
     if not exc is None:
-        stackstr += '  ' + traceback.format_exc().lstrip(trc)
+        stack_str += '  ' + traceback.format_exc().lstrip(trc)
 
-    return stackstr
+    return stack_str
 
 def unicode_full_stack():
     return __full_stack().decode('utf-8')
@@ -24,7 +24,7 @@ class BusinessError(Exception):
     """
     def __init__(self, message):
         self.message = message
-        Exception.__init__(self, message)
+        super(BusinessError, self).__init__(message)
 
     def __unicode__(self):
 

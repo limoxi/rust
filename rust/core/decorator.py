@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-from rust.core.exceptionutil import ApiParameterError
+from rust.core.exceptions import ApiParameterError
 
 class cached_context_property(property):
     """
