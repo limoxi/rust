@@ -12,9 +12,15 @@
 - [x] 暂只接收application/x-www-form-urlencoded、application/json、application/xml 三种类型数据
 - [x] 支持白名单形式的跨域设置
 - [ ] 加入behave支持
-- [x] 初始化项目命令 rust-cli init_project xxx
-- [x] 增加资源命令 rust-cli add_resource xxx
+- [x] 初始化项目命令 rust-cli init xxx
+- [x] 增加资源命令 rust-cli add xxx
 - [ ] 同时支持mysql、mongodb，并将peewee和mongoengine的数据库操作封装成统一方法
 - [ ] python3支持
 - [ ] api请求日志(异步)
 - [ ] 完善文档
+
+
+### 项目参考
+>http://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/ python书写风格指南
+>https://item.jd.com/11423256.html 《实现领域驱动设计》[美] Vaughn Vernon 著；滕云 译
+>https://github.com/falconry/falcon falcon
