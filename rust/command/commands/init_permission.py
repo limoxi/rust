@@ -1,11 +1,13 @@
 #coding: utf8
 
 from rust.command.base_command import BaseCommand
-from rust.core.api_resource import APPRESOURCE2CLASS
-
-import api.resources #重要！误删！！
-from rust.apps import load_rust_resources
-load_rust_resources()
+from rust.core.api import APPRESOURCE2CLASS
+try:
+	import api.resources #重要！误删！！
+except:
+	print ('no api yet')
+from rust.apps import load_resources
+load_resources()
 
 from rust.resources.db.permission import models as permission_models
 

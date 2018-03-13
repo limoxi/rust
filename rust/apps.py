@@ -3,9 +3,9 @@
 import json
 import falcon
 
-from rust.core import api_resource
+from rust.core import api
 from rust.core.exceptions import unicode_full_stack, ApiNotExistError
-from rust.core.api_resource import ApiLogger
+from rust.core.api import ApiLogger
 from rust.core.resp import SystemErrorResponse, ResponseBase, JsonResponse
 
 try:
@@ -57,7 +57,7 @@ class FalconResource:
 				resp.body = ''
 				return
 
-			response = api_resource.api_call(method, app, resource, params, req, resp)
+			response = api.api_call(method, app, resource, params, req, resp)
 		except ApiNotExistError as e:
 			response = SystemErrorResponse(
 				code = 404,

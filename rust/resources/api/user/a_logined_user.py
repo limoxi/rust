@@ -1,6 +1,6 @@
 #coding: utf8
 
-from rust.core.api_resource import ApiResource
+from rust.core.api import ApiResource
 from rust.core.decorator import param_required
 from rust.core.exceptions import BusinessError
 

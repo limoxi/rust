@@ -1,4 +1,6 @@
 behave==1.2.5
+PyMySQL==0.8.0
+setuptools==28.8.0
 falcon==1.4.1
 click==6.7
 requests==2.18.4

@@ -2,8 +2,9 @@
 
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.user.user_repository import UserRepository
+from rust.core.middleware import BaseMiddleware
 
-class UserMiddleware(object):
+class UserMiddleware(BaseMiddleware):
 	def process_request(sel, req, resp):
 		"""
 		构建用户实例
@@ -28,3 +29,6 @@ class UserMiddleware(object):
 				UserRepository.set(user)
 			else:
 				raise MiddlewareException(u'帐号不存在')
+
+	def process_response(self, request, response, resource):
+		pass

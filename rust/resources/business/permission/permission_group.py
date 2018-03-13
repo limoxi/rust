@@ -2,7 +2,7 @@
 
 from rust.core.decorator import cached_context_property
 from rust.core import business
-from rust.core.base_db_models import db as peewee_db
+from rust.core.db import db as peewee_db
 
 from rust.resources.db.permission import models as permission_models
 

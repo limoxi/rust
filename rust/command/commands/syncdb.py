@@ -2,12 +2,12 @@
 
 import os
 import inspect
-import MySQLdb
+import pymysql
 import peewee
 
 from rust.command.base_command import BaseCommand
 from rust.core.exceptions import unicode_full_stack
-from rust.core import base_db_models as models
+from rust.core import db as models
 
 import settings
 
@@ -65,7 +65,7 @@ class Command(BaseCommand):
 
 def get_existed_models():
 	config = settings.DATABASES['default']
-	db = MySQLdb.connect(config['HOST'], config['USER'], config['PASSWORD'], config['NAME'], port=int(config['PORT']))
+	db = pymysql.connect(config['HOST'], config['USER'], config['PASSWORD'], config['NAME'], port=int(config['PORT']))
 	cursor = db.cursor()
 	cursor.execute('show tables;')
 	rows = cursor.fetchall()

@@ -1,6 +1,6 @@
 #coding: utf8
 
-from rust.core import base_db_models as models
+from rust.core import db as models
 
 class User(models.Model):
     """

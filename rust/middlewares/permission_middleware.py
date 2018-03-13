@@ -3,8 +3,9 @@
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.permission.permission_service import PermissionService
 from rust.resources.business.user.user_repository import UserRepository
+from rust.core.middleware import BaseMiddleware
 
-class PermissionMiddleware(object):
+class PermissionMiddleware(BaseMiddleware):
 	def process_request(sel, req, resp):
 		"""
 		权限检查
@@ -24,3 +25,6 @@ class PermissionMiddleware(object):
 				raise MiddlewareException(u'当前用户没有权限进行此操作')
 		else:
 			raise MiddlewareException(u'帐号不存在')
+
+	def process_response(self, request, response, resource):
+		pass

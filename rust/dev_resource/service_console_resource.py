@@ -2,7 +2,7 @@
 import os
 import falcon
 
-from rust.core import api_resource
+from rust.core import api
 from rust import RUST_PATH
 
 from rust.apps import load_resources
@@ -16,7 +16,7 @@ class ServiceConsoleResource:
 		pass
 
 	def on_get(self, req, resp):
-		resources = [resource.replace('-', '.') for resource in api_resource.APPRESOURCE2CLASS.keys()]
+		resources = [resource.replace('-', '.') for resource in api.APPRESOURCE2CLASS.keys()]
 		resources.sort()
 		options = ['<option value="%s">%s</option>' % (resource, resource) for resource in resources]
 

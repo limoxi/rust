@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from rust.core.exceptions import BusinessError
+from rust.core.middleware import BaseMiddleware
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.user.user_repository import UserRepository
 
@@ -11,7 +12,7 @@ ERROR_CODE2TEXT = {
 	'expired session_key': u'session已过期，请重新登录',
 }
 
-class UserMiddleware(object):
+class UserMiddleware(BaseMiddleware):
 	def process_request(sel, req, resp):
 		"""
 		检查用户登录状态
@@ -43,3 +44,6 @@ class UserMiddleware(object):
 			UserRepository.set(user)
 		else:
 			raise MiddlewareException(u'帐号不存在')
+
+	def process_response(self, request, response, resource):
+		pass

@@ -1,12 +1,12 @@
 #coding: utf8
 
-from rust.core import base_db_models as models
+from rust.core import db as models
 
 class Permission(models.Model):
     """
 	资源权限
 	"""
-    resource = models.CharField(default='', max_length=32)  # 资源名
+    resource = models.CharField(default='', max_length=128)  # 资源名
     method = models.CharField(default='GET', max_length=32)  # 方法名
     created_at = models.DateTimeField(auto_now_add=True)  # 更新时间
 

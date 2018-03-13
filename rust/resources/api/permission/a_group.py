@@ -2,7 +2,7 @@
 
 from rust.core.business import ParamObject
 from rust.core.exceptions import BusinessError
-from rust.core.api_resource import ApiResource
+from rust.core.api import ApiResource
 from rust.core.decorator import param_required
 from rust.resources.business.permission.permission_group_factory import PermissionGroupFactory
 
