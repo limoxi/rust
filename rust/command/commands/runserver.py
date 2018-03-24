@@ -19,7 +19,9 @@ class Command(BaseCommand):
 
         if len(args) == 1:
             self.addr = args[0]
+            self.port = DEFAULT_PORT
         if len(args) == 2:
+            self.addr = DEFAULT_HOST
             self.port = args[1]
         else:
             self.addr = DEFAULT_HOST
