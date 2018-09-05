@@ -24,3 +24,10 @@
 >[python书写风格指南](http://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/)  
 >[《实现领域驱动设计》[美] Vaughn Vernon 著；滕云 译](https://item.jd.com/11423256.html)  
 >[falcon](https://github.com/falconry/falcon)  
+
+### 升级日志
+v 1.1.1
+- 升级peewee=v3.6.4
+    - db_table 改为 table_name
+- 升级falcon=1.4.1
+- 升级PyMySQL=0.9.2

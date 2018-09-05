@@ -2,8 +2,8 @@
 
 import datetime
 import peewee
-
-from rust.core.hack_peewee import connect
+from playhouse.db_url import connect
+import hack_peewee
 
 try:
 	import settings
@@ -28,8 +28,7 @@ class Model(peewee.Model):
 
 class IntegerField(peewee.IntegerField):
 
-	def __init__(self, blank=False, db_index=False, **kwargs):
-		kwargs['null'] = blank
+	def __init__(self, db_index=False, **kwargs):
 		if db_index:
 			kwargs['index'] = db_index
 		super(IntegerField, self).__init__(**kwargs)
@@ -37,8 +36,7 @@ class IntegerField(peewee.IntegerField):
 
 class CharField(peewee.CharField):
 
-	def __init__(self, blank=False, db_index=False, **kwargs):
-		kwargs['null'] = blank
+	def __init__(self, db_index=False, **kwargs):
 		if db_index:
 			kwargs['index'] = db_index
 		super(CharField, self).__init__(**kwargs)
@@ -58,10 +56,9 @@ class DecimalField(peewee.DecimalField):
 
 class DateTimeField(peewee.DateTimeField):
 
-	def __init__(self, auto_now_add=False, blank=False, **kwargs):
+	def __init__(self, auto_now_add=False, **kwargs):
 		if auto_now_add:
 			kwargs['default'] = datetime.datetime.now
-		kwargs['null'] = blank
 		super(DateTimeField, self).__init__(**kwargs)
 
 class BooleanField(peewee.BooleanField):

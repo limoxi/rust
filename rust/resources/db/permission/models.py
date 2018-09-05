@@ -11,7 +11,7 @@ class Permission(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # 更新时间
 
     class Meta(object):
-        db_table = 'rust_permission'
+        table_name = 'rust_permission'
 
 
 class PermissionGroup(models.Model):
@@ -22,7 +22,7 @@ class PermissionGroup(models.Model):
     desc = models.CharField(default='', max_length=1024)  #描述
 
     class Meta(object):
-        db_table = 'rust_permission_group'
+        table_name = 'rust_permission_group'
 
 class PermissionGroupHasPermission(models.Model):
     """
@@ -32,7 +32,7 @@ class PermissionGroupHasPermission(models.Model):
     permission_id = models.IntegerField(default=0)
 
     class Meta(object):
-        db_table = 'rust_permission_group_has_permission'
+        table_name = 'rust_permission_group_has_permission'
 
 
 class PermissionGroupHasUser(models.Model):
@@ -43,7 +43,7 @@ class PermissionGroupHasUser(models.Model):
     user_id = models.IntegerField(default=0)
 
     class Meta(object):
-        db_table = 'rust_permission_group_has_user'
+        table_name = 'rust_permission_group_has_user'
 
 
 class UserLimitedPermission(models.Model):
@@ -55,4 +55,4 @@ class UserLimitedPermission(models.Model):
     updated_at = models.DateTimeField()  # 更新时间
 
     class Meta(object):
-        db_table = 'rust_user_limited_permission'
+        table_name = 'rust_user_limited_permission'

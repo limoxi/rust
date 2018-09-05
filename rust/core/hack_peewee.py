@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-try:
-    from urlparse import urlparse
-except ImportError:
-    from urllib.parse import urlparse #python3
-
-from peewee import *
-from peewee import Query
-from playhouse.pool import PooledMySQLDatabase
+import operator
+from peewee import ModelSelect, Node
 
 def __parse_field_name(str):
     pos = str.find('__')
@@ -15,13 +9,16 @@ def __parse_field_name(str):
     else:
         return str[:pos], str[pos:]
 
+@Node.copy
 def dj_where(self, *expressions):
-    self._where = self._add_query_clauses(self._where, expressions)
+    if self._where is not None:
+        expressions = (self._where,) + expressions
+    self._where = reduce(operator.and_, expressions)
 
 def django_where_returns_clone(func):
 
     def inner(self, *args, **kwargs):
-        fields = self.model_class._meta.fields
+        fields = self.model._meta.fields
         args = []
         for field_name, value in kwargs.items():
             field_name, op = __parse_field_name(field_name)
@@ -64,63 +61,6 @@ def django_where_returns_clone(func):
     inner.call_local = func  # Provide a way to call without cloning.
     return inner
 
-Query.dj_where = django_where_returns_clone(dj_where)
+ModelSelect.dj_where = django_where_returns_clone(dj_where)
 
-class RetryOperationalError(object):
-    def execute_sql(self, sql, params=None, require_commit=True):
-        try:
-            cursor = super(RetryOperationalError, self).execute_sql(
-                sql, params, require_commit)
-        except OperationalError:
-            if not self.is_closed():
-                self.close()
-            cursor = self.get_cursor()
-            cursor.execute(sql, params or ())
-            if require_commit and self.get_autocommit():
-                self.commit()
-        return cursor
-
-
-class MySQLDatabaseRetry(RetryOperationalError, MySQLDatabase):
-    pass
-
-schemes = {
-    'mysql': MySQLDatabase,
-    'mysql+retry': MySQLDatabaseRetry,
-    'mysql+pool': PooledMySQLDatabase,
-}
-
-
-def parse_result_to_dict(parsed):
-    connect_kwargs = {'database': parsed.path[1:]}
-    if parsed.username:
-        connect_kwargs['user'] = parsed.username
-    if parsed.password:
-        connect_kwargs['password'] = parsed.password
-    if parsed.hostname:
-        connect_kwargs['host'] = parsed.hostname
-    if parsed.port:
-        connect_kwargs['port'] = parsed.port
-
-    # Adjust parameters for MySQL.
-    if parsed.scheme == 'mysql' and 'password' in connect_kwargs:
-        connect_kwargs['passwd'] = connect_kwargs.pop('password')
-
-    return connect_kwargs
-
-
-def connect(url, **connect_params):
-    parsed = urlparse(url)
-    connect_kwargs = parse_result_to_dict(parsed)
-    connect_kwargs.update(connect_params)
-    database_class = schemes.get(parsed.scheme)
-
-    if database_class is None:
-        if database_class in schemes:
-            raise RuntimeError('Attempted to use "%s" but a required library '
-                               'could not be imported.' % parsed.scheme)
-        else:
-            raise RuntimeError('Unrecognized or unsupported scheme: "%s".' %
-                               parsed.scheme)
-
-    return database_class(**connect_kwargs)
+print ('peewee hacked: dj_where func attached on ModelSelect')

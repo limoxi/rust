@@ -173,6 +173,6 @@ class ${upper_resource_name}(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True) #创建时间
 
 	class Meta(object):
-		db_table = '${resource_name}_${resource_name}'
+		table_name = '${resource_name}_${resource_name}'
 
 ================end
