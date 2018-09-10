@@ -14,7 +14,8 @@
 - [ ] 加入behave支持
 - [x] 初始化项目命令 rust-cli init xxx
 - [x] 增加资源命令 rust-cli add xxx
-- [ ] 同时支持mysql、mongodb，并将peewee和mongoengine的数据库操作封装成统一方法
+- [ ] 支持多种数据库，并提供扩展能力
+- [ ] 支持容器部署
 - [ ] python3支持
 - [ ] api请求日志(异步)
 - [ ] 完善文档

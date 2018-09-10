@@ -158,3 +158,62 @@ for event, module_paths in DOMAIN_EVENT_HANDLERS.items():
 	setattr(k1_c, k2, event)
 
 ================end
+
+file================ ./${service_name}/dockerfile
+
+FROM registry.cn-hangzhou.aliyuncs.com/aix/python27
+
+ADD . /service
+WORKDIR /service
+
+RUN pip install -U \
+    git+https://code.aliyun.com/aix/rust.git
+
+RUN pip install -i http://pypi.douban.com/simple/ \
+    --trusted-host pypi.douban.com \
+    -r ./requirements.txt \
+    && rm -rf ~/.pip
+
+ENTRYPOINT ["/usr/local/bin/dumb-init", "/bin/bash", "start_service.sh"]
+
+================end
+
+file================ ./${service_name}/start_service.sh
+
+#!/bin/bash
+
+PORT=`grep SERVICE_PORT settings.py | awk -F "=" '{print $$2}' | awk -F "," '{print $$1}' | xargs echo`
+
+# start service
+if [ "$$_SERVICE_MODE" == "develop" ]; then
+    python manage.py runserver 0.0.0.0 $$PORT
+else
+	gunicorn server:app \
+        --reload \
+        --bind 127.0.0.1:$$PORT \
+        --env API_GATEWAY=api.test.com \
+        --env MODE=deploy \
+        --env DB_NAME=test \
+        --env DB_USER=test \
+        --env DB_HOST=test.com \
+        --env DB_PORT=3306 \
+        --env DB_PASSWORD=test \
+        --env _ENABLE_API_SERVICE_CONSOLE=0
+fi
+
+================end
+
+file================ ./${service_name}/server.py
+
+#coding:utf8
+
+from rust import apps
+app = apps.create_app()
+
+================end
+
+file================ ./${service_name}/build_image.sh
+
+docker build image -f .
+
+================end
