@@ -2,6 +2,8 @@
 
 import sys
 
+from rust.core.exceptions import unicode_full_stack
+
 def load_rust_command(command):
     module_name = 'rust.command.commands.%s' % command
     print ('load rust command: ', module_name)
@@ -28,7 +30,5 @@ def run_command(command):
         instance = getattr(command_module, 'Command')()
         try:
             instance.handle(*sys.argv[2:])
-        except TypeError, e:
-            print ('[ERROR]: wrong command arguments, usages:')
-            print (instance.help)
-            print ('Exception: {}'.format(e))
+        except:
+            print unicode_full_stack()

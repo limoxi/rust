@@ -150,7 +150,7 @@ class __EventsObject(object):
 DOMAIN_EVENTS = __EventsObject()
 for event, module_paths in DOMAIN_EVENT_HANDLERS.items():
 	k1, k2 = event.split('.')
-	if not hasattr(k1, DOMAIN_EVENTS):
+	if not hasattr(DOMAIN_EVENTS, k1):
 		k1_c = __EventsObject()
 		setattr(DOMAIN_EVENTS, k1, k1_c)
 	else:
