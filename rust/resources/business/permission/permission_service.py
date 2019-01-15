@@ -21,7 +21,6 @@ class PermissionService(business.Service):
 			group_id__in=group_ids, permission_id=permission.id
 		).count() > 0
 
-	@peewee_db.atomic()
 	def limit_user_permissions(self, user_id, permission_ids):
 		"""
 		限制用户权限

@@ -1,14 +1,11 @@
 #coding: utf8
 
 import hashlib
-import time
-from datetime import datetime, timedelta
 
 from rust.core import business
-from rust.core.exceptions import BusinessError
-
+from rust.core.exceptions import BusinessException
 from rust.resources.business.user.user_repository import UserRepository
-from rust.resources.db.user import models as user_models
+from rust.utils.jwt_service import JWTService
 
 class LoginService(business.Service):
 
@@ -18,23 +15,23 @@ class LoginService(business.Service):
 		hash = hashlib.sha1(salt + raw_password).hexdigest()
 		return "%s$%s$%s" % (algorithm, salt, hash)
 
-	def create_session(self, user):
-		"""
-		创建一次session
-		"""
-		today = datetime.now()
-		session_key = 'member_{}_{}'.format(str(time.time()), user.id)
-		session_key = hashlib.md5(session_key).hexdigest()
-
-		user_models.UserSession.create(session_key=session_key, user_id=user.id, expire_date=today+timedelta(days=1))
-		return session_key
-
 	def login(self, username, raw_password):
 		user = UserRepository().get_by_name(username)
 		if not user:
-			raise BusinessError('not exist')
+			raise BusinessException('not exist', u'用户不存在')
 
 		if user.password != self.encrypt_password(raw_password):
-			raise BusinessError('incorrect password')
+			raise BusinessException('incorrect password', u'密码错误')
 
-		return self.create_session(user)
+		token = JWTService().encode({
+			'id': user.id,
+			'nickname': user.nickname,
+			'avatar': user.avatar
+		})
+
+		return {
+			'id': user.id,
+			'nickname':  user.nickname,
+			'avatar': user.avatar,
+			'token': token
+		}

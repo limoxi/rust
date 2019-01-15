@@ -5,12 +5,14 @@ import urllib
 import urlparse
 import os
 import requests
-from rust.core.exceptions import unicode_full_stack
 from time import time
 import logging
 
+from rust.core.exceptions import unicode_full_stack
+from rust.utils.jwt_service import JWTService
+
 CALL_SERVICE_WATCHDOG_TYPE = "USE_RESOURCE"
-DEFAULT_TIMEOUT = 30
+DEFAULT_TIMEOUT = 20
 DEFAULT_GATEWAY_HOST = os.environ.get("API_GATEWAY", 'http://api.test.com')
 
 def url_add_params(url, **params):
@@ -22,19 +24,14 @@ def url_add_params(url, **params):
 	prlist[4] = urllib.urlencode(query)
 	return urlparse.ParseResult(*prlist).geturl()
 
-
 class Inner(object):
 
 	def __init__(self, service, gateway_host, config):
 		self.service = service
 		self.gateway_host = gateway_host
 		self.__json_data = None
-		self.service_map = config['service_map']
 		self.api_scheme = config['api_scheme']
 		self.__resource = ''
-		self.enable_api_auth = config['enable_api_auth']
-		self.app_key = config['app_key']
-		self.app_secret = config['app_secret']
 		if gateway_host.find('://') < 0:
 			# 如果没有scheme，则自动补全
 			self.gateway_host = "%s://%s" % (self.api_scheme, gateway_host)
@@ -65,7 +62,7 @@ class Inner(object):
 
 		resource_path = resource.replace('.', '/')
 
-		service_name = self.service_map.get(self.service, self.service)
+		service_name = self.service
 		self.__target_service = service_name
 		if service_name:
 			base_url = '%s/%s/%s/' % (host, service_name, resource_path)
@@ -75,20 +72,21 @@ class Inner(object):
 
 		url = url_add_params(base_url)
 
+		headers = {
+			'AUTHORIZATION': JWTService.get_current()
+		}
+
 		start = time()
 		try:
 			# 访问资源
-			if self.access_token:
-				params['access_token'] = self.access_token
-
 			if method == 'get':
-				resp = requests.get(url, params=params, timeout=DEFAULT_TIMEOUT)
+				resp = requests.get(url, headers=headers, params=params, timeout=DEFAULT_TIMEOUT)
 			elif method == 'post':
-				resp = requests.post(url, data=params, timeout=DEFAULT_TIMEOUT)
+				resp = requests.post(url, headers=headers, data=params, timeout=DEFAULT_TIMEOUT)
 			else:
 				# 对于put、delete方法，变更为post方法，且querystring增加_method=put或_method=delete
 				url = url_add_params(url, _method=method)
-				resp = requests.post(url, data=params, timeout=DEFAULT_TIMEOUT)
+				resp = requests.post(url, headers=headers, data=params, timeout=DEFAULT_TIMEOUT)
 
 			self.__resp = resp
 
@@ -148,18 +146,10 @@ class Inner(object):
 		print msg
 
 class Resource(object):
-	service_map = {}
-	enable_api_auth = False
 	api_scheme = 'http'
-	app_key = ''
-	app_secret = ''
 
 	@classmethod
 	def use(cls, service, gateway_host=DEFAULT_GATEWAY_HOST):
 		return Inner(service, gateway_host, {
-			'service_map': cls.service_map,
 			'api_scheme': cls.api_scheme,
-			'enable_api_auth': cls.enable_api_auth,
-			'app_key': cls.app_key,
-			'app_secret': cls.app_secret
 		})

@@ -2,9 +2,10 @@
 
 import json
 import falcon
+from rust.core.db import db as rust_db
 
 from rust.core import api
-from rust.core.exceptions import unicode_full_stack, ApiNotExistError
+from rust.core.exceptions import unicode_full_stack, ApiNotExistError, BusinessException
 from rust.core.api import ApiLogger
 from rust.core.resp import SystemErrorResponse, ResponseBase, JsonResponse
 
@@ -28,18 +29,16 @@ class FalconResource:
 
 		if req.method != 'POST':
 			return params
-
 		content_type = req.content_type
-		if content_type == falcon.MEDIA_JSON:
+		if len(content_type.split(';')) > 1 and \
+				content_type.split(';')[0] == falcon.MEDIA_JSON.split(';')[0]:
 			params.update(json.loads(req.stream.read()))
 		elif 'application/x-www-form-urlencoded' in content_type:
 			pass
 		elif content_type == falcon.MEDIA_XML:
 			params['xml'] = req.stream.read()
-			print '============'
-			print params['xml']
 		elif not content_type:
-			raise RuntimeError('[request failed]: missing content_type !!!')
+			params = None
 		else:
 			params = None
 
@@ -49,46 +48,43 @@ class FalconResource:
 		req.context['_app'] = app
 		req.context['_resource'] = resource
 		resp.status = falcon.HTTP_200
-		
-		try:
-			params = self.__parse_api_params(req)
-			if not params:
-				# 对于不支持的content_type，直接返回空串
-				resp.body = ''
-				return
 
-			response = api.api_call(method, app, resource, params, req, resp)
-		except ApiNotExistError as e:
-			response = SystemErrorResponse(
-				code = 404,
-				errMsg = str(e).strip(),
-				innerErrMsg = 'api===>{}:{} not exist'.format(app, resource)
-			)
-		except Exception as e:
-			response = SystemErrorResponse(
-				code = 531,
-				errMsg = str(e).strip(),
-				innerErrMsg = unicode_full_stack()
-			)
+		with rust_db.atomic() as transaction:
+			response = None
+			try:
+				params = self.__parse_api_params(req)
+				if not params:
+					# 对于不支持的content_type，直接返回空串
+					resp.body = ''
+					return
 
-		if not isinstance(response, ResponseBase):
-			response = JsonResponse(response)
+				response = api.api_call(method, app, resource, params, req, resp)
+				response = JsonResponse(response)
+			except ApiNotExistError as e:
+				response = SystemErrorResponse(
+					code = 404,
+					errMsg = str(e).strip(),
+					innerErrMsg = 'api===>{}:{} not exist'.format(app, resource)
+				)
+			except BusinessException as e:
+				response = SystemErrorResponse(
+					code = 532,
+					errMsg = str(e),
+					innerErrMsg = unicode_full_stack()
+				)
+			except Exception as e:
+				response = SystemErrorResponse(
+					code = 531,
+					errMsg = str(e).strip(),
+					innerErrMsg = unicode_full_stack()
+				)
+			finally:
+				if response and response.code != 200:
+					transaction.rollback()
 
 		resp.body = response.to_string()
 
-		ANY_HOST = '*'
-		if hasattr(settings, 'CORS_WHITE_LIST'):
-			valid_host = ''
-			if len(getattr(settings, 'CORS_WHITE_LIST', [])) == 0:
-				valid_host = ANY_HOST
-			elif req.host in settings['CORS_WHITE_LIST']:
-				valid_host = req.host
-
-			if valid_host:
-				resp.set_header("Access-Control-Allow-Origin", valid_host)
-				resp.set_header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-
-		if getattr(settings, 'API_LOGGER_MODE'):
+		if hasattr(settings, 'API_LOGGER_MODE'):
 			ApiLogger.log(req_data={
 				'app': app,
 				'resource': resource,

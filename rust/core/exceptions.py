@@ -38,6 +38,21 @@ class BusinessError(Exception):
             return self.message
         return en2name.get(self.message, u'business error')
 
+class BusinessException(Exception):
+    """
+    business层的异常
+    """
+    def __init__(self, code, message):
+        self.code = code
+        self.message = message
+        super(BusinessException, self).__init__(code)
+
+    def __unicode__(self):
+        return u"{}:{}".format(self.code, self.message)
+
+    def __str__(self):
+        return self.__unicode__().encode('utf-8')
+
 class ApiNotExistError(Exception):
     pass
 

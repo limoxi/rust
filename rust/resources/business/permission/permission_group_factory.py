@@ -41,7 +41,6 @@ class PermissionGroupFactory(business.Service):
 
 		permission_group.save()
 
-	@peewee_db.atomic()
 	def delete(self, group_id):
 		#首先删除用户数据
 		permission_models.PermissionGroupHasUser.delete().dj_where(group_id=group_id).execute()

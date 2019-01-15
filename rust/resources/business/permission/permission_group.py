@@ -1,8 +1,9 @@
 #coding: utf8
 
+from datetime import datetime
+
 from rust.core.decorator import cached_context_property
 from rust.core import business
-from rust.core.db import db as peewee_db
 
 from rust.resources.db.permission import models as permission_models
 
@@ -25,7 +26,6 @@ class PermissionGroup(business.Model):
 		from rust.resources.business.permission.permission_repository import PermissionRepository
 		return PermissionRepository().get_by_group(self.id)
 
-	@peewee_db.atomic()
 	def set_permissions(self, permission_ids):
 		#首先删除之前的配置
 		permission_models.PermissionGroupHasPermission.delete().dj_where(group_id=self.id).execute()
@@ -35,3 +35,22 @@ class PermissionGroup(business.Model):
 		} for permission_id in permission_ids]
 
 		len(creation_list) > 0 and permission_models.PermissionGroupHasPermission.insert_many(creation_list).execute()
+
+	def add_user(self, user):
+		"""
+		user加入分组
+		"""
+		now = datetime.now()
+		data = {
+			'group_id': self.id,
+			'user_id': user.id,
+			'updated_at': now
+		}
+		if permission_models.PermissionGroupHasUser.select().dj_where(
+				user_id = user.id
+			).exists():
+			permission_models.PermissionGroupHasUser.update(**data).dj_where(
+				user_id=user.id
+			).execute()
+		else:
+			permission_models.PermissionGroupHasUser.create(**data)

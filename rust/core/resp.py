@@ -39,28 +39,35 @@ class SystemErrorResponse(ResponseBase):
 
 class JsonResponse(ResponseBase):
 
+	__slots__ = (
+		'code',
+		'data',
+		'errMsg',
+		'innerErrMsg',
+	)
+
 	def __init__(self, data):
 		super(JsonResponse, self).__init__()
-		response = {
-			'code': 200,
-			'data': {},
-			'errMsg': '',
-			'innerErrMsg': ''
-		}
+		self.code = 200
+		self.data = {}
+		self.errMsg = ''
+		self.innerErrMsg = ''
 		if type(data) == tuple:
-			response['code'] = data[0]
-			response['data'] = data[1]
-			if response['code'] != 200:
-				response['errMsg'] = response['data']
-				response['innerErrMsg'] = response['data']
-		else:
-			response['code'] = 200
-			response['data'] = data
+			self.code = data[0]
+			self.data = data[1]
+			if self.code != 200:
+				self.errMsg = self.data
+				self.innerErrMsg = self.data
 
-		self.body = response
+		self.body = data
 
 	def to_string(self):
-		return json.dumps(self.body)
+		return json.dumps({
+			'code': self.code,
+			'data': self.data,
+			'errMsg': self.errMsg,
+			'innerErrMsg': self.innerErrMsg
+		})
 
 class RawResponse(ResponseBase):
 

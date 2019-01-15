@@ -7,3 +7,4 @@ requests>=2.19.1
 peewee>=3.8.0
 six>=1.11.0
 gunicorn>=19.9.0
+PyJWT>=1.7.1

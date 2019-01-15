@@ -3,7 +3,7 @@
 import datetime
 import peewee
 from playhouse.db_url import connect
-import hack_peewee
+import hack_peewee # 重要！！勿删！！！
 
 try:
 	import settings

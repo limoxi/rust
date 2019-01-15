@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import operator
-from peewee import ModelSelect, Node
+from peewee import _ModelQueryHelper, Node
 
 def __parse_field_name(str):
     pos = str.find('__')
@@ -61,6 +61,6 @@ def django_where_returns_clone(func):
     inner.call_local = func  # Provide a way to call without cloning.
     return inner
 
-ModelSelect.dj_where = django_where_returns_clone(dj_where)
+_ModelQueryHelper.dj_where = django_where_returns_clone(dj_where)
 
 print ('peewee hacked: dj_where func attached on ModelSelect')

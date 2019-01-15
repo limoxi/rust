@@ -1,24 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from rust.core.exceptions import BusinessError
+from rust.core.exceptions import BusinessException
 from rust.core.middleware import BaseMiddleware
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.user.user_repository import UserRepository
 
 import settings
 
-ERROR_CODE2TEXT = {
-	'invalid session_key': u'session不合法',
-	'expired session_key': u'session已过期，请重新登录',
-}
-
-class UserMiddleware(BaseMiddleware):
+class UserLoginMiddleware(BaseMiddleware):
 	def process_request(sel, req, resp):
 		"""
 		检查用户登录状态
-		请求中的cookie或者参数中需要带有正确的session_key
-		session_key是在登录成功后，api返回给请求端的数据
-		如果实在开发模式下，可以在请求中加入__dev_uid，表示user_id，即可无需加入session_key
+		请求header中的AUTHORIZATION需要带有正确的token
+		token是在登录成功后，api返回给请求端的数据
+		如果实在开发模式下，可以在请求中加入__dev_uid，表示user_id，即可无需加入token
 		"""
 		user = None
 		UserRepository.set(user)
@@ -26,18 +21,16 @@ class UserMiddleware(BaseMiddleware):
 		if req.context.get('__middleware_passed', False):
 			return
 
-		session_key = req.cookies.get('__sid')
-		if not session_key:
-			session_key = req.params.get('__sid')
-			if not session_key and settings.MODE == 'develop':
-				user_id = req.params.get('__dev_uid')
-				user = UserRepository().get_by_id(user_id)
+		token = req.headers.get('Authorization')
+		if not token and settings.MODE == 'develop':
+			user_id = req.params.get('__dev_uid')
+			user = UserRepository().get_by_id(user_id)
 
-		if session_key:
+		if token:
 			try:
-				user = UserRepository().get_by_session_key(session_key)
-			except BusinessError as e:
-				raise MiddlewareException(e.get_message(ERROR_CODE2TEXT))
+				user = UserRepository().get_by_token(token)
+			except BusinessException as e:
+				raise MiddlewareException(e.message)
 
 		if user:
 			req.context['user'] = user

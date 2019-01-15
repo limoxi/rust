@@ -67,7 +67,7 @@ class Resource(object):
 
 def ParamObject(data):
 	"""
-	构建不可变属性对象(值对象)
+	构建不可变属性对象
 	"""
 	class Inner(object):
 		__slots__ = tuple(data.keys())
@@ -75,5 +75,10 @@ def ParamObject(data):
 		def __init__(self, dict_data):
 			for k, v in dict_data.items():
 				setattr(self, k, v)
+
+		def __getattr__(self, k):
+			if k not in self.__slots__:
+				return None
+			return getattr(self, k)
 
 	return Inner(data)

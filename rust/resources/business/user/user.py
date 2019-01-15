@@ -8,10 +8,11 @@ class User(business.Model):
 
 	__slots__ = (
 		'id',
-		'name',
-		'nick_name',
+		'username',
+		'password',
+		'nickname',
 		'avatar',
-		'role',
+		'is_manager',
 		'created_at',
 	)
 

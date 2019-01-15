@@ -11,25 +11,24 @@ class UserFactory(business.Service):
 
 	def create(self, param_object):
 		#检查重名
-		if user_models.User.select().dj_where(name=param_object.name).count() > 0:
+		if user_models.User.select().dj_where(username=param_object.username).exists():
 			raise BusinessError('existed')
 
+		encrypted_password = LoginService().encrypt_password(param_object.password)
+
 		db_model = user_models.User.create(
-			name = param_object.name,
-			password = param_object.password
+			username = param_object.username,
+			password = encrypted_password,
+			nickname = param_object.nickname,
+			avatar = param_object.avatar or ''
 		)
 		return User(db_model)
 
 	def update(self, param_object):
 		db_model = self.user.context['db_model']
 		modified = False
-		if param_object.nick_name is not None and self.user.nick_name == param_object.nick_name:
-			db_model.nick_name = param_object.nick_name
-			modified = True
-
-		if param_object.password is not None:
-			new_password = LoginService().encrypt_password(param_object.password)
-			db_model.password = new_password
+		if param_object.nickname is not None and self.user.nickname == param_object.nickname:
+			db_model.nickname = param_object.nickname
 			modified = True
 
 		if param_object.avatar is not None and self.user.avatar == param_object.avatar:

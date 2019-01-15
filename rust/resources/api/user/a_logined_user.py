@@ -2,14 +2,7 @@
 
 from rust.core.api import ApiResource
 from rust.core.decorator import param_required
-from rust.core.exceptions import BusinessError
-
 from rust.resources.business.user.login_service import LoginService
-
-ERROR_CODE2TEXT = {
-	'not exist': u'用户不存在',
-	'incorrect password': u'密码不正确',
-}
 
 class ALoginedUser(ApiResource):
 	"""
@@ -18,12 +11,6 @@ class ALoginedUser(ApiResource):
 	app = 'rust.user'
 	resource = 'logined_user'
 
-	@param_required(['name', 'password'])
+	@param_required(['username', 'password'])
 	def put(params):
-		try:
-			session_key = LoginService().login(params['name'], params['password'])
-			return {
-				's_id': session_key
-			}
-		except BusinessError as e:
-			return 500, e.get_message()
+		return LoginService().login(params['username'], params['password'])

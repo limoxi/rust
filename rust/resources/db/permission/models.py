@@ -41,6 +41,7 @@ class PermissionGroupHasUser(models.Model):
 	"""
     group_id = models.IntegerField(default=0)
     user_id = models.IntegerField(default=0)
+    updated_at = models.DateTimeField(null=False)
 
     class Meta(object):
         table_name = 'rust_permission_group_has_user'

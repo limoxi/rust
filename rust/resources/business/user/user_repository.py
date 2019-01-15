@@ -7,6 +7,7 @@ from rust.core.exceptions import BusinessError
 
 from rust.resources.business.user.user import User
 from rust.resources.db.user import models as user_models
+from rust.utils.jwt_service import JWTService
 
 CURRENT_USER = None
 
@@ -28,20 +29,15 @@ class UserRepository(business.Service):
 			return User(db_model)
 
 	def get_by_name(self, username):
-		db_model = user_models.User.select().dj_where(name=username).first()
+		db_model = user_models.User.select().dj_where(username=username).first()
 		if db_model:
 			return User(db_model)
 
-	def get_by_session_key(self, session_key):
-		now_time = datetime.now()
-		db_model = user_models.UserSession.select().dj_where(session_key=session_key).first()
-		if not db_model:
-			raise BusinessError('invalid session_key')
+	def get_by_token(self, token):
+		data = JWTService().decode(token)
+		user_id = data['uid']
 
-		if db_model.expire_date < now_time:
-			raise BusinessError('expired session_key')
-
-		return self.get_by_id(db_model.user_id)
+		return self.get_by_id(user_id)
 
 	def get_by_ids(self, user_ids):
 		db_models = user_models.User.select().dj_where(id__in=user_ids)
