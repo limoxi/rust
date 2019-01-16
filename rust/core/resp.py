@@ -49,15 +49,16 @@ class JsonResponse(ResponseBase):
 	def __init__(self, data):
 		super(JsonResponse, self).__init__()
 		self.code = 200
-		self.data = {}
+		self.data = data
 		self.errMsg = ''
 		self.innerErrMsg = ''
 		if type(data) == tuple:
 			self.code = data[0]
 			self.data = data[1]
 			if self.code != 200:
-				self.errMsg = self.data
-				self.innerErrMsg = self.data
+				self.data = ''
+				self.errMsg = self.data[1]
+				self.innerErrMsg = self.data[2] if len(self.data) == 3 else self.data[1]
 
 		self.body = data
 
