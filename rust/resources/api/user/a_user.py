@@ -3,11 +3,16 @@
 from rust.core.business import ParamObject
 from rust.core.api import ApiResource
 from rust.core.decorator import param_required
+from rust.resources.business.user.encode_service import EncodeService
+from rust.resources.business.user.fill_service import FillService
 
 from rust.resources.business.user.user_factory import UserFactory
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository
 
 import settings
+
+from rust.resources.business.user.user_repository import UserRepository
+
 
 class AUser(ApiResource):
 	"""
@@ -15,6 +20,14 @@ class AUser(ApiResource):
 	"""
 	app = 'rust.user'
 	resource = 'user'
+
+	@param_required(['user', 'user_id:int', '?with_options:json'])
+	def get(params):
+		target_user = UserRepository().get_by_id(params['user_id'])
+		with_options = params.get('with_options')
+		if with_options:
+			FillService().fill([target_user], with_options)
+		return EncodeService().encode(target_user, with_options)
 
 	@param_required(['user', 'username', '?group_id:int'])
 	def put(params):

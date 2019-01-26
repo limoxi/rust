@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import operator
-from peewee import _ModelQueryHelper, Node
+from peewee import _ModelQueryHelper
 
 def __parse_field_name(str):
     pos = str.find('__')
@@ -9,7 +9,6 @@ def __parse_field_name(str):
     else:
         return str[:pos], str[pos:]
 
-@Node.copy
 def dj_where(self, *expressions):
     if self._where is not None:
         expressions = (self._where,) + expressions

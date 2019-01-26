@@ -12,7 +12,7 @@ class UserFactory(business.Service):
 	def create(self, param_object):
 		#检查重名
 		if user_models.User.select().dj_where(username=param_object.username).exists():
-			raise BusinessError('existed')
+			raise BusinessError(u'用户名已存在')
 
 		encrypted_password = LoginService().encrypt_password(param_object.password)
 

@@ -4,10 +4,19 @@ import hashlib
 
 from rust.core import business
 from rust.core.exceptions import BusinessException
+from rust.resources.business.user.encode_service import EncodeService
 from rust.resources.business.user.user_repository import UserRepository
 from rust.utils.jwt_service import JWTService
 
+from rust.resources.db import user_models
+
 class LoginService(business.Service):
+
+	def update_password(self, user, new_pwd):
+		encoded_pwd = self.encrypt_password(new_pwd)
+		user_models.User.update(
+			password = encoded_pwd
+		).dj_where(id=user.id).execute()
 
 	def encrypt_password(self, raw_password):
 		algorithm = 'sha1'
@@ -23,15 +32,7 @@ class LoginService(business.Service):
 		if user.password != self.encrypt_password(raw_password):
 			raise BusinessException('incorrect password', u'密码错误')
 
-		token = JWTService().encode({
-			'id': user.id,
-			'nickname': user.nickname,
-			'avatar': user.avatar
-		})
-
-		return {
-			'id': user.id,
-			'nickname':  user.nickname,
-			'avatar': user.avatar,
-			'token': token
-		}
+		encoded_user = EncodeService().encode(user)
+		token = JWTService().encode(encoded_user)
+		encoded_user['token'] = token
+		return encoded_user

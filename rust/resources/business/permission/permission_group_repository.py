@@ -29,3 +29,21 @@ class PermissionGroupRepository(business.Service):
 	def get_groups(self):
 		db_models = permission_models.PermissionGroup.select()
 		return [PermissionGroup(db_model) for db_model in db_models]
+
+	def get_user_id2group(self, user_ids):
+		db_models = permission_models.PermissionGroupHasUser.select().dj_where(
+			user_id__in = user_ids
+		)
+		group_id2user_id = {db.group_id: db.user_id for db in db_models}
+		db_models = permission_models.PermissionGroup.select().dj_where(
+			id__in = group_id2user_id.keys()
+		)
+		id2group = {d.id: PermissionGroup(d) for d in db_models}
+		user_id2group = dict()
+		for id, group in id2group.items():
+			user_id = group_id2user_id.get(id)
+			if not user_id:
+				continue
+			user_id2group[user_id] = group
+
+		return user_id2group

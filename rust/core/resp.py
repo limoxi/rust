@@ -57,8 +57,8 @@ class JsonResponse(ResponseBase):
 			self.data = data[1]
 			if self.code != 200:
 				self.data = ''
-				self.errMsg = self.data[1]
-				self.innerErrMsg = self.data[2] if len(self.data) == 3 else self.data[1]
+				self.errMsg = data[1]
+				self.innerErrMsg = data[2] if len(data) == 3 else data[1]
 
 		self.body = data
 
