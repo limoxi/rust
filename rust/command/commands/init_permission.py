@@ -12,10 +12,7 @@ load_resources()
 from rust.resources.db.permission import models as permission_models
 
 RESOURCE_METHODS = ['get', 'put', 'post', 'delete']
-MANAGER_PERMISSION_GROUP = {
-	'name': 'MANAGER',
-	'desc': u'系统管理员'
-}
+MANAGER_PERMISSION_GROUP = u'系统管理员'
 
 class Command(BaseCommand):
 
@@ -63,11 +60,12 @@ class Command(BaseCommand):
 		len(create_list) > 0 and permission_models.Permission.insert_many(create_list).execute()
 
 		#创建默认权限分组
-		if permission_models.PermissionGroup.select().dj_where(name=MANAGER_PERMISSION_GROUP['name']).count() == 0:
-			permission_models.PermissionGroup.insert_many([MANAGER_PERMISSION_GROUP]).execute()
+		manager_group = permission_models.PermissionGroup.select().dj_where(name=MANAGER_PERMISSION_GROUP).first()
+		if not manager_group:
+			manager_group = permission_models.PermissionGroup.create(name=MANAGER_PERMISSION_GROUP)
 
 		#配置默认分组各自拥有的权限
-		manager_group_id = permission_models.PermissionGroup.select().dj_where(name=MANAGER_PERMISSION_GROUP['name']).first().id
+		manager_group_id = manager_group.id
 		permission_models.PermissionGroupHasPermission.delete().dj_where(group_id=manager_group_id).execute()
 		need_create_group_permissions = []
 		for rp in permission_models.Permission.select():

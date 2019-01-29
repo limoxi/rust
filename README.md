@@ -21,29 +21,9 @@
 - [ ] 完善文档
 - [x] JWT
 
+> [升级日志](./log.md)
+
 ### 项目参考
 >[python书写风格指南](http://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/)  
 >[《实现领域驱动设计》[美] Vaughn Vernon 著；滕云 译](https://item.jd.com/11423256.html)  
 >[falcon](https://github.com/falconry/falcon)  
-
-### 升级日志
-> v1.3.0 (2019-01-27)
-- 增加用户注册功能
-- 增加修改用户信息功能
-- 增加修改密码功能
-- 修复dj_where无效的问题
-- 修复接口错误信息不全的问题
-
-> v1.2.2 (2019-01-16)
-- 事务支持
-    - 为每个api请求开启一个事务
-- 完善权限分组功能
-- 完善登陆流程
-- JWT机制校验用户登陆，代替旧的session_key方案
-- 修复一些问题
-
-> v 1.1.1
-- 升级peewee=v3.6.4
-    - db_table 改为 table_name
-- 升级falcon=1.4.1
-- 升级PyMySQL=0.9.2

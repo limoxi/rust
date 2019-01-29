@@ -21,7 +21,7 @@ class UserLoginMiddleware(BaseMiddleware):
 		if req.context.get('__middleware_passed', False):
 			return
 
-		token = req.headers.get('Authorization')
+		token = req.headers.get('AUTHORIZATION')
 		if not token and settings.MODE == 'develop':
 			user_id = req.params.get('__dev_uid')
 			user = UserRepository().get_by_id(user_id)

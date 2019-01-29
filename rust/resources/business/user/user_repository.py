@@ -35,7 +35,7 @@ class UserRepository(business.Service):
 
 	def get_by_token(self, token):
 		data = JWTService().decode(token)
-		user_id = data['uid']
+		user_id = data['id']
 
 		return self.get_by_id(user_id)
 
