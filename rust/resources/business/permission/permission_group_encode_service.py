@@ -7,6 +7,8 @@ from rust.resources.business.permission.permission_repository import PermissionR
 class PermissionGroupEncodeService(business.Service):
 
 	def encode(self, group):
+		if not group:
+			return {}
 		return {
 			'id': group.id,
 			'name': group.name,
