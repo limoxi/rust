@@ -42,3 +42,13 @@ class UserRepository(business.Service):
 	def get_by_ids(self, user_ids):
 		db_models = user_models.User.select().dj_where(id__in=user_ids)
 		return [User(db_model) for db_model in db_models]
+
+	def get_users(self, filters=None, target_page=None):
+		db_models = user_models.User.select().dj_where(is_manager=False)
+		if filters:
+			db_models = db_models.dj_where(**filters)
+
+		if target_page:
+			db_models = target_page.paginate(db_models)
+
+		return [User(db_model) for db_model in db_models]

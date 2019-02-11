@@ -12,6 +12,9 @@ class CheckPointMiddleware(BaseMiddleware):
 		if len(filter(lambda path: path in req.path, settings.DIRECT_PATHS)) > 0:
 			req.context['__middleware_passed'] = True
 
+		if req.method.upper() == 'OPTIONS':
+			req.context['__middleware_passed'] = True
+
 	def process_response(self, req, resp, resource):
 		"""
 		实现CORS

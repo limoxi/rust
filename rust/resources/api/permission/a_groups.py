@@ -11,12 +11,12 @@ class AGroups(ApiResource):
 	app = 'rust.permission'
 	resource = 'groups'
 
-	@param_required(['user', '?fill_permissions:bool'])
+	@param_required(['?user', '?fill_permissions:bool'])
 	def get(params):
-		user = params['user']
+		user = params.get('user')
 		groups = PermissionGroupRepository(user).get_groups()
 
-		if params.get('fill_permissions', False):
+		if params.get('fill_permissions', False) and user:
 			PermissionGroupFillService(user).fill_permissions(groups)
 		else:
 			for group in groups:

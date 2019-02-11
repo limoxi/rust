@@ -2,7 +2,9 @@
 
 import peewee
 
-class PageInfo(object):
+DEFAULT_COUNT_PER_PAGE = 20
+
+class TargetPage(object):
     """
     分页器
     """
@@ -11,13 +13,23 @@ class PageInfo(object):
         '__count_per_page',
         '__total_object_count',
     )
-    def __init__(self, cur_page=1, count_per_page=25):
+
+    def __new__(cls, args):
+        """
+        :param args: api层处理函数的params
+        如果不包含cur_page，则返回None
+        """
+        if not args.get('cur_page'):
+            return None
+        return object.__new__(cls)
+
+    def __init__(self, args):
         """
         一旦初始化，属性及属性值不可变
         """
         self.__total_object_count = 0
-        self.__cur_page = int(cur_page)
-        self.__count_per_page = int(count_per_page)
+        self.__cur_page = int(args['cur_page'])
+        self.__count_per_page = int(args.get('count_per_page', DEFAULT_COUNT_PER_PAGE))
 
     @property
     def has_prev(self):
