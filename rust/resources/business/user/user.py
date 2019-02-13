@@ -17,11 +17,8 @@ class User(business.Model):
 		'created_at',
 	)
 
-	def __init__(self, db_model):
-		super(User, self).__init__()
-		if db_model:
-			self.context['db_model'] = db_model
-			self._init_slot_from_model(db_model)
+	def __init__(self, db_model=None):
+		super(User, self).__init__(db_model)
 
 	@property
 	def permissions(self):

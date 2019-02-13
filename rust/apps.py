@@ -7,7 +7,8 @@ from rust.core.db import db as rust_db
 from rust.core import api
 from rust.core.exceptions import unicode_full_stack, ApiNotExistError, BusinessException
 from rust.core.api import ApiLogger
-from rust.core.resp import SystemErrorResponse, ResponseBase, JsonResponse
+from rust.core.resp import SystemErrorResponse, JsonResponse
+from rust.error_handlers.middleware_exception_handler import MiddlewareException
 
 try:
 	import settings
@@ -49,6 +50,7 @@ class FalconResource:
 		req.context['_resource'] = resource
 		resp.status = falcon.HTTP_200
 
+		trx_rolled_back = False
 		with rust_db.atomic() as transaction:
 			response = None
 			try:
@@ -84,7 +86,10 @@ class FalconResource:
 			finally:
 				if response and response.code != 200:
 					transaction.rollback()
-
+					trx_rolled_back = True
+		if not trx_rolled_back:
+			# 如果数据库事务已提交，则发送所有异步消息
+			pass
 		resp.body = response.to_string()
 
 		if hasattr(settings, 'API_LOGGER_MODE'):
@@ -123,35 +128,6 @@ def __load_middlewares():
 			print ('[ERROR]: invalid middleware {}'.format(middleware))
 	return middlewares
 
-def __load_error_handlers():
-	"""
-	加载错误处理器
-	"""
-	handlers = []
-	if not getattr(settings, 'ERROR_HANDLERS', None):
-		return handlers
-	for handler in settings.ERROR_HANDLERS:
-		items = handler.split('.')
-		module_path = '.'.join(items[:-1])
-		module_name = items[-1]
-		module = __import__(module_path, {}, {}, ['*', ])
-		klass = getattr(module, module_name, None)
-		if klass:
-			print ('load error handler {}'.format(handler))
-			handlers.append(klass)
-		else:
-			print ('[ERROR]: invalid error handler {}'.format(handler))
-	return handlers
-
-def __load_domain_events(events):
-	"""
-	加载领域事件
-	"""
-	for event_name, modules in events.items():
-		for module_name in modules:
-			__import__(module_name, {}, {}, ['*',])
-			print ('load domain event handler: {}'.format(module_name))
-
 def load_resources():
 	"""
 	加载资源
@@ -182,14 +158,8 @@ def create_app():
 	# 注册到Falcon
 	falcon_app.add_route('/{app}/{resource}/', FalconResource())
 
-	#加载错误处理器
-	error_handlers = __load_error_handlers()
-	for handler in error_handlers:
-		falcon_app.add_error_handler(handler)
-
-	# 加载领域事件处理器
-	if hasattr(settings, 'DOMAIN_EVENT_HANDLERS'):
-		__load_domain_events(settings.DOMAIN_EVENT_HANDLERS)
+	#加载中间件错误处理器
+	falcon_app.add_error_handler(MiddlewareException)
 
 	if settings.DEBUG or getattr(settings, 'ENABLE_CONSOLE', False):
 		from rust.dev_resource import service_console_resource

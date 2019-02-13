@@ -5,12 +5,16 @@ class Model(object):
 	领域业务对象的基类
 	"""
 	__slots__ = ('context', )
-	
-	def __init__(self):
+
+	def __init__(self, db_model=None):
 		self.context = {}
 
-		for slot in self.__slots__:
-			setattr(self, slot, None)
+		if db_model:
+			self.context['db_model'] = db_model
+			self._init_slot_from_model(db_model)
+		else:
+			for slot in self.__slots__:
+				setattr(self, slot, None)
 
 	def _init_slot_from_model(self, model, slots=None):
 		if not slots:

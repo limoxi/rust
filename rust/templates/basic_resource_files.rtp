@@ -1,5 +1,5 @@
 packages================ ./
-api/${resource_name},business/${resource_name},business/${resource_name}/events,db/${resource_name}
+api/${resource_name},business/${resource_name},db/${resource_name}
 
 ================end
 
@@ -96,11 +96,8 @@ class ${upper_resource_name}(business.Model):
 		'created_at',
 	)
 
-	def __init__(self, db_model):
-		super(${upper_resource_name}, self).__init__()
-		if db_model:
-			self.context['db_model'] = db_model
-			self._init_slot_from_model(db_model)
+	def __init__(self, db_model=None):
+		super(${upper_resource_name}, self).__init__(db_model)
 
 ================end
 

@@ -11,15 +11,12 @@
 - [x] 分页工具
 - [x] 暂只接收application/x-www-form-urlencoded、application/json、application/xml 三种类型数据
 - [x] 支持白名单形式的跨域设置
-- [ ] 加入behave支持
 - [x] 初始化项目命令 rust-cli init xxx
 - [x] 增加资源命令 rust-cli add xxx
-- [ ] 支持多种数据库，并提供扩展能力
+- [x] JWT
 - [ ] 支持容器部署
 - [ ] python3支持
-- [ ] api请求日志(异步)
 - [ ] 完善文档
-- [x] JWT
 
 > [升级日志](./log.md)
 
