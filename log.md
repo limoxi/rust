@@ -13,6 +13,14 @@ Release 正式版
 ```
 
 ### 升级日志
+> v0.3.6.190316_Alpha
+- 增强peewee的order_by方法，使支持字符串表达，例如：
+    ```python
+    user_models.User.select().order_by(['-id', 'updated_at'])
+    ```
+- 修复不识别content_type为application/json时的问题
+    - 因为当前版本falcon的MEDIA_JSON为'application/json; charset=UTF-8'
+
 > v0.3.5.190213_Alpha
 - 取消加入behave支持的计划，BDD功能将由独立服务iBehave提供
 - 重新设计领域事件机制，仅支持异步事件(通过消息服务实现),同步事件直接使用service调用，降低代码复杂度

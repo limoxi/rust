@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 import operator
+import peewee
 from peewee import _ModelQueryHelper
 
+"""
+add query method [dj_where]
+"""
 def __parse_field_name(str):
     pos = str.find('__')
     if pos == -1:
@@ -63,3 +67,40 @@ def django_where_returns_clone(func):
 _ModelQueryHelper.dj_where = django_where_returns_clone(dj_where)
 
 print ('peewee hacked: dj_where func attached on ModelSelect')
+
+"""
+enhance method [order_by]
+"""
+
+def clone_wrap(func):
+    def inner(self, *args, **kwargs):
+        clone = self.clone()
+        func(clone, *args, **kwargs)
+        return clone
+
+    inner.call_local = func
+    return inner
+
+def order_by(self, *values):
+    if values:
+        if isinstance(values[0], (peewee.Node, peewee.Context)):
+            self._order_by = values
+        else:
+            real_nodes = []
+            for value in values:
+                if value.startswith('-'):
+                    op = 'desc'
+                    field_name = value[1:]
+                elif value.startswith('+'):
+                    op = 'asc'
+                    field_name = value[1:]
+                else:
+                    op = 'asc'
+                    field_name = value
+                node = getattr(self.model, field_name)
+                real_nodes.append(peewee.Ordering(node, op.upper()))
+            self._order_by = real_nodes
+
+peewee.Query.order_by = clone_wrap(order_by)
+
+print ('peewee hacked: order_by func has been enhanced')

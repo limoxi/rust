@@ -31,8 +31,8 @@ class FalconResource:
 		if req.method != 'POST':
 			return params
 		content_type = req.content_type
-		if len(content_type.split(';')) > 1 and \
-				content_type.split(';')[0] == falcon.MEDIA_JSON.split(';')[0]:
+		if content_type == falcon.MEDIA_JSON.split(';')[0] or (len(content_type.split(';')) > 1 and \
+				content_type.split(';')[0] == falcon.MEDIA_JSON.split(';')[0]):
 			params.update(json.loads(req.stream.read()))
 		elif 'application/x-www-form-urlencoded' in content_type:
 			pass
@@ -141,7 +141,7 @@ def load_resources():
 	try:
 		import api.resources
 	except:
-		pass
+		print unicode_full_stack()
 
 def create_app():
 	load_resources()
