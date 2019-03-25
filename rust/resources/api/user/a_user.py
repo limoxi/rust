@@ -3,6 +3,7 @@
 from rust.core.business import ParamObject
 from rust.core.api import ApiResource
 from rust.core.decorator import param_required
+from rust.core.exceptions import BusinessError
 from rust.resources.business.user.encode_service import EncodeService
 from rust.resources.business.user.fill_service import FillService
 
@@ -35,7 +36,7 @@ class AUser(ApiResource):
 		创建用户只能由管理员操作，且只能初始化登录名和分组(角色)
 		"""
 		if not params['user'].is_manager:
-			return 500, 'invalid permission'
+			raise BusinessError(u'操作无权限')
 		param_object = ParamObject({
 			'username': params['username'],
 			'password': settings.DEFAULT_PASSWORD if hasattr(settings, 'DEFAULT_PASSWORD') else '123456'

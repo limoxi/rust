@@ -13,6 +13,12 @@ Release 正式版
 ```
 
 ### 升级日志
+> v0.3.7.190325_Alpha
+- 优化异常处理
+    - 统一业务逻辑异常: BusinessError
+    - 去除BusinessException
+    - api层不再支持return 500类的返回值，错误处理一概使用raise抛出
+    
 > v0.3.6.190316_Alpha
 - 增强peewee的order_by方法，使支持字符串表达，例如：
     ```python

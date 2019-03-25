@@ -3,7 +3,7 @@
 import hashlib
 
 from rust.core import business
-from rust.core.exceptions import BusinessException
+from rust.core.exceptions import BusinessError
 from rust.resources.business.user.encode_service import EncodeService
 from rust.resources.business.user.user_repository import UserRepository
 from rust.utils.jwt_service import JWTService
@@ -27,10 +27,10 @@ class LoginService(business.Service):
 	def login(self, username, raw_password):
 		user = UserRepository().get_by_name(username)
 		if not user:
-			raise BusinessException('not exist', u'用户不存在')
+			raise BusinessError(u'用户不存在')
 
 		if user.password != self.encrypt_password(raw_password):
-			raise BusinessException('incorrect password', u'密码错误')
+			raise BusinessError(u'密码错误')
 
 		encoded_user = EncodeService().encode(user)
 		token = JWTService().encode(encoded_user)

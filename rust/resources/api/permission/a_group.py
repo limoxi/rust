@@ -1,17 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from rust.core.business import ParamObject
-from rust.core.exceptions import BusinessError
 from rust.core.api import ApiResource
 from rust.core.decorator import param_required
 from rust.resources.business.permission.permission_group_factory import PermissionGroupFactory
 
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository
-
-ERROR_CODE2TEXT = {
-	'existed': u'权限分组已存在',
-	'not exist': u'权限分组不存在',
-}
 
 class AGroup(ApiResource):
 
@@ -41,10 +35,7 @@ class AGroup(ApiResource):
 			'name': params['name'],
 			'desc': params.get('desc', '')
 		})
-		try:
-			permission_group = PermissionGroupFactory(user).create(param_object)
-		except BusinessError as e:
-			return 500, e.get_message(ERROR_CODE2TEXT)
+		permission_group = PermissionGroupFactory(user).create(param_object)
 		return {
 			'group_id': permission_group.id
 		}
@@ -57,10 +48,7 @@ class AGroup(ApiResource):
 			'name': params['name'],
 			'desc': params.get('desc', '')
 		})
-		try:
-			PermissionGroupFactory(user).update(param_object)
-		except BusinessError, e:
-			return 500, e.get_message(ERROR_CODE2TEXT)
+		PermissionGroupFactory(user).update(param_object)
 		return {}
 
 	@param_required(['user', 'group_id'])

@@ -5,9 +5,9 @@ import falcon
 from rust.core.db import db as rust_db
 
 from rust.core import api
-from rust.core.exceptions import unicode_full_stack, ApiNotExistError, BusinessException
+from rust.core.exceptions import unicode_full_stack, ApiParameterError, ApiNotExistError, BusinessError
 from rust.core.api import ApiLogger
-from rust.core.resp import SystemErrorResponse, JsonResponse
+from rust.core.resp import ErrorResponse, JsonResponse
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 
 try:
@@ -63,26 +63,19 @@ class FalconResource:
 				response = api.api_call(method, app, resource, params, req, resp)
 				response = JsonResponse(response)
 			except ApiNotExistError as e:
-				response = SystemErrorResponse(
-					code = 404,
-					errMsg = str(e).strip(),
-					innerErrMsg = 'api===>{}:{} not exist'.format(app, resource)
+				response = ErrorResponse.get_from_exception(e)
+			except ApiParameterError as e:
+				response = ErrorResponse.get_from_exception(e)
+			except BusinessError as e:
+				response = ErrorResponse.get_from_exception(e)
+			except Exception:
+				error_stacks = unicode_full_stack()
+				print (error_stacks)
+				response = ErrorResponse(
+					code = 533,
+					errMsg = u'系统错误',
+					innerErrMsg = error_stacks
 				)
-			except BusinessException as e:
-				response = SystemErrorResponse(
-					code = 532,
-					errMsg = str(e),
-					innerErrMsg = unicode_full_stack()
-				)
-			except Exception as e:
-				e_stacks = unicode_full_stack()
-				response = SystemErrorResponse(
-					code = 531,
-					errMsg = str(e).strip(),
-					innerErrMsg = e_stacks
-				)
-				if settings.MODE == 'develop':
-					print (e_stacks)
 			finally:
 				if response and response.code != 200:
 					transaction.rollback()
@@ -90,6 +83,11 @@ class FalconResource:
 		if not trx_rolled_back:
 			# 如果数据库事务已提交，则发送所有异步消息
 			pass
+
+		if settings.MODE == 'deploy':
+			# 生产环境不对外保留错误堆栈
+			response.innerErrMsg = ''
+
 		resp.body = response.to_string()
 
 		if hasattr(settings, 'API_LOGGER_MODE'):

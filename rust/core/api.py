@@ -31,14 +31,11 @@ class _ApiResourceBase(type):
 class ApiResource(object):
 	__metaclass__ = _ApiResourceBase
 
-def api_log(app, resource, method, data, time_start):
-	print ('/{}/{}/{}?{} =====>{}'.format(app, resource, method, data, time.clock() - time_start))
-
 class ApiLogger(object):
 
 	@staticmethod
 	def print_req(app, resource, method, data, time_start):
-		print ('/{}/{}/{}?{} =====>{}'.format(app, resource, method, data, time.clock() - time_start))
+		print ('/{}/{}/{}?{} =>{}'.format(app, resource, method, data, time.clock() - time_start))
 
 	@staticmethod
 	def log(req_data, resp_data, mode):
@@ -56,13 +53,11 @@ def api_call(method, app, resource, data, req=None, resp=None):
 
 	resource = APPRESOURCE2CLASS.get(key, None)
 	if not resource:
-		ApiLogger.print_req(app, resource_name, method, data, start_at)
-		raise ApiNotExistError('%s:%s' % (key, method))
+		raise ApiNotExistError(app, resource, method)
 
 	func = getattr(resource['cls'], method, None)
 	if not func:
-		ApiLogger.print_req(app, resource_name, method, data, start_at)
-		raise ApiNotExistError('%s:%s' % (key, method))
+		raise ApiNotExistError(app, resource, method)
 
 	data['__req'] = req
 	data['__resp'] = resp
