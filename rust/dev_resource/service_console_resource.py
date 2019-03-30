@@ -16,7 +16,7 @@ class ServiceConsoleResource:
 		pass
 
 	def on_get(self, req, resp):
-		resources = [resource.replace('-', '.') for resource in api.APPRESOURCE2CLASS.keys()]
+		resources = api.RESOURCE2CLASS.keys()
 		resources.sort()
 		options = ['<option value="%s">%s</option>' % (resource, resource) for resource in resources]
 

@@ -1,28 +1,26 @@
 #coding: utf8
 
-from rust.core.api import ApiResource
+from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
 from rust.core.paginator import TargetPage
 from rust.resources.business.user.encode_service import EncodeService
 from rust.resources.business.user.fill_service import FillService
 from rust.resources.business.user.user_repository import UserRepository
 
-
+@Resource('rust.user.users')
 class AUsers(ApiResource):
 	"""
 	用户列表
 	"""
-	app = 'rust.user'
-	resource = 'users'
 
 	@param_required(['user', '?page:int', '?count_per_page:int', '?filters:json', '?with_options:json'])
-	def get(params):
-		target_page = TargetPage(params)
+	def get(self):
+		target_page = TargetPage(self.params)
 		users = UserRepository().get_users(
-			params.get('filters'),
+			self.params.get('filters'),
 			target_page
 		)
-		with_options = params.get('with_options')
+		with_options = self.params.get('with_options')
 		if with_options:
 			FillService().fill(users, with_options)
 		return {

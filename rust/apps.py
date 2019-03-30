@@ -2,6 +2,8 @@
 
 import json
 import falcon
+from falcon.routing import BaseConverter, CompiledRouter
+
 from rust.core.db import db as rust_db
 
 from rust.core import api
@@ -28,7 +30,7 @@ class FalconResource:
 		params.update(req.context)
 		params['api_id'] = req.path + '_' + req.method
 
-		if req.method != 'POST':
+		if req.method not in ['POST', 'PUT', 'DELETE']:
 			return params
 		content_type = req.content_type
 		if content_type == falcon.MEDIA_JSON.split(';')[0] or (len(content_type.split(';')) > 1 and \
@@ -45,8 +47,7 @@ class FalconResource:
 
 		return params
 
-	def __call_api(self, method, app, resource, req, resp):
-		req.context['_app'] = app
+	def __call_api(self, method, resource, req, resp):
 		req.context['_resource'] = resource
 		resp.status = falcon.HTTP_200
 
@@ -60,7 +61,7 @@ class FalconResource:
 					resp.body = ''
 					return
 
-				response = api.api_call(method, app, resource, params, req, resp)
+				response = api.api_call(method, resource, params, req, resp)
 				response = JsonResponse(response)
 			except ApiNotExistError as e:
 				response = ErrorResponse.get_from_exception(e)
@@ -80,6 +81,10 @@ class FalconResource:
 				if response and response.code != 200:
 					transaction.rollback()
 					trx_rolled_back = True
+
+		# 关闭数据库连接
+		rust_db.close()
+
 		if not trx_rolled_back:
 			# 如果数据库事务已提交，则发送所有异步消息
 			pass
@@ -92,7 +97,6 @@ class FalconResource:
 
 		if hasattr(settings, 'API_LOGGER_MODE'):
 			ApiLogger.log(req_data={
-				'app': app,
 				'resource': resource,
 				'method': method,
 				'params': params,
@@ -101,12 +105,18 @@ class FalconResource:
 				'resp_instance': resp
 			}, mode=getattr(settings, 'API_LOGGER_MODE', None))
 
-	def on_get(self, req, resp, app, resource):
-		self.__call_api('get', app, resource, req, resp)
+	def on_get(self, req, resp, resource):
+		self.__call_api('get', resource, req, resp)
 
-	def on_post(self, req, resp, app, resource):
+	def on_put(self, req, resp, resource):
+		self.__call_api('put', resource, req, resp)
+
+	def on_post(self, req, resp, resource):
 		_method = req.params.get('_method', 'post')
-		self.__call_api(_method, app, resource, req, resp)
+		self.__call_api(_method, resource, req, resp)
+
+	def on_delete(self, req, resp, resource):
+		self.__call_api('delete', resource, req, resp)
 
 def __load_middlewares():
 	"""
@@ -139,13 +149,31 @@ def load_resources():
 	try:
 		import api.resources
 	except:
-		print unicode_full_stack()
+		print (unicode_full_stack())
+
+class __ResourceRouter(CompiledRouter):
+	"""
+	定制router匹配策略
+	"""
+	def find(self, uri, req=None):
+		if not uri.startswith('/static/'):
+			path = [uri.lstrip('/').replace('/', '.')]
+		else:
+			path = uri.lstrip('/').split('/')
+		params = {}
+		node = self._find(path, self._return_values, self._patterns,
+						  self._converters, params)
+
+		if node is not None:
+			return node.resource, node.method_map, params, node.uri_template
+		else:
+			return None
 
 def create_app():
 	load_resources()
-
 	middlewares = __load_middlewares()
-	falcon_app = falcon.API(middleware=middlewares)
+	router = __ResourceRouter()
+	falcon_app = falcon.API(middleware=middlewares, router=router)
 
 	# 解析值为空的参数
 	falcon_app.req_options.keep_blank_qs_values = True
@@ -154,7 +182,7 @@ def create_app():
 	falcon_app.req_options.auto_parse_form_urlencoded = True
 
 	# 注册到Falcon
-	falcon_app.add_route('/{app}/{resource}/', FalconResource())
+	falcon_app.add_route('/{resource}/', FalconResource())
 
 	#加载中间件错误处理器
 	falcon_app.add_error_handler(MiddlewareException)

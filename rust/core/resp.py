@@ -27,7 +27,7 @@ class ErrorResponse(ResponseBase):
 	def get_from_exception(cls, e):
 		instance = ErrorResponse(
 			code = e.code,
-			errMsg = e.get_message(),
+			errMsg = e.message,
 		)
 		return instance
 

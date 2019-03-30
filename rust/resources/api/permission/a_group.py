@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from rust.core.business import ParamObject
-from rust.core.api import ApiResource
+from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
 from rust.resources.business.permission.permission_group_factory import PermissionGroupFactory
 
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository
 
+@Resource('rust.permission.group')
 class AGroup(ApiResource):
 
-	app = 'rust.permission'
-	resource = 'group'
-
 	@param_required(['user', 'group_id', '?fill_permissions:bool'])
-	def get(params):
-		user = params['user']
+	def get(self):
+		user = self.params['user']
 		group = PermissionGroupRepository(user).get_by_id(params['group_id'])
 
 		return {
@@ -29,8 +27,8 @@ class AGroup(ApiResource):
 		}
 
 	@param_required(['user', 'name', '?desc'])
-	def put(params):
-		user = params['user']
+	def put(self):
+		user = self.params['user']
 		param_object = ParamObject({
 			'name': params['name'],
 			'desc': params.get('desc', '')
@@ -41,18 +39,18 @@ class AGroup(ApiResource):
 		}
 
 	@param_required(['user', 'group_id', 'name', 'desc'])
-	def post(params):
-		user = params['user']
+	def post(self):
+		user = self.params['user']
 		param_object = ParamObject({
-			'id': params['group_id'],
-			'name': params['name'],
-			'desc': params.get('desc', '')
+			'id': self.params['group_id'],
+			'name': self.params['name'],
+			'desc': self.params.get('desc', '')
 		})
 		PermissionGroupFactory(user).update(param_object)
 		return {}
 
 	@param_required(['user', 'group_id'])
-	def delete(params):
-		user = params['user']
-		PermissionGroupFactory(user).delete(params['group_id'])
+	def delete(self):
+		user = self.params['user']
+		PermissionGroupFactory(user).delete(self.params['group_id'])
 		return {}

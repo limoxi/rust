@@ -38,9 +38,9 @@ class BusinessError(__EncodedException):
 
 class ApiNotExistError(Exception):
 
-    def __init__(self, app, resource, method):
+    def __init__(self, resource, method):
         self.code = 404
-        self.message = 'api===>{}.{}.{} not exist'.format(app, resource, method)
+        self.message = 'api===>{}.{} not exist'.format(resource, method)
         super(ApiNotExistError, self).__init__(self.message)
 
 class ApiParameterError(Exception):
