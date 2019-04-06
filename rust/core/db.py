@@ -1,5 +1,6 @@
 #coding: utf8
 
+import json
 import datetime
 import peewee
 from playhouse.db_url import connect
@@ -62,4 +63,28 @@ class DateTimeField(peewee.DateTimeField):
 		super(DateTimeField, self).__init__(**kwargs)
 
 class BooleanField(peewee.BooleanField):
+	pass
+
+class JsonField(peewee.TextField):
+
+	def __init__(self, default=None, **kwargs):
+		if default:
+			kwargs['default'] = json.dumps(default)
+		super(JsonField, self).__init__(**kwargs)
+
+	def python_value(self, value):
+		try:
+			return json.loads(value)
+		except:
+			raise ValueError('data in db damaged !')
+
+	def db_value(self, value):
+		if type(value) != list:
+			raise ValueError('invalid data type !')
+		return json.dumps(value)
+
+class ListField(JsonField):
+	pass
+
+class DictField(JsonField):
 	pass

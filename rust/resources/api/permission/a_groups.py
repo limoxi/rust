@@ -14,7 +14,7 @@ class AGroups(ApiResource):
 		user = self.params.get('user')
 		groups = PermissionGroupRepository(user).get_groups()
 
-		if params.get('fill_permissions', False) and user:
+		if self.params.get('fill_permissions', False) and user:
 			PermissionGroupFillService(user).fill_permissions(groups)
 		else:
 			for group in groups:

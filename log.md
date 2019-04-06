@@ -13,6 +13,12 @@ Release 正式版
 ```
 
 ### 升级日志
+> v0.4.1.190406_Alpha
+- 增强peewee，增加自定义FieldType
+    - ListField
+    - DictField
+- 修复一些问题
+
 > v0.4.0.190330_Alpha
 - 重构api层，优化资源实现
     ```python

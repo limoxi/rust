@@ -13,7 +13,7 @@ class AGroup(ApiResource):
 	@param_required(['user', 'group_id', '?fill_permissions:bool'])
 	def get(self):
 		user = self.params['user']
-		group = PermissionGroupRepository(user).get_by_id(params['group_id'])
+		group = PermissionGroupRepository(user).get_by_id(self.params['group_id'])
 
 		return {
 			'id': group.id,
@@ -23,15 +23,15 @@ class AGroup(ApiResource):
 				'id': permission.id,
 				'name': permission.name,
 				'desc': permission.desc
-			} for permission in (group.permissions if params.get('fill_permissions') else [])]
+			} for permission in (group.permissions if self.params.get('fill_permissions') else [])]
 		}
 
 	@param_required(['user', 'name', '?desc'])
 	def put(self):
 		user = self.params['user']
 		param_object = ParamObject({
-			'name': params['name'],
-			'desc': params.get('desc', '')
+			'name': self.params['name'],
+			'desc': self.params.get('desc', '')
 		})
 		permission_group = PermissionGroupFactory(user).create(param_object)
 		return {
