@@ -17,44 +17,35 @@ def __full_stack():
 def unicode_full_stack():
     return __full_stack().decode('utf-8')
 
+class __EncodedException(Exception):
 
-class BusinessError(Exception):
+    __slots__ = (
+        'code',
+        'message',
+    )
+
+    def get_message(self):
+        return self.message
+
+class BusinessError(__EncodedException):
     """
-    business层的异常，用于在api层被捕获
+    业务异常
     """
     def __init__(self, message):
+        self.code = 531
         self.message = message
         super(BusinessError, self).__init__(message)
 
-    def __unicode__(self):
-
-        return u"{}".format(self.message)
-
-    def __str__(self):
-        return self.__unicode__().encode('utf-8')
-
-    def get_message(self, en2name=None):
-        if not en2name:
-            return self.message
-        return en2name.get(self.message, u'business error')
-
-class BusinessException(Exception):
-    """
-    business层的异常
-    """
-    def __init__(self, code, message):
-        self.code = code
-        self.message = message
-        super(BusinessException, self).__init__(code)
-
-    def __unicode__(self):
-        return u"{}:{}".format(self.code, self.message)
-
-    def __str__(self):
-        return self.__unicode__().encode('utf-8')
-
 class ApiNotExistError(Exception):
-    pass
+
+    def __init__(self, resource, method):
+        self.code = 404
+        self.message = 'api===>{}.{} not exist'.format(resource, method)
+        super(ApiNotExistError, self).__init__(self.message)
 
 class ApiParameterError(Exception):
-    pass
+
+    def __init__(self, message):
+        self.code = 530
+        self.message = message
+        super(ApiParameterError, self).__init__(message)

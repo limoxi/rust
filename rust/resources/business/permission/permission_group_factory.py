@@ -15,7 +15,7 @@ class PermissionGroupFactory(business.Service):
 		name = param_object.name
 		desc = param_object.desc
 		if PermissionGroupRepository(self.user).get_by_name(name):
-			raise BusinessError('existed')
+			raise BusinessError(u'权限分组已存在')
 
 		db_model = permission_models.PermissionGroup.create(
 			name = name,
@@ -31,7 +31,7 @@ class PermissionGroupFactory(business.Service):
 		desc = param_object.desc
 		permission_group = PermissionGroupRepository(user).get_by_id(group_id)
 		if not permission_group:
-			raise BusinessError('not exist')
+			raise BusinessError(u'权限分组不存在')
 
 		if permission_group.name != name:
 			permission_group.name = name

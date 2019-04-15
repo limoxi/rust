@@ -17,26 +17,20 @@ file================ ./api/${resource_name}/a_${resource_name}.py
 #coding: utf8
 
 from rust.core.business import ParamObject
-from rust.core.api import ApiResource
+from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
 from rust.core.exceptions import BusinessError
 
 from business.${resource_name}.${resource_name}_repository import ${upper_resource_name}Repository
 from business.${resource_name}.${resource_name}_factory import ${upper_resource_name}Factory
 
-ERROR_CODE2TEXT = {
-	'existed': u'已存在',
-}
-
+@Resource('${resource_name}.${resource_name}')
 class A${upper_resource_name}(ApiResource):
 
-	app = '${resource_name}'
-	resource = '${resource_name}'
-
 	@param_required(['user', 'id:int'])
-	def get(params):
-		user = params['user']
-		${resource_name} = ${upper_resource_name}Repository(user).get_${resource_name}_by_id(params['id'])
+	def get(self):
+		user = self.params['user']
+		${resource_name} = ${upper_resource_name}Repository(user).get_${resource_name}_by_id(self.params['id'])
 		if not ${resource_name}:
 			return 500, u'不存在'
 		else:
@@ -46,37 +40,31 @@ class A${upper_resource_name}(ApiResource):
 			}
 
 	@param_required(['user', 'name'])
-	def put(params):
-		user = params['user']
+	def put(self):
+		user = self.params['user']
 		param_object = ParamObject({
-			'name': params['name']
+			'name': self.params['name']
 		})
-		try:
-			${resource_name} = ${upper_resource_name}Factory(user).create(param_object)
-			return {
-				'id': ${resource_name}.id
-			}
-		except BusinessError as e:
-			return 500, e.get_message(ERROR_CODE2TEXT)
+        ${resource_name} = ${upper_resource_name}Factory(user).create(param_object)
+        return {
+            'id': ${resource_name}.id
+        }
 
 	@param_required(['user', 'id:int', 'name'])
-	def post(params):
-		user = params['user']
+	def post(self):
+		user = self.params['user']
 		param_object = ParamObject({
-			'id': params['id'],
-			'name': params['name']
+			'id': self.params['id'],
+			'name': self.params['name']
 		})
-		try:
-			${upper_resource_name}Factory(user).update(param_object)
-			return {}
-		except BusinessError as e:
-			return 500, e.get_message(ERROR_CODE2TEXT)
+        ${upper_resource_name}Factory(user).update(param_object)
+        return {}
 
 	@param_required(['user', 'id:int'])
-	def delete(params):
-		user = params['user']
+	def delete(self):
+		user = self.params['user']
 		param_object = ParamObject({
-			'id': params['id']
+			'id': self.params['id']
 		})
 		${upper_resource_name}Factory(user).delete(param_object)
 		return {}

@@ -4,7 +4,7 @@ import jwt
 from jwt import InvalidTokenError
 from datetime import datetime, timedelta
 
-from rust.core.exceptions import BusinessException
+from rust.core.exceptions import BusinessError
 
 import settings
 
@@ -33,7 +33,7 @@ class JWTService(object):
 	def decode(self, token):
 		try:
 			payload = jwt.decode(token, SECRET, algorithm='HS256')
-		except InvalidTokenError as e:
-			raise BusinessException(e.message, u'不合法的token')
+		except InvalidTokenError:
+			raise BusinessError(u'不合法的token')
 
 		return payload['data']

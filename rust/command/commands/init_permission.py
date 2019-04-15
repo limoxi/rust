@@ -1,15 +1,11 @@
 #coding: utf8
 
 from rust.command.base_command import BaseCommand
-from rust.core.api import APPRESOURCE2CLASS
-try:
-	import api.resources #重要！误删！！
-except:
-	print ('no api yet')
+from rust.resources.db.permission import models as permission_models
+from rust.core.api import RESOURCE2CLASS
 from rust.apps import load_resources
 load_resources()
 
-from rust.resources.db.permission import models as permission_models
 
 RESOURCE_METHODS = ['get', 'put', 'post', 'delete']
 MANAGER_PERMISSION_GROUP = u'系统管理员'
@@ -22,12 +18,12 @@ class Command(BaseCommand):
 		"""
 		resources = {}
 
-		for resource, data in APPRESOURCE2CLASS.items():
+		for resource, data in RESOURCE2CLASS.items():
 			if resource == 'permission':
 				continue
 			resources[resource] = []
 			for method in  RESOURCE_METHODS:
-				if getattr(data['cls'], method, None):
+				if getattr(data, method, None):
 					resources[resource].append(method)
 
 		need_delete_permission_ids = []

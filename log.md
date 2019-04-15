@@ -13,9 +13,38 @@ Release 正式版
 ```
 
 ### 升级日志
+> v0.4.1.190406_Alpha
+- 增强peewee，增加自定义FieldType
+    - ListField
+    - DictField
+- 修复一些问题
+
+> v0.4.0.190330_Alpha
+- 重构api层，优化资源实现
+    ```python
+    from rust.core.api import ApiResource, Resource
+    from rust.core.decorator import param_required
+
+    @Resource('test.test')
+    class ATest(ApiResource):
+
+        @param_required(['id'])
+        def get(self):
+            return {
+                'success': True
+            }
+    ```
+- 重构代码生成器
+
+> v0.3.7.190325_Alpha
+- 优化异常处理
+    - 统一业务逻辑异常: BusinessError
+    - 去除BusinessException
+    - api层不再支持return 500类的返回值，错误处理一概使用raise抛出
+    
 > v0.3.6.190316_Alpha
 - 增强peewee的order_by方法，使支持字符串表达，例如：
-    ```python
+    ```
     user_models.User.select().order_by(['-id', 'updated_at'])
     ```
 - 修复不识别content_type为application/json时的问题

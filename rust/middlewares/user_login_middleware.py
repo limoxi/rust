@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from rust.core.exceptions import BusinessException
+from rust.core.exceptions import BusinessError
 from rust.core.middleware import BaseMiddleware
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.user.user_repository import UserRepository
@@ -29,7 +29,7 @@ class UserLoginMiddleware(BaseMiddleware):
 		if token:
 			try:
 				user = UserRepository().get_by_token(token)
-			except BusinessException as e:
+			except BusinessError as e:
 				raise MiddlewareException(e.message)
 
 		if user:
