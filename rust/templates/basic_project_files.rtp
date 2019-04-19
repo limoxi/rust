@@ -22,8 +22,8 @@ import sys
 from rust.command import command_manager
 
 if __name__ == '__main__':
-    command = sys.argv[1]
-    command_manager.run_command(command)
+	command = sys.argv[1]
+	command_manager.run_command(command)
 
 ================end
 
@@ -44,25 +44,25 @@ UPLOAD_DIR = os.path.join(PROJECT_HOME, 'static', 'upload')  # 文件上传路�
 UPLOAD_HTTP_PATH = '/static/upload'
 
 def load_custom_configs():
-    configs = {}
-    for f in os.listdir('./config'):
-        if f.startswith('__init'):
-            continue
+	configs = {}
+	for f in os.listdir('./config'):
+		if f.startswith('__init'):
+			continue
 
-        if f.endswith('.py'):
-            module_part = f[0:-3]
-            module_name = 'config.{}'.format(module_part)
-            module = __import__(module_name, {}, {}, ['*',])
-            for attr in module.__dict__.keys():
-                if attr.startswith('__'):
-                    continue
+		if f.endswith('.py'):
+			module_part = f[0:-3]
+			module_name = 'config.{}'.format(module_part)
+			module = __import__(module_name, {}, {}, ['*',])
+			for attr in module.__dict__.keys():
+				if attr.startswith('__'):
+					continue
 
-                if attr in configs:
-                    print '[WARN]: settings.%s(%s) is already defined' % (attr, f)
+				if attr in configs:
+					print '[WARN]: settings.%s(%s) is already defined' % (attr, f)
 
-                configs[attr] = getattr(module, attr)
+				configs[attr] = getattr(module, attr)
 
-    return configs
+	return configs
 
 locals().update(load_custom_configs())
 
@@ -78,7 +78,7 @@ file================ ./${service_name}/config/middlewares.py
 
 #中间件
 MIDDLEWARES = [
-    'rust.middlewares.check_point_middleware.CheckPointMiddleware', #必须在列表首位！！
+	'rust.middlewares.check_point_middleware.CheckPointMiddleware', #必须在列表首位！！
 ]
 
 ================end
@@ -95,14 +95,14 @@ DB_PORT = os.environ.get('_DB_PORT', '3306')
 DB_PASSWORD = os.environ.get('_DB_PASSWORD', '123456')
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'mysql',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT
-    }
+	'default': {
+		'ENGINE': 'mysql',
+		'NAME': DB_NAME,
+		'USER': DB_USER,
+		'PASSWORD': DB_PASSWORD,
+		'HOST': DB_HOST,
+		'PORT': DB_PORT
+	}
 }
 
 ================end
@@ -118,17 +118,17 @@ ENABLE_CONSOLE = (os.environ.get('_ENABLE_API_CONSOLE', '1') == '1')
 
 #无需经过中间件的资源
 DIRECT_PATHS = [
-    '/static',
-    '/console',
-    '/logined_user',
-    '/registered_user',
-    '/groups',
+	'/static',
+	'/console',
+	'/logined_user',
+	'/registered_user',
+	'/groups',
 ]
 
 RUST_RESOURCES = [
-    'test',
-    'user',
-    'permission',
+	'test',
+	'user',
+	'permission',
 ]
 
 CORS_WHITE_LIST = [] #为空则表示接受所有host
@@ -143,9 +143,9 @@ ADD . /service
 WORKDIR /service
 
 RUN pip install -i http://pypi.douban.com/simple/ \
-    --trusted-host pypi.douban.com \
-    -r ./requirements.txt \
-    && rm -rf ~/.pip
+	--trusted-host pypi.douban.com \
+	-r ./requirements.txt \
+	&& rm -rf ~/.pip
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "/bin/bash", "start_service.sh"]
 
@@ -158,19 +158,19 @@ file================ ./${service_name}/start_service.sh
 PORT=`grep SERVICE_PORT settings.py | awk -F "=" '{print $$2}' | awk -F "," '{print $$1}' | xargs echo`
 
 if [ "$$_SERVICE_MODE" == "develop" ]; then
-    python manage.py runserver 0.0.0.0 $$PORT
+	python manage.py runserver 0.0.0.0 $$PORT
 else
 	gunicorn server:app \
-        --reload \
-        --bind 127.0.0.1:$$PORT \
-        --env API_GATEWAY=api.test.com \
-        --env MODE=deploy \
-        --env DB_NAME=$$_DB_NAME \
-        --env DB_USER=$$_DB_USER \
-        --env DB_HOST=$$_DB_HOST \
-        --env DB_PORT=$$_DB_PORT \
-        --env DB_PASSWORD=$$_DB_PASSWORD \
-        --env _ENABLE_API_SERVICE_CONSOLE=0
+		--reload \
+		--bind 127.0.0.1:$$PORT \
+		--env API_GATEWAY=api.test.com \
+		--env MODE=deploy \
+		--env DB_NAME=$$_DB_NAME \
+		--env DB_USER=$$_DB_USER \
+		--env DB_HOST=$$_DB_HOST \
+		--env DB_PORT=$$_DB_PORT \
+		--env DB_PASSWORD=$$_DB_PASSWORD \
+		--env _ENABLE_API_SERVICE_CONSOLE=0
 fi
 
 ================end
