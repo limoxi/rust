@@ -1,27 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from rust.core.business import ParamObject
-from rust.core.exceptions import BusinessError
-from rust.core.api import ApiResource
+from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
 from rust.resources.business.permission.permission_group_factory import PermissionGroupFactory
 
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository
 
-ERROR_CODE2TEXT = {
-	'existed': u'权限分组已存在',
-	'not exist': u'权限分组不存在',
-}
-
+@Resource('rust.permission.group')
 class AGroup(ApiResource):
 
-	app = 'rust.permission'
-	resource = 'group'
-
 	@param_required(['user', 'group_id', '?fill_permissions:bool'])
-	def get(params):
-		user = params['user']
-		group = PermissionGroupRepository(user).get_by_id(params['group_id'])
+	def get(self):
+		user = self.params['user']
+		group = PermissionGroupRepository(user).get_by_id(self.params['group_id'])
 
 		return {
 			'id': group.id,
@@ -31,40 +23,34 @@ class AGroup(ApiResource):
 				'id': permission.id,
 				'name': permission.name,
 				'desc': permission.desc
-			} for permission in (group.permissions if params.get('fill_permissions') else [])]
+			} for permission in (group.permissions if self.params.get('fill_permissions') else [])]
 		}
 
 	@param_required(['user', 'name', '?desc'])
-	def put(params):
-		user = params['user']
+	def put(self):
+		user = self.params['user']
 		param_object = ParamObject({
-			'name': params['name'],
-			'desc': params.get('desc', '')
+			'name': self.params['name'],
+			'desc': self.params.get('desc', '')
 		})
-		try:
-			permission_group = PermissionGroupFactory(user).create(param_object)
-		except BusinessError as e:
-			return 500, e.get_message(ERROR_CODE2TEXT)
+		permission_group = PermissionGroupFactory(user).create(param_object)
 		return {
 			'group_id': permission_group.id
 		}
 
 	@param_required(['user', 'group_id', 'name', 'desc'])
-	def post(params):
-		user = params['user']
+	def post(self):
+		user = self.params['user']
 		param_object = ParamObject({
-			'id': params['group_id'],
-			'name': params['name'],
-			'desc': params.get('desc', '')
+			'id': self.params['group_id'],
+			'name': self.params['name'],
+			'desc': self.params.get('desc', '')
 		})
-		try:
-			PermissionGroupFactory(user).update(param_object)
-		except BusinessError, e:
-			return 500, e.get_message(ERROR_CODE2TEXT)
+		PermissionGroupFactory(user).update(param_object)
 		return {}
 
 	@param_required(['user', 'group_id'])
-	def delete(params):
-		user = params['user']
-		PermissionGroupFactory(user).delete(params['group_id'])
+	def delete(self):
+		user = self.params['user']
+		PermissionGroupFactory(user).delete(self.params['group_id'])
 		return {}

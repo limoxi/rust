@@ -16,19 +16,27 @@ class ResponseBase(object):
 	def to_string(self):
 		raise NotImplementedError
 
-class SystemErrorResponse(ResponseBase):
+class ErrorResponse(ResponseBase):
 	__slots__ = (
 		'code',
 		'errMsg',
 		'innerErrMsg',
 	)
 
+	@classmethod
+	def get_from_exception(cls, e):
+		instance = ErrorResponse(
+			code = e.code,
+			errMsg = e.message,
+		)
+		return instance
+
 	def __init__(self, code=500, errMsg='', innerErrMsg=''):
 		self.code = code
 		self.errMsg = errMsg
 		self.innerErrMsg = innerErrMsg or errMsg
 
-		super(SystemErrorResponse, self).__init__()
+		super(ErrorResponse, self).__init__()
 
 	def to_string(self):
 		return json.dumps({
@@ -42,32 +50,18 @@ class JsonResponse(ResponseBase):
 	__slots__ = (
 		'code',
 		'data',
-		'errMsg',
-		'innerErrMsg',
 	)
 
 	def __init__(self, data):
 		super(JsonResponse, self).__init__()
 		self.code = 200
 		self.data = data
-		self.errMsg = ''
-		self.innerErrMsg = ''
-		if type(data) == tuple:
-			self.code = data[0]
-			self.data = data[1]
-			if self.code != 200:
-				self.data = ''
-				self.errMsg = data[1]
-				self.innerErrMsg = data[2] if len(data) == 3 else data[1]
-
 		self.body = data
 
 	def to_string(self):
 		return json.dumps({
 			'code': self.code,
-			'data': self.data,
-			'errMsg': self.errMsg,
-			'innerErrMsg': self.innerErrMsg
+			'data': self.data
 		})
 
 class RawResponse(ResponseBase):

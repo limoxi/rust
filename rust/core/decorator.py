@@ -35,7 +35,8 @@ def param_required(params=None):
     3. ?name,以?开头的参数，表示非必须参数
     """
     def wrapper(function):
-        def inner(data):
+        def inner(self):
+            data = self.params
             for param in params:
                 if ':' in param:
                     param_name, param_type = param.split(':')
@@ -66,7 +67,7 @@ def param_required(params=None):
                 except BaseException as e:
                     raise ApiParameterError('Invalid parameter: %s is not %s.%s' % (param_name, param_type, e.message))
 
-            return function(data)
+            return function(self)
 
         return inner
 

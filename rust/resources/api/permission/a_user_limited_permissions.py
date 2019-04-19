@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from rust.core.api import ApiResource
+from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
 
 from rust.resources.business.permission.permission_repository import PermissionRepository
 from rust.resources.business.permission.permission_service import PermissionService
 
+@Resource('rust.permission.user_limited_permissions')
 class AUserLimitedPermissions(ApiResource):
 
-	app = 'rust.permission'
-	resource = 'user_limited_permissions'
-
 	@param_required(['user', 'limited_user_id'])
-	def get(params):
-		user = params['user']
-		permissions = PermissionRepository(user).get_user_limited_permissions(params['limited_user_id'])
+	def get(self):
+		user = self.params['user']
+		permissions = PermissionRepository(user).get_user_limited_permissions(
+			self.params['limited_user_id']
+		)
 
 		return [{
 			'id': permission.id,
@@ -23,7 +23,9 @@ class AUserLimitedPermissions(ApiResource):
 		} for permission in permissions]
 
 	@param_required(['user', 'limited_user_id:int', 'permission_ids:json'])
-	def post(params):
-		user = params['user']
-		PermissionService(user).limit_user_permissions(params['limited_user_id'], params['permission_ids'])
+	def post(self):
+		user = self.params['user']
+		PermissionService(user).limit_user_permissions(
+			self.params['limited_user_id'], self.params['permission_ids']
+		)
 		return {}

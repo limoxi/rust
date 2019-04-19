@@ -27,11 +27,11 @@ class UserFactory(business.Service):
 	def update(self, param_object):
 		db_model = self.user.context['db_model']
 		modified = False
-		if param_object.nickname is not None and self.user.nickname == param_object.nickname:
+		if param_object.nickname is not None and self.user.nickname != param_object.nickname:
 			db_model.nickname = param_object.nickname
 			modified = True
 
-		if param_object.avatar is not None and self.user.avatar == param_object.avatar:
+		if param_object.avatar is not None and self.user.avatar != param_object.avatar:
 			db_model.avatar = param_object.avatar
 			modified = True
 
