@@ -45,10 +45,10 @@ class ${upper_resource_name}(ApiResource):
 		param_object = ParamObject({
 			'name': self.params['name']
 		})
-        ${resource_name} = ${upper_resource_name}Factory(user).create(param_object)
-        return {
-            'id': ${resource_name}.id
-        }
+		${resource_name} = ${upper_resource_name}Factory(user).create(param_object)
+		return {
+			'id': ${resource_name}.id
+		}
 
 	@param_required(['user', 'id:int', 'name'])
 	def post(self):
@@ -57,8 +57,8 @@ class ${upper_resource_name}(ApiResource):
 			'id': self.params['id'],
 			'name': self.params['name']
 		})
-        ${upper_resource_name}Factory(user).update(param_object)
-        return {}
+		${upper_resource_name}Factory(user).update(param_object)
+		return {}
 
 	@param_required(['user', 'id:int'])
 	def delete(self):
