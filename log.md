@@ -13,6 +13,10 @@ Release 正式版
 ```
 
 ### 升级日志
+> v0.4.2.190422_Alpha
+- 修复PermissionGroup唯一性索引名太长的问题
+- 删除权限中间件的遗留代码
+
 > v0.4.1.190406_Alpha
 - 增强peewee，增加自定义FieldType
     - ListField

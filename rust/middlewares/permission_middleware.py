@@ -19,7 +19,7 @@ class PermissionMiddleware(BaseMiddleware):
 			if 'rust.permission' in req.path and user.name != 'manager':
 				raise MiddlewareException(u'只有系统管理员才能管理权限')
 
-			resource = '{}-{}'.format(req.context['_app'], req.context['_resource'])
+			resource = req.context['_resource']
 			method = req.context['_method']
 			if not PermissionService(user).check_permission(resource, method):
 				raise MiddlewareException(u'当前用户没有权限进行此操作')

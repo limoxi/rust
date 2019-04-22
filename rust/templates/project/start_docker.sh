@@ -34,5 +34,5 @@ docker run -d --rm \
 --env _DB_PASSWORD=test \
 --env _DB_CHARSET=utf8mb4 \
 --env _API_GATEWAY=api.local.com \
---add-host db.local.com:192.168.31.189 \
+--add-host db.local.com:127.0.0.1 \
 registry.cn-hangzhou.aliyuncs.com/aix/${__SERVICE_NAME}:$__GIT_BRANCH

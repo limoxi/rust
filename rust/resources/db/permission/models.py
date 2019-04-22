@@ -18,7 +18,7 @@ class PermissionGroup(models.Model):
     """
 	权限组
 	"""
-    name = models.CharField(default='', max_length=1024, unique=True)  # 组名
+    name = models.CharField(default='', max_length=512, unique=True)  # 组名
     desc = models.CharField(default='', max_length=1024)  #描述
 
     class Meta(object):

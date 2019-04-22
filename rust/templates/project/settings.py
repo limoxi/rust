@@ -7,7 +7,8 @@ PROJECT_HOME = os.path.dirname(os.path.abspath(__file__))
 DEBUG = (os.environ.get('_DEBUG', '0') == '1')
 MODE = os.environ.get('_SERVICE_MODE', 'develop')
 SERVICE_NAME = '&{service_name}'
-SERVICE_HOST = '127.0.0.1:9001'
+SERVICE_HOST = '127.0.0.1'
+SERVICE_PORT = 9001
 
 UPLOAD_DIR = os.path.join(PROJECT_HOME, 'static', 'upload')  # 文件上传路径
 UPLOAD_HTTP_PATH = '/static/upload'
