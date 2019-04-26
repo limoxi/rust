@@ -89,7 +89,7 @@ class FalconResource:
 			# 如果数据库事务已提交，则发送所有异步消息
 			pass
 
-		if settings.MODE == 'deploy':
+		if settings.MODE == 'deploy' and response.code != 200:
 			# 生产环境不对外保留错误堆栈
 			response.innerErrMsg = ''
 
