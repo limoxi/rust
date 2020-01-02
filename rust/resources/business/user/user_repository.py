@@ -1,4 +1,4 @@
-#coding: utf8
+# coding: utf8
 
 from datetime import datetime
 
@@ -28,8 +28,8 @@ class UserRepository(business.Service):
 		if db_model:
 			return User(db_model)
 
-	def get_by_name(self, username):
-		db_model = user_models.User.select().dj_where(username=username).first()
+	def get_by_name(self, name):
+		db_model = user_models.User.select().dj_where(name=name).first()
 		if db_model:
 			return User(db_model)
 

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 import os
 from setuptools import setup, find_packages
@@ -46,7 +46,7 @@ setup(
 	package_data=find_extra_data(['static', 'templates']),
 	install_requires=collect_requires(),
 	entry_points='''
-        [console_scripts]
-        rust-cli=rust.utils.rust_cli:cli
-    ''',
+		[console_scripts]
+		rust-cli=rust.utils.rust_cli:cli
+	''',
 )
