@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 from rust.core.business import ParamObject
 from rust.core.api import ApiResource, Resource

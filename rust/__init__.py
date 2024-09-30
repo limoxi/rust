@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 import os
-__version__ = '0.4.2'
+__version__ = '0.5.0'
 
 VERSION = __version__
 

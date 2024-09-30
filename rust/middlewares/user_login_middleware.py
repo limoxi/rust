@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 from rust.core.exceptions import BusinessError
 from rust.core.middleware import BaseMiddleware

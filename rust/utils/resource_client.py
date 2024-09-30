@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 import json
 import urllib
@@ -143,7 +143,7 @@ class Inner(object):
 			msg['http_code'] = ''
 			msg['resp_text'] = ''
 
-		print msg
+		print (msg)
 
 class Resource(object):
 	api_scheme = 'http'

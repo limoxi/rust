@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.permission.permission_service import PermissionService

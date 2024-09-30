@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 import sys
 
@@ -31,4 +31,4 @@ def run_command(command):
         try:
             instance.handle(*sys.argv[2:])
         except:
-            print unicode_full_stack()
+            print (unicode_full_stack())

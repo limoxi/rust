@@ -14,7 +14,6 @@
 - [x] 初始化项目命令 rust-cli init xxx
 - [x] 增加资源命令 rust-cli add xxx
 - [x] JWT
-- [ ] python3支持
 - [ ] 完善文档
 
 > [升级日志](./log.md)

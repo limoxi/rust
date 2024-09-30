@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 import operator
 import peewee
 from peewee import _ModelQueryHelper

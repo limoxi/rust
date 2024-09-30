@@ -5,3 +5,5 @@
 *.DS_Store
 rust.egg-info/
 venv/
+build/
+dist/

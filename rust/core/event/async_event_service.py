@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 """
 领域事件通过装饰器event_handler注册，
@@ -60,7 +60,7 @@ class AsyncEventService(object):
 		"""
 		broker = self.__get_broker()
 		if not broker:
-			print 'no valid async broker exist'
+			print ('no valid async broker exist')
 			return
 		for async_event in self.async_events:
 			broker.send(async_event)

@@ -13,6 +13,10 @@ Release 正式版
 ```
 
 ### 升级日志
+> v0.5.0.240930_Alpha
+- 升级到Python3，Python2不再支持
+- 移除console功能
+
 > v0.4.2.190422_Alpha
 - 修复PermissionGroup唯一性索引名太长的问题
 - 删除权限中间件的遗留代码

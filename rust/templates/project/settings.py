@@ -28,7 +28,7 @@ def load_custom_configs():
                     continue
 
                 if attr in configs:
-                    print '[WARN]: settings.%s(%s) is already defined' % (attr, f)
+                    print ('[WARN]: settings.%s(%s) is already defined' % (attr, f))
 
                 configs[attr] = getattr(module, attr)
 

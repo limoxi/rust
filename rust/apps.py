@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 
 import json
 import falcon
@@ -148,7 +148,7 @@ def load_resources():
 	#加载用户定义的资源
 	try:
 		import api.resources
-	except:
+	except Exception:
 		print (unicode_full_stack())
 
 class __ResourceRouter(CompiledRouter):
@@ -186,12 +186,5 @@ def create_app():
 
 	#加载错误处理器
 	falcon_app.add_error_handler(MiddlewareException)
-
-	if settings.DEBUG or getattr(settings, 'ENABLE_CONSOLE', False):
-		from rust.dev_resource import service_console_resource
-		falcon_app.add_route('/console/', service_console_resource.ServiceConsoleResource())
-
-		from rust.dev_resource import static_resource
-		falcon_app.add_sink(static_resource.serve_static_resource, '/static/')
 
 	return falcon_app
