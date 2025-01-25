@@ -1,5 +1,3 @@
-# coding: utf-8
-
 from setuptools import setup, find_packages
 
 version = __import__('rust').get_version()
@@ -9,8 +7,9 @@ def collect_requires():
 		with open('requirements.txt', 'r') as f:
 			contents = f.readlines()
 		return map(lambda content: content.strip(), contents)
-	except:
-		return ['click']
+	except Exception as e:
+		print('there is no requirements.txt', e)
+		return ['click', 'falcon','werkzeug']
 
 setup(
 	name='rust',

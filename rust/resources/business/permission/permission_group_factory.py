@@ -1,8 +1,6 @@
-#coding: utf8
 
 from rust.core.exceptions import BusinessError
 from rust.core import business
-from rust.core.db import db as peewee_db
 
 from rust.resources.business.permission.permission_group import PermissionGroup
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository

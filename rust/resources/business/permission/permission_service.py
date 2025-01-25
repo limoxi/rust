@@ -1,9 +1,7 @@
-#coding: utf8
 
 from datetime import datetime
 
 from rust.core import business
-from rust.core.db import db as peewee_db
 
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository
 from rust.resources.business.permission.permission_repository import PermissionRepository

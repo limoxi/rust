@@ -1,4 +1,3 @@
-# coding: utf-8
 
 from rust.core.middleware import BaseMiddleware
 

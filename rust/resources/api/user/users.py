@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
@@ -8,7 +7,7 @@ from rust.resources.business.user.fill_service import FillService
 from rust.resources.business.user.user_repository import UserRepository
 
 @Resource('rust.user.users')
-class AUsers(ApiResource):
+class Users(ApiResource):
 	"""
 	用户列表
 	"""

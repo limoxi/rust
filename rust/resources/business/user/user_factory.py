@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.core import business
 from rust.core.exceptions import BusinessError
@@ -13,7 +12,7 @@ class UserFactory(business.Service):
 
 		db_model = user_models.User.create(
 			username = param_object.username,
-			password = encrypted_password,
+			password = param_object.encrypted_password,
 			nickname = param_object.nickname,
 			avatar = param_object.avatar or ''
 		)

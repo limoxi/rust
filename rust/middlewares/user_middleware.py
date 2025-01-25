@@ -1,4 +1,3 @@
-# coding: utf-8
 
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.user.user_repository import UserRepository

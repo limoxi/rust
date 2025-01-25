@@ -1,14 +1,14 @@
-# coding: utf-8
 
 import json
-import urllib
-import urlparse
+from urllib.parse import urlparse, ParseResult, urlunparse
+from urllib.parse import parse_qsl
+from urllib.parse import urlencode
 import os
 import requests
 from time import time
 import logging
 
-from rust.core.exceptions import unicode_full_stack
+from rust.core.exceptions import print_full_stack
 from rust.utils.jwt_service import JWTService
 
 CALL_SERVICE_WATCHDOG_TYPE = "USE_RESOURCE"
@@ -17,12 +17,13 @@ DEFAULT_GATEWAY_HOST = os.environ.get("API_GATEWAY", 'http://api.test.com')
 
 def url_add_params(url, **params):
 	""" 在网址中加入新参数 """
-	pr = urlparse.urlparse(url)
-	query = dict(urlparse.parse_qsl(pr.query))
+	parsed_url = urlparse(url)
+	query = dict(parse_qsl(parsed_url.query))
 	query.update(params)
-	prlist = list(pr)
-	prlist[4] = urllib.urlencode(query)
-	return urlparse.ParseResult(*prlist).geturl()
+	new_query_string = urlencode(query, doseq=True)
+
+	new_parsed_url = parsed_url._replace(query=new_query_string)
+	return urlunparse(new_parsed_url)
 
 class Inner(object):
 
@@ -70,7 +71,7 @@ class Inner(object):
 			# 如果resouce为None，则URL中省略resource。方便本地调试。
 			base_url = '%s/%s/' % (host, resource_path)
 
-		url = url_add_params(base_url)
+		url = base_url
 
 		headers = {
 			'AUTHORIZATION': JWTService.get_current()
@@ -110,10 +111,12 @@ class Inner(object):
 				return None
 
 		except requests.exceptions.RequestException as e:
-			self.__log(False, url, params, method, str(type(e)), unicode_full_stack())
+			print_full_stack()
+			self.__log(False, url, params, method, str(type(e)))
 			return None
 		except BaseException as e:
-			self.__log(False, url, params, method, str(type(e)), unicode_full_stack())
+			print_full_stack()
+			self.__log(False, url, params, method, str(type(e)))
 			return None
 		finally:
 			stop = time()

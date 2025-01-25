@@ -1,7 +1,6 @@
-#coding: utf8
 
-import a_permissions
-import a_groups
-import a_group
-import a_group_permissions
-import a_user_limited_permissions
+from . import permissions
+from . import groups
+from . import group
+from . import group_permissions
+from . import user_limited_permissions

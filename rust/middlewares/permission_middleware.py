@@ -1,4 +1,3 @@
-# coding: utf-8
 
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.permission.permission_service import PermissionService
@@ -6,7 +5,7 @@ from rust.resources.business.user.user_repository import UserRepository
 from rust.core.middleware import BaseMiddleware
 
 class PermissionMiddleware(BaseMiddleware):
-	def process_request(sel, req, resp):
+	def process_request(self, req, resp):
 		"""
 		权限检查
 		依赖user

@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
@@ -6,7 +5,7 @@ from rust.resources.business.user.register_params import RegisterParams
 from rust.resources.business.user.login_service import LoginService
 
 @Resource('rust.user.registered_user')
-class ARegisteredUser(ApiResource):
+class RegisteredUser(ApiResource):
 	"""
 	注册用户
 	"""

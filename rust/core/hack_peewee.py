@@ -1,17 +1,18 @@
-# coding: utf-8
 import operator
+from functools import reduce
+
 import peewee
 from peewee import _ModelQueryHelper
 
 """
 add query method [dj_where]
 """
-def __parse_field_name(str):
-    pos = str.find('__')
+def __parse_field_name(field_str):
+    pos = field_str.find('__')
     if pos == -1:
-        return str, None
+        return field_str, None
     else:
-        return str[:pos], str[pos:]
+        return field_str[:pos], field_str[pos:]
 
 def dj_where(self, *expressions):
     if self._where is not None:
@@ -54,7 +55,7 @@ def django_where_returns_clone(func):
                 elif op == '__in':
                     if len(value) == 0:
                         # TODO2: handle situations like "select * from table where id in ()"
-                        value = ['-98765']
+                        value = ['-1']
                     args.append(db_field.in_(value))
         kwargs = {}
         clone = self.clone()  # Assumes object implements `clone`.

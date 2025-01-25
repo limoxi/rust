@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.command.base_command import BaseCommand
 from rust.utils.rust_cli_func import add_resource

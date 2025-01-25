@@ -1,4 +1,3 @@
-# coding: utf-8
 
 class Model(object):
 	"""
@@ -56,18 +55,6 @@ class Service(object):
 		}
 		self.user = user
 		self.member = member
-
-class Resource(object):
-	"""
-	交易中的资源
-	"""
-	__slots__ = (
-		'context',
-		'priority' #资源处理的优先级
-	)
-
-	def __init__(self):
-		self.context = {}
 
 def ParamObject(data):
 	"""

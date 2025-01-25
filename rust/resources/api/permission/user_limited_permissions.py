@@ -1,4 +1,3 @@
-# coding: utf-8
 
 from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
@@ -7,7 +6,7 @@ from rust.resources.business.permission.permission_repository import PermissionR
 from rust.resources.business.permission.permission_service import PermissionService
 
 @Resource('rust.permission.user_limited_permissions')
-class AUserLimitedPermissions(ApiResource):
+class UserLimitedPermissions(ApiResource):
 
 	@param_required(['user', 'limited_user_id'])
 	def get(self):

@@ -1,24 +1,42 @@
-#coding: utf8
 
 import json
 import datetime
 import peewee
-from playhouse.db_url import connect
-import hack_peewee # 重要！！勿删！！！
+from playhouse.pool import PooledMySQLDatabase, PooledPostgresqlDatabase, PooledSqliteDatabase
 
-try:
-	import settings
-except:
-	raise RuntimeError('[start server failed]: a py file named settings in the project root dir needed !!!]')
+from . import hack_peewee # 重要！！勿删！！！
 
-DB = settings.DATABASES['default']
 db = None
+def init_sqlite_pool(db_path_and_name, max_cnn=8, timeout=60):
+	global db
+	db = PooledSqliteDatabase(
+		db_path_and_name,  # 数据库文件路径
+		max_connections=max_cnn,  # 最大连接数
+		stale_timeout=timeout  # 连接空闲超时时间（秒）
+	)
 
-if DB['NAME']:
-	DB_URL = '%s://%s:%s@%s/%s' % (DB['ENGINE'], DB['USER'], DB['PASSWORD'],
-		"%s:%s" % (DB['HOST'], DB['PORT']) if len(DB['PORT'])>0 else DB['HOST'], DB['NAME'])
-	db = connect(DB_URL)
-	db.connect()
+def init_pool(engine, db_host, db_name, db_user, db_password, db_port, max_cnn=8, timeout=60):
+	global db
+	if engine == 'mysql':
+		db = PooledMySQLDatabase(
+			db_name,  # 数据库名
+			user=db_user,  # 用户名
+			password=db_password,  # 密码
+			host=db_host,  # 主机地址
+			port=db_port,  # 端口
+			max_connections=max_cnn,  # 最大连接数
+			stale_timeout=timeout  # 连接空闲超时时间（秒）
+		)
+	elif engine == 'postgresql':
+		db = PooledPostgresqlDatabase(
+			db_name,  # 数据库名
+			user=db_user,  # 用户名
+			password=db_password,  # 密码
+			host=db_host,  # 主机地址
+			port=db_port,  # 端口
+			max_connections=8,  # 最大连接数
+			stale_timeout=300  # 连接空闲超时时间（秒）
+		)
 
 class Model(peewee.Model):
 	"""

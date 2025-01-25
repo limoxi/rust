@@ -1,11 +1,10 @@
-# coding: utf-8
 
 from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
 from rust.resources.business.permission.permission_repository import PermissionRepository
 
 @Resource('rust.permission.permissions')
-class APermissions(ApiResource):
+class Permissions(ApiResource):
 
 	@param_required(['user'])
 	def get(self):

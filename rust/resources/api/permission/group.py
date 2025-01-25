@@ -1,4 +1,3 @@
-# coding: utf-8
 
 from rust.core.business import ParamObject
 from rust.core.api import ApiResource, Resource
@@ -8,7 +7,7 @@ from rust.resources.business.permission.permission_group_factory import Permissi
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository
 
 @Resource('rust.permission.group')
-class AGroup(ApiResource):
+class Group(ApiResource):
 
 	@param_required(['user', 'group_id', '?fill_permissions:bool'])
 	def get(self):

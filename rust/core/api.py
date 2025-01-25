@@ -1,4 +1,3 @@
-# coding: utf-8
 
 import time
 
@@ -34,7 +33,7 @@ class ApiLogger(object):
 
 	@staticmethod
 	def print_req(resource, method, data, time_start):
-		print ('/{}/{}?{} =>{}'.format(resource, method, data, time.clock() - time_start))
+		print (f'{resource}.{method.upper()} {(time.perf_counter() - time_start)*1000:.2f}ms {data}')
 
 	@staticmethod
 	def log(req_data, resp_data, mode):
@@ -47,7 +46,7 @@ class ApiLogger(object):
 def api_call(method, resource, data, req=None, resp=None):
 	resource_name = resource
 	key = resource
-	start_at = time.clock()
+	start_at = time.perf_counter()
 
 	resource = RESOURCE2CLASS.get(key, None)
 	if not resource:

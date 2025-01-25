@@ -1,7 +1,6 @@
-#coding: utf8
 
-import a_user
-import a_users
-import a_logined_user
-import a_registered_user
-import a_password
+from . import user
+from . import users
+from . import logined_user
+from . import registered_user
+from . import password

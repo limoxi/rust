@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.core.business import ParamObject
 from rust.core.api import ApiResource, Resource
@@ -15,7 +14,7 @@ import settings
 from rust.resources.business.user.user_repository import UserRepository
 
 @Resource('rust.user.user')
-class AUser(ApiResource):
+class User(ApiResource):
 	"""
 	用户
 	"""

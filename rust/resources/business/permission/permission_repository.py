@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.core import business
 

@@ -1,4 +1,3 @@
-#coding: utf8
 
 from .user import models as user_models
 from .permission import models as permission_models

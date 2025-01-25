@@ -1,4 +1,3 @@
-# coding: utf-8
 
 class BaseCommand(object):
     def handle(self):

@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.core.api import ApiResource, Resource
 from rust.core.decorator import param_required
@@ -6,7 +5,7 @@ from rust.core.exceptions import BusinessError
 from rust.resources.business.user.login_service import LoginService
 
 @Resource('rust.user.password')
-class APassowrd(ApiResource):
+class Passowrd(ApiResource):
 	"""
 	登录密码
 	"""

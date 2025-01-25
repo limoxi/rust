@@ -1,13 +1,12 @@
-# coding: utf-8
-
 import json
 import falcon
 from falcon.routing import CompiledRouter
 
 from rust.core.db import db as rust_db
+import importlib
 
 from rust.core import api
-from rust.core.exceptions import unicode_full_stack, ApiParameterError, ApiNotExistError, BusinessError
+from rust.core.exceptions import print_full_stack, ApiParameterError, ApiNotExistError, BusinessError
 from rust.core.api import ApiLogger
 from rust.core.resp import ErrorResponse, JsonResponse
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
@@ -22,88 +21,52 @@ class FalconResource:
 		pass
 
 	def __parse_api_params(self, req):
-		"""
-		对于不支持的content_type，直接返回空串
-		"""
 		params = {}
 		params.update(req.params)
 		params.update(req.context)
 		params['api_id'] = req.path + '_' + req.method
 
-		if req.method not in ['POST', 'PUT', 'DELETE']:
-			return params
-		content_type = req.content_type
-		if content_type == falcon.MEDIA_JSON.split(';')[0] or (len(content_type.split(';')) > 1 and \
-				content_type.split(';')[0] == falcon.MEDIA_JSON.split(';')[0]):
-			params.update(json.loads(req.stream.read()))
-		elif 'application/x-www-form-urlencoded' in content_type:
-			pass
-		elif content_type == falcon.MEDIA_XML:
-			params['xml'] = req.stream.read()
-		elif not content_type:
-			params = None
-		else:
-			params = None
+		if req.method == 'POST':
+			if 'text/plain' not in req.content_type:
+				params.update(req.get_media())
 
 		return params
+
+	def __call(self, method, resource, req, params, resp):
+		try:
+			response = api.api_call(method, resource, params, req, resp)
+			response = JsonResponse(response)
+		except ApiNotExistError as e:
+			response = ErrorResponse.get_from_exception(e)
+		except ApiParameterError as e:
+			response = ErrorResponse.get_from_exception(e)
+		except BusinessError as e:
+			response = ErrorResponse.get_from_exception(e)
+		except Exception:
+			print_full_stack()
+			response = ErrorResponse(
+				code=533,
+				errMsg='系统错误',
+			)
+
+		return response
 
 	def __call_api(self, method, resource, req, resp):
 		req.context['_resource'] = resource
 		resp.status = falcon.HTTP_200
 
-		trx_rolled_back = False
-		with rust_db.atomic() as transaction:
-			response = None
-			try:
-				params = self.__parse_api_params(req)
-				if not params:
-					# 对于不支持的content_type，直接返回空串
-					resp.body = ''
-					return
-
-				response = api.api_call(method, resource, params, req, resp)
-				response = JsonResponse(response)
-			except ApiNotExistError as e:
-				response = ErrorResponse.get_from_exception(e)
-			except ApiParameterError as e:
-				response = ErrorResponse.get_from_exception(e)
-			except BusinessError as e:
-				response = ErrorResponse.get_from_exception(e)
-			except Exception:
-				error_stacks = unicode_full_stack()
-				print (error_stacks)
-				response = ErrorResponse(
-					code = 533,
-					errMsg = u'系统错误',
-					innerErrMsg = error_stacks
-				)
-			finally:
-				if response and response.code != 200:
+		params = self.__parse_api_params(req)
+		if rust_db is None:
+			response = self.__call(method, resource, req, params, resp)
+		else:
+			with rust_db.manual_transaction() as transaction:
+				response = self.__call(method, resource, req, params, resp)
+				if response and response.code == 200:
+					transaction.commit()
+				else:
 					transaction.rollback()
-					trx_rolled_back = True
 
-		# 关闭数据库连接
-		rust_db.close()
-
-		if not trx_rolled_back:
-			# 如果数据库事务已提交，则发送所有异步消息
-			pass
-
-		if settings.MODE == 'deploy' and response.code != 200:
-			# 生产环境不对外保留错误堆栈
-			response.innerErrMsg = ''
-
-		resp.body = response.to_string()
-
-		if hasattr(settings, 'API_LOGGER_MODE'):
-			ApiLogger.log(req_data={
-				'resource': resource,
-				'method': method,
-				'params': params,
-				'req_instance': req
-			}, resp_data={
-				'resp_instance': resp
-			}, mode=getattr(settings, 'API_LOGGER_MODE', None))
+		resp.text = response.to_string()
 
 	def on_get(self, req, resp, resource):
 		self.__call_api('get', resource, req, resp)
@@ -147,21 +110,18 @@ def load_resources():
 			print ('load rust built-in resource: {}'.format(resource))
 	#加载用户定义的资源
 	try:
-		import api.resources
+		from api import resources
 	except Exception:
-		print (unicode_full_stack())
+		print_full_stack()
 
 class __ResourceRouter(CompiledRouter):
 	"""
 	定制router匹配策略
 	"""
 	def find(self, uri, req=None):
-		if not uri.startswith('/static/'):
-			path = [uri.lstrip('/').replace('/', '.')]
-		else:
-			path = uri.lstrip('/').split('/')
+		path = uri.lstrip('/').rstrip('/').replace('/', '.')
 		params = {}
-		node = self._find(path, self._return_values, self._patterns,
+		node = self._find([path], self._return_values, self._patterns,
 						  self._converters, params)
 
 		if node is not None:
@@ -173,16 +133,13 @@ def create_app():
 	load_resources()
 	middlewares = __load_middlewares()
 	router = __ResourceRouter()
-	falcon_app = falcon.API(middleware=middlewares, router=router)
+	falcon_app = falcon.App(middleware=middlewares, router=router)
 
 	# 解析值为空的参数
 	falcon_app.req_options.keep_blank_qs_values = True
 
-	# 解析formdata
-	falcon_app.req_options.auto_parse_form_urlencoded = True
-
 	# 注册到Falcon
-	falcon_app.add_route('/{resource}/', FalconResource())
+	falcon_app.add_route('/{resource}', FalconResource())
 
 	#加载错误处理器
 	falcon_app.add_error_handler(MiddlewareException)

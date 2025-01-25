@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.core import business
 from rust.core.decorator import cached_context_property

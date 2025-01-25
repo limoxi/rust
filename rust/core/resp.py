@@ -1,5 +1,3 @@
-# coding: utf-8
-
 import json
 
 class ResponseBase(object):
@@ -20,7 +18,6 @@ class ErrorResponse(ResponseBase):
 	__slots__ = (
 		'code',
 		'errMsg',
-		'innerErrMsg',
 	)
 
 	@classmethod
@@ -31,10 +28,9 @@ class ErrorResponse(ResponseBase):
 		)
 		return instance
 
-	def __init__(self, code=500, errMsg='', innerErrMsg=''):
+	def __init__(self, code=500, errMsg=''):
 		self.code = code
 		self.errMsg = errMsg
-		self.innerErrMsg = innerErrMsg or errMsg
 
 		super(ErrorResponse, self).__init__()
 
@@ -42,7 +38,6 @@ class ErrorResponse(ResponseBase):
 		return json.dumps({
 			'code': self.code,
 			'errMsg': self.errMsg,
-			'innerErrMsg': self.innerErrMsg
 		})
 
 class JsonResponse(ResponseBase):

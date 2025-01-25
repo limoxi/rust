@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.command.base_command import BaseCommand
 from rust.resources.db.permission import models as permission_models

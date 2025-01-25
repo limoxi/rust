@@ -1,4 +1,3 @@
-#coding: utf8
 
 from rust.command.base_command import BaseCommand
 from rust.resources.db.user import models as user_models
