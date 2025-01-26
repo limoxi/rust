@@ -1,12 +1,11 @@
-import importlib
-
+from pathlib import Path
 from setuptools import setup, find_packages
 
 def collect_requires():
 	try:
-		with open('requirements.txt', 'r') as f:
+		with open(Path(__file__).parent / 'requirements.txt', encoding='utf-8') as f:
 			contents = f.readlines()
-		return map(lambda content: content.strip(), contents)
+		return list(map(lambda content: content.strip(), contents))
 	except Exception as e:
 		print('there is no requirements.txt', e)
 		return ['click', 'falcon','werkzeug','ruamel.yaml']
@@ -19,7 +18,7 @@ setup(
 	author_email='asia-aixiang@163.com',
 	packages=find_packages(),
 	install_requires=collect_requires(),
-	python_requires='>=3.6',
+	python_requires='>=3.11',
 	classifiers=[
         'Programming Language :: Python :: 3'
     ],
