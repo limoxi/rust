@@ -3,35 +3,23 @@ import jwt
 from jwt import InvalidTokenError
 from datetime import datetime, timedelta
 
+from rust import Config
 from rust.core.exceptions import BusinessError
 
-import settings
-
-SECRET = 'aSsJKgdAH2Dkaj1shd4ahsh' if not hasattr(settings, 'JWT_SECRET') else settings.JWT_SECRET
-CURRENT_TOKEN = None
-
 class JWTService(object):
-
-	@staticmethod
-	def get_current():
-		return CURRENT_TOKEN
-
-	@staticmethod
-	def set_current(token):
-		global CURRENT_TOKEN
-		CURRENT_TOKEN = token
+	SECRET: str = Config.get_str('jwt.secret', 'aSsJKgdAH2Dkaj1shd4ahsh')
+	EXPIRE_SECONDS: int = Config.get_int('jwt.expire_seconds', 2*60*60)
 
 	def encode(self, data):
-		ext_sec = 2*60*60 if not hasattr(settings, 'JWT_EXT_SEC') else settings.JWT_EXT_SEC
 		payload = {
 			'data': data,
-			'exp': datetime.now() + timedelta(seconds=ext_sec)
+			'exp': datetime.now() + timedelta(seconds=JWTService.EXPIRE_SECONDS)
 		}
-		return jwt.encode(payload, SECRET, algorithm='HS256')
+		return jwt.encode(payload, JWTService.SECRET, algorithm='HS256')
 
 	def decode(self, token):
 		try:
-			payload = jwt.decode(token, SECRET, algorithm='HS256')
+			payload = jwt.decode(token, JWTService.SECRET, algorithm='HS256')
 		except InvalidTokenError:
 			raise BusinessError(u'不合法的token')
 

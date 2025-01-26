@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
 领域事件通过装饰器event_handler注册，
 但是需要自己import各处理模块
@@ -9,8 +7,7 @@ from datetime import datetime
 
 from async_event import AsyncEvent
 from async_broker import console_broker, redis_broker, mns_broker
-
-import settings
+from rust import Config
 
 INSTANCE = None
 
@@ -37,7 +34,7 @@ class AsyncEventService(object):
 		"""
 		获取异步消息处理器
 		"""
-		name = getattr(settings, 'EVENT_BROKER', 'console')
+		name = Config.get_str('event.broker', 'console')
 		if name == 'console':
 			return console_broker.ConsoleBroker()
 		elif name == 'redis':

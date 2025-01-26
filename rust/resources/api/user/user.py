@@ -1,6 +1,7 @@
 
 from rust.core.business import ParamObject
 from rust.core.api import ApiResource, Resource
+from rust import Config
 from rust.core.decorator import param_required
 from rust.core.exceptions import BusinessError
 from rust.resources.business.user.encode_service import EncodeService
@@ -8,8 +9,6 @@ from rust.resources.business.user.fill_service import FillService
 
 from rust.resources.business.user.user_factory import UserFactory
 from rust.resources.business.permission.permission_group_repository import PermissionGroupRepository
-
-import settings
 
 from rust.resources.business.user.user_repository import UserRepository
 
@@ -37,7 +36,7 @@ class User(ApiResource):
 			raise BusinessError(u'操作无权限')
 		param_object = ParamObject({
 			'username': self.params['username'],
-			'password': settings.DEFAULT_PASSWORD if hasattr(settings, 'DEFAULT_PASSWORD') else '123456'
+			'password': Config.get_str('default_auth_password', '123456')
 		})
 		user = UserFactory().create(param_object)
 		if self.params.get('group_id'):

@@ -1,20 +1,14 @@
-import json
 import falcon
 from falcon.routing import CompiledRouter
 
+from rust import Config
 from rust.core.db import db as rust_db
 import importlib
 
 from rust.core import api
 from rust.core.exceptions import print_full_stack, ApiParameterError, ApiNotExistError, BusinessError
-from rust.core.api import ApiLogger
 from rust.core.resp import ErrorResponse, JsonResponse
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
-
-try:
-	import settings
-except:
-	raise RuntimeError('[start server failed]: a py file named settings in the project root dir needed !!!]')
 
 class FalconResource:
 	def __init__(self):
@@ -86,11 +80,11 @@ def __load_middlewares():
 	加载中间件
 	"""
 	middlewares = []
-	for middleware in settings.MIDDLEWARES:
+	for middleware in Config.get_list('rust.middleware.middlewares'):
 		items = middleware.split('.')
 		module_path = '.'.join(items[:-1])
 		module_name = items[-1]
-		module = __import__(module_path, {}, {}, ['*', ])
+		module = importlib.import_module(module_path)
 		klass = getattr(module, module_name, None)
 		if klass:
 			print ('load middleware {}'.format(middleware))
@@ -99,20 +93,13 @@ def __load_middlewares():
 			print ('[ERROR]: invalid middleware {}'.format(middleware))
 	return middlewares
 
-def load_resources():
+def load_rust_resources():
 	"""
-	加载资源
+	加载rust内置资源
 	"""
-	#加载rust资源
-	if hasattr(settings, 'RUST_RESOURCES'):
-		for resource in settings.RUST_RESOURCES:
-			__import__('rust.resources.api.{}'.format(resource), {}, {}, ['*', ])
-			print ('load rust built-in resource: {}'.format(resource))
-	#加载用户定义的资源
-	try:
-		from api import resources
-	except Exception:
-		print_full_stack()
+	for resource in Config.get_list('rust.resources'):
+		importlib.import_module('rust.resources.api.{}'.format(resource))
+		print('load rust built-in resource: {} ...'.format(resource))
 
 class __ResourceRouter(CompiledRouter):
 	"""
@@ -130,7 +117,7 @@ class __ResourceRouter(CompiledRouter):
 			return None
 
 def create_app():
-	load_resources()
+	load_rust_resources()
 	middlewares = __load_middlewares()
 	router = __ResourceRouter()
 	falcon_app = falcon.App(middleware=middlewares, router=router)

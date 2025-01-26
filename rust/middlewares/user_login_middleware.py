@@ -1,10 +1,8 @@
-
+from rust import Config
 from rust.core.exceptions import BusinessError
 from rust.core.middleware import BaseMiddleware
 from rust.error_handlers.middleware_exception_handler import MiddlewareException
 from rust.resources.business.user.user_repository import UserRepository
-
-import settings
 
 class UserLoginMiddleware(BaseMiddleware):
 	def process_request(sel, req, resp):
@@ -21,7 +19,7 @@ class UserLoginMiddleware(BaseMiddleware):
 			return
 
 		token = req.headers.get('AUTHORIZATION')
-		if not token and settings.MODE == 'develop':
+		if not token and Config.is_dev():
 			user_id = req.params.get('__dev_uid')
 			user = UserRepository().get_by_id(user_id)
 
@@ -37,5 +35,5 @@ class UserLoginMiddleware(BaseMiddleware):
 		else:
 			raise MiddlewareException(u'帐号不存在')
 
-	def process_response(self, request, response, resource):
+	def process_response(self, request, response, resource, req_succeeded):
 		pass

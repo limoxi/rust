@@ -14,7 +14,8 @@ class Resource(object):
 
 	def __call__(self, klass):
 		global RESOURCE2CLASS
-		RESOURCE2CLASS[self.resource] = klass()
+		RESOURCE2CLASS[self.resource] = klass
+		print(f'load resource {self.resource}')
 		return klass
 
 class ApiResource(object):
@@ -24,10 +25,11 @@ class ApiResource(object):
 		'params',
 	)
 
-	def init(self, req, resp, data):
+	def __init__(self, req, resp, data):
 		self.req = req
 		self.resp = resp
 		self.params = data
+
 
 class ApiLogger(object):
 
@@ -48,15 +50,15 @@ def api_call(method, resource, data, req=None, resp=None):
 	key = resource
 	start_at = time.perf_counter()
 
-	resource = RESOURCE2CLASS.get(key, None)
-	if not resource:
+	resource_class = RESOURCE2CLASS.get(key, None)
+	if resource_class is None:
 		raise ApiNotExistError(resource, method)
 
-	func = getattr(resource, method, None)
+	resource_inst = resource_class(req, resp, data)
+	func = getattr(resource_inst, method, None)
 	if not func:
 		raise ApiNotExistError(resource, method)
 
-	resource.init(req, resp, data)
 	response = func()
 	ApiLogger.print_req(resource_name, method, data, start_at)
 	return response

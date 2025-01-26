@@ -25,5 +25,5 @@ class PermissionMiddleware(BaseMiddleware):
 		else:
 			raise MiddlewareException(u'帐号不存在')
 
-	def process_response(self, request, response, resource):
+	def process_response(self, request, response, resource, req_succeeded):
 		pass

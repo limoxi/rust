@@ -1,6 +1,6 @@
-from setuptools import setup, find_packages
+import importlib
 
-version = __import__('rust').get_version()
+from setuptools import setup, find_packages
 
 def collect_requires():
 	try:
@@ -9,11 +9,11 @@ def collect_requires():
 		return map(lambda content: content.strip(), contents)
 	except Exception as e:
 		print('there is no requirements.txt', e)
-		return ['click', 'falcon','werkzeug']
+		return ['click', 'falcon','werkzeug','ruamel.yaml']
 
 setup(
 	name='rust',
-	version=version,
+	version='1.0.0',
 	url='https://github.com/limoxi/rust.git',
 	author='aix',
 	author_email='asia-aixiang@163.com',
