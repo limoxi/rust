@@ -14,7 +14,6 @@ import a_${resource_name}
 ================end
 
 file================ ./api/${resource_name}/a_${resource_name}.py
-#coding: utf8
 
 from rust.core.business import ParamObject
 from rust.core.api import ApiResource, Resource
@@ -72,7 +71,6 @@ class A${upper_resource_name}(ApiResource):
 ================end
 
 file================ ./business/${resource_name}/${resource_name}.py
-#coding: utf8
 
 from rust.core import business
 
@@ -90,7 +88,6 @@ class ${upper_resource_name}(business.Model):
 ================end
 
 file================ ./business/${resource_name}/${resource_name}_factory.py
-#coding: utf8
 
 from rust.core import business
 from rust.core.exceptions import BusinessError
@@ -128,7 +125,6 @@ class ${upper_resource_name}Factory(business.Service):
 ================end
 
 file================ ./business/${resource_name}/${resource_name}_repository.py
-#coding: utf8
 
 from rust.core import business
 
@@ -146,7 +142,6 @@ class ${upper_resource_name}Repository(business.Service):
 ================end
 
 file================ ./db/${resource_name}/models.py
-#coding: utf8
 
 from rust.core import db as models
 

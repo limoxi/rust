@@ -9,5 +9,6 @@ class MiddlewareException(BusinessError):
 	def handle(req, resp, ex, params):
 		resp.body = json.dumps({
 			'code': 533,
+			'errCode': 'request_failed',
 			'errMsg': ex.get_message(),
 		})

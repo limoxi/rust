@@ -1,6 +1,6 @@
 rust:
   mode: ${_SERVICE_MODE||dev}
-  service_name: &service_name beauty
+  service_name: &service_name rust_sample
   middleware:
     middlewares:
       - rust.middlewares.check_point_middleware.CheckPointMiddleware #必须在列表首位！！
@@ -9,15 +9,8 @@ rust:
       - /logined_user
   cors:
     white_list: []
-  resources:
-    - user
-    - permission
 event:
   broker: console
-transformer:
-  model_path: ${_TRANSFORMER_MODEL_PATH||D:\\huggingface\\models\\test_model}
-  device: ${_TRANSFORMER_DEVICE||cpu}
-  annoy_trees: ${_TRANSFORMER_ANNOY_TREES||5}
 db:
   - engine: mysql
     name: peanut

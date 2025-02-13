@@ -10,14 +10,12 @@
 ``` pip install . ```
 
 ### TODO
-- [x] 自带user和permission资源
-- [x] 分页工具
-- [x] 暂只接收application/x-www-form-urlencoded、application/json、application/xml 三种类型数据
+- [x] 接收application/x-www-form-urlencoded、application/json、application/xml 三种类型数据
 - [x] 支持白名单形式的跨域设置
 - [x] 初始化项目命令 rust-cli init xxx
 - [x] 增加资源命令 rust-cli add xxx
-- [x] JWT
-- [ ] 完善文档
+- [ ] 支持异步模式
+- [ ] API文档自动化
 
 > [升级日志](./log.md)
 

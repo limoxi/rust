@@ -93,14 +93,6 @@ def __load_middlewares():
 			print ('[ERROR]: invalid middleware {}'.format(middleware))
 	return middlewares
 
-def load_rust_resources():
-	"""
-	加载rust内置资源
-	"""
-	for resource in Config.get_list('rust.resources'):
-		importlib.import_module('rust.resources.api.{}'.format(resource))
-		print('load rust built-in resource: {} ...'.format(resource))
-
 class __ResourceRouter(CompiledRouter):
 	"""
 	定制router匹配策略
@@ -117,7 +109,6 @@ class __ResourceRouter(CompiledRouter):
 			return None
 
 def create_app():
-	load_rust_resources()
 	middlewares = __load_middlewares()
 	router = __ResourceRouter()
 	falcon_app = falcon.App(middleware=middlewares, router=router)

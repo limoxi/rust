@@ -1,0 +1,22 @@
+rust:
+  mode: ${_SERVICE_MODE||dev}
+  service_name: &service_name
+  middleware:
+    middlewares:
+      - 'rust.middlewares.check_point_middleware.CheckPointMiddleware' #必须在列表首位！！
+    ignored_paths:
+      - /op
+      - /logined_user
+  cors:
+    white_list: []
+event:
+  broker: console
+
+db:
+  - engine: mysql
+    name: ${_DB_NAME||&service_name}
+    user: ${_DB_USER||&service_name}
+    password: ${_DB_PASSWORD||test}
+    host: ${_DB_HOST||db.dev.com}
+    port: ${_DB_PORT||3306}
+    debug: ${_DB_DEBUG||true}

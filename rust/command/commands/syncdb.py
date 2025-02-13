@@ -9,7 +9,6 @@ from rust.core import db as models
 
 DB_PATHS = [
 	'db',
-	'rust.resources.db'
 ]
 
 class Command(BaseCommand):
